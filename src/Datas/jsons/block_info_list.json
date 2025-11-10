@@ -1,0 +1,1013 @@
+{
+    "acacia_leaves": {
+        "name": "アカシアの葉"
+    },
+    "acacia_log": {
+        "name": "アカシアの木"
+    },
+    "acacia_log_top": {
+        "name": "アカシアの木"
+    },
+    "acacia_planks": {
+        "name": "アカシアの木材"
+    },
+    "amethyst_block": {
+        "name": "アメジストブロック"
+    },
+    "ancient_debris_side": {
+        "name": "古代の残骸"
+    },
+    "ancient_debris_top": {
+        "name": "古代の残骸"
+    },
+    "andesite": {
+        "name": "安山岩"
+    },
+    "azalea_leaves": {
+        "name": "ツツジの葉"
+    },
+    "bamboo_block": {
+        "name": "竹ブロック"
+    },
+    "bamboo_block_top": {
+        "name": "竹ブロック"
+    },
+    "bamboo_mosaic": {
+        "name": "竹細工"
+    },
+    "bamboo_planks": {
+        "name": "竹の板材"
+    },
+    "barrel_side": {
+        "name": "樽"
+    },
+    "barrel_top": {
+        "name": "樽"
+    },
+    "barrel_top_open": {
+        "name": "樽"
+    },
+    "basalt_side": {
+        "name": "玄武岩"
+    },
+    "basalt_top": {
+        "name": "玄武岩"
+    },
+    "bedrock": {
+        "name": "岩盤"
+    },
+    "bee_nest_top": {
+        "name": "ミツバチの巣"
+    },
+    "birch_leaves": {
+        "name": "シラカバの葉"
+    },
+    "birch_log": {
+        "name": "シラカバの木"
+    },
+    "birch_log_top": {
+        "name": "シラカバの木"
+    },
+    "birch_planks": {
+        "name": "シラカバの木材"
+    },
+    "blackstone": {
+        "name": "ブラックストーン"
+    },
+    "blackstone_top": {
+        "name": "ブラックストーン"
+    },
+    "black_concrete": {
+        "name": "黒色のコンクリート"
+    },
+    "black_concrete_powder": {
+        "name": "黒色のコンクリートパウダー"
+    },
+    "black_glazed_terracotta": {
+        "name": "黒色の彩釉テラコッタ"
+    },
+    "black_shulker_box": {
+        "name": "黒色のシュルカーボックス"
+    },
+    "black_terracotta": {
+        "name": "黒色のテラコッタ"
+    },
+    "black_wool": {
+        "name": "黒色の羊毛"
+    },
+    "blast_furnace_top": {
+        "name": "溶鉱炉"
+    },
+    "blue_concrete": {
+        "name": "青色のコンクリート"
+    },
+    "blue_concrete_powder": {
+        "name": "青色のコンクリートパウダー"
+    },
+    "blue_glazed_terracotta": {
+        "name": "青色の彩釉テラコッタ"
+    },
+    "blue_ice": {
+        "name": "青氷"
+    },
+    "blue_shulker_box": {
+        "name": "青色のシュルカーボックス"
+    },
+    "blue_terracotta": {
+        "name": "青色のテラコッタ"
+    },
+    "blue_wool": {
+        "name": "青色の羊毛"
+    },
+    "bone_block_side": {
+        "name": "骨ブロック"
+    },
+    "bone_block_top": {
+        "name": "骨ブロック"
+    },
+    "bricks": {
+        "name": "レンガ"
+    },
+    "brown_concrete": {
+        "name": "茶色のコンクリート"
+    },
+    "brown_concrete_powder": {
+        "name": "茶色のコンクリートパウダー"
+    },
+    "brown_glazed_terracotta": {
+        "name": "茶色の彩釉テラコッタ"
+    },
+    "brown_mushroom_block": {
+        "name": "茶色のキノコブロック"
+    },
+    "brown_shulker_box": {
+        "name": "茶色のシュルカーボックス"
+    },
+    "brown_terracotta": {
+        "name": "茶色のテラコッタ"
+    },
+    "brown_wool": {
+        "name": "茶色の羊毛"
+    },
+    "budding_amethyst": {
+        "name": "芽生えたアメジスト"
+    },
+    "calcite": {
+        "name": "方解石"
+    },
+    "cartography_table_top": {
+        "name": "製図台"
+    },
+    "cherry_leaves": {
+        "name": "サクラの葉"
+    },
+    "cherry_log": {
+        "name": "サクラの木"
+    },
+    "cherry_log_top": {
+        "name": "サクラの木"
+    },
+    "cherry_planks": {
+        "name": "サクラの板材"
+    },
+    "chiseled_bookshelf_top": {
+        "name": "模様入りの本棚"
+    },
+    "chiseled_deepslate": {
+        "name": "模様入りの深層岩"
+    },
+    "chiseled_nether_bricks": {
+        "name": "模様入りネザーレンガ"
+    },
+    "chiseled_polished_blackstone": {
+        "name": "模様入りの磨かれたブラックストーン"
+    },
+    "chiseled_quartz_block_top": {
+        "name": "模様入りクォーツブロック"
+    },
+    "chiseled_stone_bricks": {
+        "name": "模様入りの石レンガ"
+    },
+    "clay": {
+        "name": "粘土"
+    },
+    "coal_block": {
+        "name": "石炭ブロック"
+    },
+    "coal_ore": {
+        "name": "石炭鉱石"
+    },
+    "coarse_dirt": {
+        "name": "粗い土"
+    },
+    "cobbled_deepslate": {
+        "name": "深層岩の丸石"
+    },
+    "cobblestone": {
+        "name": "丸石"
+    },
+    "cobweb": {
+        "name": "クモの巣"
+    },
+    "copper_block": {
+        "name": "銅ブロック"
+    },
+    "copper_ore": {
+        "name": "銅鉱石"
+    },
+    "cracked_deepslate_bricks": {
+        "name": ""
+    },
+    "cracked_deepslate_tiles": {
+        "name": ""
+    },
+    "cracked_nether_bricks": {
+        "name": ""
+    },
+    "cracked_polished_blackstone_bricks": {
+        "name": ""
+    },
+    "cracked_stone_bricks": {
+        "name": ""
+    },
+    "crafting_table_top": {
+        "name": "作業台"
+    },
+    "crimson_nylium": {
+        "name": "真紅のナイリウム"
+    },
+    "crimson_planks": {
+        "name": "真紅の板材"
+    },
+    "crimson_stem": {
+        "name": "真紅の幹"
+    },
+    "crimson_stem_top": {
+        "name": "真紅の幹"
+    },
+    "crying_obsidian": {
+        "name": "泣く黒曜石"
+    },
+    "cut_copper": {
+        "name": "切り込み入りの銅"
+    },
+    "cyan_concrete": {
+        "name": "青緑色のコンクリート"
+    },
+    "cyan_concrete_powder": {
+        "name": "青緑色のコンクリートパウダー"
+    },
+    "cyan_glazed_terracotta": {
+        "name": "青緑色の彩釉テラコッタ"
+    },
+    "cyan_shulker_box": {
+        "name": "青緑色のシュルカーボックス"
+    },
+    "cyan_terracotta": {
+        "name": "青緑色のテラコッタ"
+    },
+    "cyan_wool": {
+        "name": "青緑色の羊毛"
+    },
+    "dark_oak_leaves": {
+        "name": "ダークオークの葉"
+    },
+    "dark_oak_log": {
+        "name": "ダークオークの木"
+    },
+    "dark_oak_log_top": {
+        "name": "ダークオークの木"
+    },
+    "dark_oak_planks": {
+        "name": "ダークオークの板材"
+    },
+    "dark_prismarine": {
+        "name": "ダークプリズマリン"
+    },
+    "deepslate": {
+        "name": "深層岩"
+    },
+    "deepslate_bricks": {
+        "name": "深層岩レンガ"
+    },
+    "deepslate_coal_ore": {
+        "name": "深層石炭鉱石"
+    },
+    "deepslate_copper_ore": {
+        "name": "深層銅鉱石"
+    },
+    "deepslate_diamond_ore": {
+        "name": "深層ダイヤモンド鉱石"
+    },
+    "deepslate_emerald_ore": {
+        "name": "深層エメラルド鉱石"
+    },
+    "deepslate_gold_ore": {
+        "name": "深層金鉱石"
+    },
+    "deepslate_iron_ore": {
+        "name": "深層鉄鉱石"
+    },
+    "deepslate_lapis_ore": {
+        "name": "深層ラピスラズリ鉱石"
+    },
+    "deepslate_redstone_ore": {
+        "name": "深層レッドストーン鉱石"
+    },
+    "deepslate_tiles": {
+        "name": "深層岩タイル"
+    },
+    "deepslate_top": {
+        "name": "深層岩"
+    },
+    "diamond_block": {
+        "name": "ダイヤモンドブロック"
+    },
+    "diamond_ore": {
+        "name": "ダイヤモンド鉱石"
+    },
+    "diorite": {
+        "name": "閃緑岩"
+    },
+    "dirt": {
+        "name": "土"
+    },
+    "dispenser_front_vertical": {
+        "name": "ディスペンサー"
+    },
+    "dried_kelp_top": {
+        "name": "乾燥した昆布ブロック"
+    },
+    "dripstone_block": {
+        "name": "鍾乳石ブロック"
+    },
+    "dropper_front_vertical": {
+        "name": "ドロッパー"
+    },
+    "emerald_block": {
+        "name": "エメラルドブロック"
+    },
+    "emerald_ore": {
+        "name": "エメラルド鉱石"
+    },
+    "end_stone": {
+        "name": "エンドストーン"
+    },
+    "end_stone_bricks": {
+        "name": "エンドストーンレンガ"
+    },
+    "exposed_copper": {
+        "name": "風化した銅"
+    },
+    "exposed_cut_copper": {
+        "name": "風化した切り込み入りの銅"
+    },
+    "fletching_table_top": {
+        "name": "\t矢細工台"
+    },
+    "furnace_top": {
+        "name": "かまど"
+    },
+    "gilded_blackstone": {
+        "name": "きらめくブラックストーン"
+    },
+    "glowstone": {
+        "name": "グロウストーン"
+    },
+    "gold_block": {
+        "name": "金ブロック"
+    },
+    "gold_ore": {
+        "name": "金鉱石"
+    },
+    "granite": {
+        "name": "花崗岩"
+    },
+    "grass_block_top": {
+        "name": "草ブロック"
+    },
+    "gravel": {
+        "name": "砂利"
+    },
+    "gray_concrete": {
+        "name": "灰色のコンクリート"
+    },
+    "gray_concrete_powder": {
+        "name": "灰色のコンクリートパウダー"
+    },
+    "gray_glazed_terracotta": {
+        "name": "灰色の彩釉テラコッタ"
+    },
+    "gray_shulker_box": {
+        "name": "灰色のシュルカーボックス"
+    },
+    "gray_terracotta": {
+        "name": "灰色のテラコッタ"
+    },
+    "gray_wool": {
+        "name": "灰色の羊毛"
+    },
+    "green_concrete": {
+        "name": "緑色のコンクリート"
+    },
+    "green_concrete_powder": {
+        "name": "緑色のコンクリートパウダー"
+    },
+    "green_glazed_terracotta": {
+        "name": "緑色の彩釉テラコッタ"
+    },
+    "green_shulker_box": {
+        "name": "緑色のシュルカーボックス"
+    },
+    "green_terracotta": {
+        "name": "緑色のテラコッタ"
+    },
+    "green_wool": {
+        "name": "緑色の羊毛"
+    },
+    "hay_block_side": {
+        "name": "干草の俵"
+    },
+    "hay_block_top": {
+        "name": "干草の俵"
+    },
+    "honeycomb_block": {
+        "name": "ハニカムブロック"
+    },
+    "honey_block_top": {
+        "name": "ハチミツブロック"
+    },
+    "ice": {
+        "name": "氷"
+    },
+    "iron_block": {
+        "name": "鉄ブロック"
+    },
+    "iron_ore": {
+        "name": "鉄鉱石"
+    },
+    "jukebox_top": {
+        "name": "ジュークボックス"
+    },
+    "jungle_leaves": {
+        "name": "ジャングルの葉"
+    },
+    "jungle_log": {
+        "name": "ジャングルの木"
+    },
+    "jungle_log_top": {
+        "name": "ジャングルの木"
+    },
+    "jungle_planks": {
+        "name": "ジャングルの板材"
+    },
+    "lapis_block": {
+        "name": "ラピスラズリブロック"
+    },
+    "lapis_ore": {
+        "name": "ラピスラズリ鉱石"
+    },
+    "light_blue_concrete": {
+        "name": "空色のコンクリート"
+    },
+    "light_blue_concrete_powder": {
+        "name": "空色のパウダー"
+    },
+    "light_blue_glazed_terracotta": {
+        "name": "空色の彩釉テラコッタ"
+    },
+    "light_blue_shulker_box": {
+        "name": "空色のシュルカーボックス"
+    },
+    "light_blue_terracotta": {
+        "name": "空色のテラコッタ"
+    },
+    "light_blue_wool": {
+        "name": "空色の羊毛"
+    },
+    "light_gray_concrete": {
+        "name": "薄灰色のコンクリート"
+    },
+    "light_gray_concrete_powder": {
+        "name": "薄灰色のコンクリートパウダー"
+    },
+    "light_gray_glazed_terracotta": {
+        "name": "薄灰色の彩釉テラコッタ"
+    },
+    "light_gray_shulker_box": {
+        "name": "薄灰色のシュルカーボックス"
+    },
+    "light_gray_terracotta": {
+        "name": "薄灰色のテラコッタ"
+    },
+    "light_gray_wool": {
+        "name": "薄灰色の羊毛"
+    },
+    "lime_concrete": {
+        "name": "黄緑色のコンクリート"
+    },
+    "lime_concrete_powder": {
+        "name": "黄緑色のパウダー"
+    },
+    "lime_glazed_terracotta": {
+        "name": "黄緑色の彩釉テラコッタ"
+    },
+    "lime_shulker_box": {
+        "name": "黄緑色のシュルカーボックス"
+    },
+    "lime_terracotta": {
+        "name": "黄緑色のテラコッタ"
+    },
+    "lime_wool": {
+        "name": "黄緑色の羊毛"
+    },
+    "lodestone_top": {
+        "name": "ロードストーン"
+    },
+    "magenta_concrete": {
+        "name": "赤紫色のコンクリート"
+    },
+    "magenta_concrete_powder": {
+        "name": "赤紫色のコンクリートパウダー"
+    },
+    "magenta_glazed_terracotta": {
+        "name": "赤紫色の彩釉テラコッタ"
+    },
+    "magenta_shulker_box": {
+        "name": "赤紫色のシュルカーボックス"
+    },
+    "magenta_terracotta": {
+        "name": "赤紫色のテラコッタ"
+    },
+    "magenta_wool": {
+        "name": "赤紫色の羊毛"
+    },
+    "magma": {
+        "name": "マグマブロック"
+    },
+    "mangrove_leaves": {
+        "name": "マングローブの葉"
+    },
+    "mangrove_log": {
+        "name": "マングローブの木"
+    },
+    "mangrove_log_top": {
+        "name": "マングローブの木"
+    },
+    "mangrove_planks": {
+        "name": "マングローブの板材"
+    },
+    "melon_top": {
+        "name": "スイカ"
+    },
+    "mossy_cobblestone": {
+        "name": "苔むした丸石"
+    },
+    "mossy_stone_bricks": {
+        "name": "苔むした石レンガ"
+    },
+    "moss_block": {
+        "name": "苔ブロック"
+    },
+    "mud": {
+        "name": "泥"
+    },
+    "mud_bricks": {
+        "name": "泥レンガ"
+    },
+    "mushroom_stem": {
+        "name": "キノコの柄"
+    },
+    "mycelium_top": {
+        "name": "菌糸"
+    },
+    "netherite_block": {
+        "name": "\tネザライトブロック"
+    },
+    "netherrack": {
+        "name": "ネザーラック"
+    },
+    "nether_bricks": {
+        "name": "ネザーレンガ"
+    },
+    "nether_gold_ore": {
+        "name": "ネザー金鉱石"
+    },
+    "nether_quartz_ore": {
+        "name": "ネザークォーツ鉱石"
+    },
+    "nether_wart_block": {
+        "name": "ネザーウォートブロック"
+    },
+    "note_block": {
+        "name": "音符ブロック"
+    },
+    "oak_leaves": {
+        "name": "オークの葉"
+    },
+    "oak_log": {
+        "name": "オークの木"
+    },
+    "oak_log_top": {
+        "name": "オークの木"
+    },
+    "oak_planks": {
+        "name": "オークの板材"
+    },
+    "obsidian": {
+        "name": "黒曜石"
+    },
+    "ochre_froglight_top": {
+        "name": "黄土色のフロッグライト"
+    },
+    "orange_concrete": {
+        "name": "橙色のコンクリート"
+    },
+    "orange_concrete_powder": {
+        "name": "橙色のコンクリートパウダー"
+    },
+    "orange_glazed_terracotta": {
+        "name": "橙色の彩釉テラコッタ"
+    },
+    "orange_shulker_box": {
+        "name": "橙色のシュルカーボックス"
+    },
+    "orange_terracotta": {
+        "name": "橙色のテラコッタ"
+    },
+    "orange_wool": {
+        "name": "橙色の羊毛"
+    },
+    "oxidized_copper": {
+        "name": "酸化した銅"
+    },
+    "oxidized_cut_copper": {
+        "name": "酸化した切り込み入りの銅"
+    },
+    "packed_ice": {
+        "name": "氷塊"
+    },
+    "packed_mud": {
+        "name": "泥塊"
+    },
+    "pearlescent_froglight_top": {
+        "name": "真珠色のフロッグライト"
+    },
+    "pink_concrete": {
+        "name": "桃色のコンクリート"
+    },
+    "pink_concrete_powder": {
+        "name": "桃色のコンクリートパウダー"
+    },
+    "pink_glazed_terracotta": {
+        "name": "桃色の彩釉テラコッタ"
+    },
+    "pink_shulker_box": {
+        "name": "桃色のシュルカーボックス"
+    },
+    "pink_terracotta": {
+        "name": "桃色のテラコッタ"
+    },
+    "pink_wool": {
+        "name": "桃色の羊毛"
+    },
+    "piston_side": {
+        "name": "ピストン"
+    },
+    "podzol_top": {
+        "name": "ポドゾル"
+    },
+    "polished_andesite": {
+        "name": "磨かれた安山岩"
+    },
+    "polished_basalt_side": {
+        "name": "磨かれた玄武岩"
+    },
+    "polished_basalt_top": {
+        "name": "磨かれた玄武岩"
+    },
+    "polished_blackstone": {
+        "name": "磨かれたブラックストーン"
+    },
+    "polished_blackstone_bricks": {
+        "name": "磨かれたブラックストーンレンガ"
+    },
+    "polished_deepslate": {
+        "name": "磨かれた深層岩"
+    },
+    "polished_diorite": {
+        "name": "磨かれた閃緑岩"
+    },
+    "polished_granite": {
+        "name": "磨かれた花崗岩"
+    },
+    "prismarine": {
+        "name": "プリズマリン"
+    },
+    "prismarine_bricks": {
+        "name": "プリズマリンレンガ"
+    },
+    "pumpkin_top": {
+        "name": "カボチャ"
+    },
+    "purple_concrete": {
+        "name": "紫色のコンクリート"
+    },
+    "purple_concrete_powder": {
+        "name": "紫色のコンクリートパウダー"
+    },
+    "purple_glazed_terracotta": {
+        "name": "紫色の彩釉テラコッタ"
+    },
+    "purple_shulker_box": {
+        "name": "紫色のシュルカーボックス"
+    },
+    "purple_terracotta": {
+        "name": "紫色のテラコッタ"
+    },
+    "purple_wool": {
+        "name": "紫色の羊毛"
+    },
+    "purpur_block": {
+        "name": "プルプァブロック"
+    },
+    "purpur_pillar": {
+        "name": "プルプァの柱"
+    },
+    "purpur_pillar_top": {
+        "name": "プルプァの柱"
+    },
+    "quartz_block_top": {
+        "name": "クォーツブロック"
+    },
+    "quartz_bricks": {
+        "name": "クォーツのレンガ"
+    },
+    "quartz_pillar": {
+        "name": "クォーツの柱"
+    },
+    "quartz_pillar_top": {
+        "name": "クォーツの柱"
+    },
+    "raw_copper_block": {
+        "name": "銅の原石ブロック"
+    },
+    "raw_gold_block": {
+        "name": "金の原石ブロック"
+    },
+    "raw_iron_block": {
+        "name": "鉄の原石ブロック"
+    },
+    "redstone_block": {
+        "name": "レッドストーンブロック"
+    },
+    "redstone_ore": {
+        "name": "レッドストーン鉱石"
+    },
+    "red_concrete": {
+        "name": "赤色のコンクリート"
+    },
+    "red_concrete_powder": {
+        "name": "赤色のコンクリートパウダー"
+    },
+    "red_glazed_terracotta": {
+        "name": "赤色の彩釉テラコッタ"
+    },
+    "red_mushroom_block": {
+        "name": "赤色のキノコブロック"
+    },
+    "red_nether_bricks": {
+        "name": "赤いネザーレンガ"
+    },
+    "red_sand": {
+        "name": "赤い砂"
+    },
+    "red_sandstone_top": {
+        "name": "赤い砂岩"
+    },
+    "red_shulker_box": {
+        "name": "赤色のシュルカーボックス"
+    },
+    "red_terracotta": {
+        "name": "赤色のテラコッタ"
+    },
+    "red_wool": {
+        "name": "赤色の羊毛"
+    },
+    "reinforced_deepslate_top": {
+        "name": "強化された深層岩"
+    },
+    "respawn_anchor_top": {
+        "name": "リスポーンアンカー"
+    },
+    "respawn_anchor_top_off": {
+        "name": "リスポーンアンカー"
+    },
+    "rooted_dirt": {
+        "name": "根付いた土"
+    },
+    "sand": {
+        "name": "砂"
+    },
+    "sandstone_top": {
+        "name": "砂岩"
+    },
+    "sculk": {
+        "name": "スカルク"
+    },
+    "sea_lantern": {
+        "name": "シーランタン"
+    },
+    "shroomlight": {
+        "name": "シュルームライト"
+    },
+    "shulker_box": {
+        "name": "シュルカーボックス"
+    },
+    "slime_block": {
+        "name": "スライムブロック"
+    },
+    "smithing_table_top": {
+        "name": "鍛冶台"
+    },
+    "smoker_top": {
+        "name": "燻製窯"
+    },
+    "smooth_basalt": {
+        "name": "滑らかな玄武岩"
+    },
+    "smooth_stone": {
+        "name": "滑らかな石"
+    },
+    "snow": {
+        "name": "雪ブロック"
+    },
+    "soul_sand": {
+        "name": "ソウルサンド"
+    },
+    "soul_soil": {
+        "name": "ソウルソイル"
+    },
+    "sponge": {
+        "name": "スポンジ"
+    },
+    "spruce_leaves": {
+        "name": "トウヒの葉"
+    },
+    "spruce_log": {
+        "name": "トウヒの木"
+    },
+    "spruce_log_top": {
+        "name": "トウヒの木"
+    },
+    "spruce_planks": {
+        "name": "トウヒの板材"
+    },
+    "stone": {
+        "name": "石"
+    },
+    "stone_bricks": {
+        "name": "石レンガ"
+    },
+    "stripped_acacia_log": {
+        "name": "樹皮を剥いだアカシアの原木"
+    },
+    "stripped_acacia_log_top": {
+        "name": "樹皮を剥いだアカシアの原木"
+    },
+    "stripped_bamboo_block": {
+        "name": "表皮を剥いだ竹ブロック"
+    },
+    "stripped_bamboo_block_top": {
+        "name": "表皮を剥いだ竹ブロック"
+    },
+    "stripped_birch_log": {
+        "name": "樹皮を剥いだシラカバの原木"
+    },
+    "stripped_birch_log_top": {
+        "name": "樹皮を剥いだシラカバの原木"
+    },
+    "stripped_cherry_log": {
+        "name": "樹皮を剥いだサクラの原木"
+    },
+    "stripped_cherry_log_top": {
+        "name": "樹皮を剥いだサクラの原木"
+    },
+    "stripped_crimson_stem": {
+        "name": "樹皮を剥いだ真紅の幹"
+    },
+    "stripped_crimson_stem_top": {
+        "name": "樹皮を剥いだ真紅の幹"
+    },
+    "stripped_dark_oak_log": {
+        "name": "樹皮を剥いだダークオークの原木"
+    },
+    "stripped_dark_oak_log_top": {
+        "name": "樹皮を剥いだダークオークの原木"
+    },
+    "stripped_jungle_log": {
+        "name": "樹皮を剥いだジャングルの原木"
+    },
+    "stripped_jungle_log_top": {
+        "name": "樹皮を剥いだジャングルの原木"
+    },
+    "stripped_mangrove_log": {
+        "name": "樹皮を剥いだマングローブの原木"
+    },
+    "stripped_mangrove_log_top": {
+        "name": "樹皮を剥いだマングローブの原木"
+    },
+    "stripped_oak_log": {
+        "name": "樹皮を剥いだオークの原木"
+    },
+    "stripped_oak_log_top": {
+        "name": "樹皮を剥いだオークの原木"
+    },
+    "stripped_spruce_log": {
+        "name": "樹皮を剥いだトウヒの原木"
+    },
+    "stripped_spruce_log_top": {
+        "name": "樹皮を剥いだトウヒの原木"
+    },
+    "stripped_warped_stem": {
+        "name": "樹皮を剥いだ歪んだ幹"
+    },
+    "stripped_warped_stem_top": {
+        "name": "樹皮を剥いだ歪んだ幹"
+    },
+    "target_top": {
+        "name": "的"
+    },
+    "terracotta": {
+        "name": "テラコッタ"
+    },
+    "tnt_top": {
+        "name": "TNT"
+    },
+    "tuff": {
+        "name": "凝灰岩"
+    },
+    "verdant_froglight_top": {
+        "name": "新緑色のフロッグライト"
+    },
+    "warped_nylium": {
+        "name": "歪んだナイリウム"
+    },
+    "warped_planks": {
+        "name": "歪んだ板材"
+    },
+    "warped_stem": {
+        "name": "歪んだ幹"
+    },
+    "warped_stem_top": {
+        "name": "歪んだ幹"
+    },
+    "warped_wart_block": {
+        "name": "歪んだウォートブロック"
+    },
+    "water": {
+        "name": "水"
+    },
+    "weathered_copper": {
+        "name": "錆びた銅"
+    },
+    "weathered_cut_copper": {
+        "name": "錆びた切り込み入りの銅"
+    },
+    "white_concrete": {
+        "name": "白色のコンクリート"
+    },
+    "white_concrete_powder": {
+        "name": "白色のコンクリートパウダー"
+    },
+    "white_glazed_terracotta": {
+        "name": "白色の彩釉テラコッタ"
+    },
+    "white_shulker_box": {
+        "name": "白色のシュルカーボックス"
+    },
+    "white_terracotta": {
+        "name": "白色のテラコッタ"
+    },
+    "white_wool": {
+        "name": "白色の羊毛"
+    },
+    "yellow_concrete": {
+        "name": "黄色のコンクリート"
+    },
+    "yellow_concrete_powder": {
+        "name": "黄色のコンクリートパウダー"
+    },
+    "yellow_glazed_terracotta": {
+        "name": "黄色の彩釉テラコッタ"
+    },
+    "yellow_shulker_box": {
+        "name": "黄色のシュルカーボックス"
+    },
+    "yellow_terracotta": {
+        "name": "黄色のテラコッタ"
+    },
+    "yellow_wool": {
+        "name": "黄色の羊毛"
+    }
+}

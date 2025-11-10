@@ -1,0 +1,636 @@
+{
+  "color_block_map": [
+    {
+      "color_id": "6d9930",
+      "blocks": [
+        "slime_block",
+        "grass_block_top"
+      ]
+    },
+    {
+      "color_id": "d5c98c",
+      "blocks": [
+        "sandstone_top",
+        "sand",
+        "stripped_birch_log",
+        "stripped_birch_log_top",
+        "birch_log_top",
+        "birch_planks",
+        "glowstone",
+        "end_stone",
+        "end_stone_bricks",
+        "bone_block_top",
+        "bone_block_side",
+        "ochre_froglight_top"
+      ]
+    },
+    {
+      "color_id": "ababab",
+      "blocks": [
+        "cobweb",
+        "mushroom_stem"
+      ]
+    },
+    {
+      "color_id": "dc0000",
+      "blocks": [
+        "redstone_block",
+        "tnt_top"
+      ]
+    },
+    {
+      "color_id": "8a8adc",
+      "blocks": [
+        "packed_ice",
+        "ice",
+        "blue_ice"
+      ]
+    },
+    {
+      "color_id": "909090",
+      "blocks": [
+        "iron_block",
+        "lodestone_top"
+      ]
+    },
+    {
+      "color_id": "006a00",
+      "blocks": [
+        "bamboo_block",
+        "acacia_leaves",
+        "azalea_leaves",
+        "birch_leaves",
+        "cherry_leaves",
+        "dark_oak_leaves",
+        "jungle_leaves",
+        "mangrove_leaves",
+        "oak_leaves",
+        "spruce_leaves"
+      ]
+    },
+    {
+      "color_id": "dcdcdc",
+      "blocks": [
+        "white_wool",
+        "white_concrete",
+        "white_concrete_powder",
+        "snow",
+        "white_glazed_terracotta",
+        "white_shulker_box"
+      ]
+    },
+    {
+      "color_id": "8d909e",
+      "blocks": [
+        "clay"
+      ]
+    },
+    {
+      "color_id": "825e42",
+      "blocks": [
+        "jungle_planks",
+        "stripped_jungle_log",
+        "stripped_jungle_log_top",
+        "jungle_log_top",
+        "dirt",
+        "rooted_dirt",
+        "coarse_dirt",
+        "packed_mud",
+        "granite",
+        "polished_granite",
+        "brown_mushroom_block",
+        "jukebox_top"
+      ]
+    },
+    {
+      "color_id": "606060",
+      "blocks": [
+        "stone",
+        "stone_bricks",
+        "smooth_stone",
+        "chiseled_stone_bricks",
+        "cracked_stone_bricks",
+        "cobblestone",
+        "mossy_cobblestone",
+        "mossy_stone_bricks",
+        "coal_ore",
+        "copper_ore",
+        "iron_ore",
+        "gold_ore",
+        "redstone_ore",
+        "lapis_ore",
+        "emerald_ore",
+        "diamond_ore",
+        "gravel",
+        "bedrock",
+        "andesite",
+        "polished_andesite",
+        "acacia_log",
+        "piston_side",
+        "dispenser_front_vertical",
+        "dropper_front_vertical",
+        "furnace_top",
+        "smoker_top",
+        "blast_furnace_top"
+      ]
+    },
+    {
+      "color_id": "3737dc",
+      "blocks": [
+        "water"
+      ]
+    },
+    {
+      "color_id": "7b663e",
+      "blocks": [
+        "stripped_oak_log",
+        "stripped_oak_log_top",
+        "oak_log_top",
+        "oak_planks",
+        "note_block",
+        "chiseled_bookshelf_top",
+        "crafting_table_top",
+        "barrel_top",
+        "barrel_side",
+        "barrel_top_open",
+        "cartography_table_top",
+        "fletching_table_top",
+        "smithing_table_top",
+        "bee_nest_top"
+      ]
+    },
+    {
+      "color_id": "dcd9d3",
+      "blocks": [
+        "diorite",
+        "polished_diorite",
+        "birch_log",
+        "chiseled_quartz_block_top",
+        "quartz_block_top",
+        "quartz_bricks",
+        "quartz_pillar_top",
+        "quartz_pillar",
+        "sea_lantern",
+        "target_top"
+      ]
+    },
+    {
+      "color_id": "ba6d2c",
+      "blocks": [
+        "orange_wool",
+        "orange_concrete",
+        "orange_concrete_powder",
+        "orange_glazed_terracotta",
+        "orange_shulker_box",
+        "terracotta",
+        "acacia_planks",
+        "acacia_log_top",
+        "stripped_acacia_log",
+        "stripped_acacia_log_top",
+        "red_sand",
+        "red_sandstone_top",
+        "honey_block_top",
+        "honeycomb_block",
+        "pumpkin_top",
+        "copper_block",
+        "cut_copper",
+        "raw_copper_block"
+      ]
+    },
+    {
+      "color_id": "9941ba",
+      "blocks": [
+        "magenta_wool",
+        "magenta_concrete",
+        "magenta_concrete_powder",
+        "magenta_glazed_terracotta",
+        "magenta_shulker_box",
+        "purpur_block",
+        "purpur_pillar_top",
+        "purpur_pillar"
+      ]
+    },
+    {
+      "color_id": "5884ba",
+      "blocks": [
+        "light_blue_wool",
+        "light_blue_concrete",
+        "light_blue_concrete_powder",
+        "light_blue_glazed_terracotta",
+        "light_blue_shulker_box"
+      ]
+    },
+    {
+      "color_id": "c5c52c",
+      "blocks": [
+        "yellow_wool",
+        "yellow_concrete",
+        "yellow_concrete_powder",
+        "yellow_glazed_terracotta",
+        "yellow_shulker_box",
+        "sponge",
+        "bamboo_block_top",
+        "bamboo_planks",
+        "bamboo_mosaic",
+        "stripped_bamboo_block",
+        "stripped_bamboo_block_top",
+        "bee_nest_top",
+        "hay_block_top",
+        "hay_block_side"
+      ]
+    },
+    {
+      "color_id": "6db015",
+      "blocks": [
+        "lime_wool",
+        "lime_concrete",
+        "lime_concrete_powder",
+        "lime_glazed_terracotta",
+        "lime_shulker_box",
+        "melon_top"
+      ]
+    },
+    {
+      "color_id": "d06d8e",
+      "blocks": [
+        "pink_wool",
+        "pink_concrete",
+        "pink_concrete_powder",
+        "pink_glazed_terracotta",
+        "pink_shulker_box",
+        "pearlescent_froglight_top"
+      ]
+    },
+    {
+      "color_id": "414141",
+      "blocks": [
+        "gray_wool",
+        "gray_concrete",
+        "gray_concrete_powder",
+        "gray_glazed_terracotta",
+        "gray_shulker_box"
+      ]
+    },
+    {
+      "color_id": "848484",
+      "blocks": [
+        "light_gray_wool",
+        "light_gray_concrete",
+        "light_gray_concrete_powder",
+        "light_gray_glazed_terracotta",
+        "light_gray_shulker_box"
+      ]
+    },
+    {
+      "color_id": "416d84",
+      "blocks": [
+        "cyan_wool",
+        "cyan_concrete",
+        "cyan_concrete_powder",
+        "cyan_glazed_terracotta",
+        "cyan_shulker_box",
+        "prismarine"
+      ]
+    },
+    {
+      "color_id": "6d3699",
+      "blocks": [
+        "purple_wool",
+        "purple_concrete",
+        "purple_concrete_powder",
+        "purple_glazed_terracotta",
+        "shulker_box",
+        "mycelium_top",
+        "amethyst_block",
+        "budding_amethyst"
+      ]
+    },
+    {
+      "color_id": "2c4199",
+      "blocks": [
+        "blue_wool",
+        "blue_concrete",
+        "blue_concrete_powder",
+        "blue_glazed_terracotta",
+        "blue_shulker_box"
+      ]
+    },
+    {
+      "color_id": "58412c",
+      "blocks": [
+        "brown_wool",
+        "brown_concrete",
+        "brown_concrete_powder",
+        "brown_glazed_terracotta",
+        "brown_shulker_box",
+        "dark_oak_log",
+        "dark_oak_log_top",
+        "dark_oak_planks",
+        "stripped_dark_oak_log",
+        "stripped_dark_oak_log_top",
+        "spruce_log",
+        "soul_sand",
+        "soul_soil"
+      ]
+    },
+    {
+      "color_id": "586d2c",
+      "blocks": [
+        "green_wool",
+        "green_concrete",
+        "green_concrete_powder",
+        "green_glazed_terracotta",
+        "green_shulker_box",
+        "moss_block",
+        "dried_kelp_top"
+      ]
+    },
+    {
+      "color_id": "842c2c",
+      "blocks": [
+        "red_wool",
+        "red_concrete",
+        "red_concrete_powder",
+        "red_glazed_terracotta",
+        "red_shulker_box",
+        "red_mushroom_block",
+        "bricks",
+        "nether_wart_block",
+        "shroomlight"
+      ]
+    },
+    {
+      "color_id": "151515",
+      "blocks": [
+        "black_wool",
+        "black_concrete",
+        "black_concrete_powder",
+        "black_glazed_terracotta",
+        "black_shulker_box",
+        "obsidian",
+        "crying_obsidian",
+        "coal_block",
+        "netherite_block",
+        "basalt_side",
+        "basalt_top",
+        "smooth_basalt",
+        "polished_basalt_side",
+        "polished_basalt_top",
+        "ancient_debris_side",
+        "ancient_debris_top",
+        "respawn_anchor_top",
+        "respawn_anchor_top_off",
+        "blackstone",
+        "blackstone_top",
+        "polished_blackstone",
+        "polished_blackstone_bricks",
+        "chiseled_polished_blackstone",
+        "cracked_polished_blackstone_bricks",
+        "gilded_blackstone",
+        "sculk"
+      ]
+    },
+    {
+      "color_id": "d7cd42",
+      "blocks": [
+        "gold_block",
+        "raw_gold_block"
+      ]
+    },
+    {
+      "color_id": "4fbcb7",
+      "blocks": [
+        "diamond_block",
+        "prismarine_bricks",
+        "dark_prismarine"
+      ]
+    },
+    {
+      "color_id": "3f6edc",
+      "blocks": [
+        "lapis_block"
+      ]
+    },
+    {
+      "color_id": "00bb32",
+      "blocks": [
+        "emerald_block"
+      ]
+    },
+    {
+      "color_id": "6f4a2a",
+      "blocks": [
+        "spruce_planks",
+        "spruce_log_top",
+        "stripped_spruce_log",
+        "stripped_spruce_log_top",
+        "oak_log",
+        "jungle_log",
+        "mangrove_log",
+        "podzol_top"
+      ]
+    },
+    {
+      "color_id": "600100",
+      "blocks": [
+        "netherrack",
+        "nether_bricks",
+        "chiseled_nether_bricks",
+        "cracked_nether_bricks",
+        "nether_quartz_ore",
+        "nether_gold_ore",
+        "red_nether_bricks",
+        "magma"
+      ]
+    },
+    {
+      "color_id": "b4988a",
+      "blocks": [
+        "white_terracotta",
+        "calcite",
+        "cherry_planks",
+        "cherry_log_top",
+        "stripped_cherry_log_top"
+      ]
+    },
+    {
+      "color_id": "89461f",
+      "blocks": [
+        "orange_terracotta"
+      ]
+    },
+    {
+      "color_id": "804b5d",
+      "blocks": [
+        "magenta_terracotta"
+      ]
+    },
+    {
+      "color_id": "605d77",
+      "blocks": [
+        "light_blue_terracotta"
+      ]
+    },
+    {
+      "color_id": "a0721f",
+      "blocks": [
+        "yellow_terracotta"
+      ]
+    },
+    {
+      "color_id": "58642d",
+      "blocks": [
+        "lime_terracotta"
+      ]
+    },
+    {
+      "color_id": "8a4243",
+      "blocks": [
+        "pink_terracotta",
+        "stripped_cherry_log"
+      ]
+    },
+    {
+      "color_id": "31231e",
+      "blocks": [
+        "gray_terracotta",
+        "cherry_log",
+        "tuff"
+      ]
+    },
+    {
+      "color_id": "745c54",
+      "blocks": [
+        "light_gray_terracotta",
+        "mud_bricks",
+        "exposed_copper",
+        "exposed_cut_copper"
+      ]
+    },
+    {
+      "color_id": "4b4f4f",
+      "blocks": [
+        "cyan_terracotta",
+        "mud"
+      ]
+    },
+    {
+      "color_id": "693e4b",
+      "blocks": [
+        "purple_terracotta",
+        "purple_shulker_box"
+      ]
+    },
+    {
+      "color_id": "41354f",
+      "blocks": [
+        "blue_terracotta"
+      ]
+    },
+    {
+      "color_id": "412b1e",
+      "blocks": [
+        "brown_terracotta",
+        "dripstone_block"
+      ]
+    },
+    {
+      "color_id": "414624",
+      "blocks": [
+        "green_terracotta"
+      ]
+    },
+    {
+      "color_id": "7a3327",
+      "blocks": [
+        "red_terracotta",
+        "mangrove_planks",
+        "mangrove_log_top",
+        "stripped_mangrove_log",
+        "stripped_mangrove_log_top"
+      ]
+    },
+    {
+      "color_id": "1f120d",
+      "blocks": [
+        "black_terracotta"
+      ]
+    },
+    {
+      "color_id": "a3292a",
+      "blocks": [
+        "crimson_nylium"
+      ]
+    },
+    {
+      "color_id": "7f3653",
+      "blocks": [
+        "crimson_planks",
+        "crimson_stem_top",
+        "stripped_crimson_stem",
+        "stripped_crimson_stem_top"
+      ]
+    },
+    {
+      "color_id": "126c73",
+      "blocks": [
+        "warped_nylium",
+        "oxidized_copper",
+        "oxidized_cut_copper"
+      ]
+    },
+    {
+      "color_id": "327a78",
+      "blocks": [
+        "warped_planks",
+        "warped_stem",
+        "warped_stem_top",
+        "stripped_warped_stem",
+        "stripped_warped_stem_top",
+        "weathered_copper",
+        "weathered_cut_copper"
+      ]
+    },
+    {
+      "color_id": "119b72",
+      "blocks": [
+        "warped_wart_block"
+      ]
+    },
+    {
+      "color_id": "565656",
+      "blocks": [
+        "deepslate",
+        "deepslate_top",
+        "deepslate_tiles",
+        "deepslate_bricks",
+        "chiseled_deepslate",
+        "cobbled_deepslate",
+        "cracked_deepslate_bricks",
+        "cracked_deepslate_tiles",
+        "polished_deepslate",
+        "reinforced_deepslate_top",
+        "deepslate_coal_ore",
+        "deepslate_copper_ore",
+        "deepslate_iron_ore",
+        "deepslate_gold_ore",
+        "deepslate_lapis_ore",
+        "deepslate_redstone_ore",
+        "deepslate_emerald_ore",
+        "deepslate_diamond_ore"
+      ]
+    },
+    {
+      "color_id": "ba967e",
+      "blocks": [
+        "raw_iron_block"
+      ]
+    },
+    {
+      "color_id": "6d9081",
+      "blocks": [
+        "verdant_froglight_top"
+      ]
+    }
+  ]
+}
