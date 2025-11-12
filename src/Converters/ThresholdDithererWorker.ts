@@ -17,16 +17,24 @@ export class ThresholdDithererWorker {
                   getNearestColorFunc: ([x, y]: [number, number], baseColor: RGBColor, colorList: RGBColor[]) => Promise<number>,
                   onProcessUpdated: (currentProcess: number, maxProcess: number) => void)
         : Promise<MCMapData> {
+        return await this.ConvertWithoutGPU(optionData, imageWidth, imageHeight, data, getNearestColorFunc, onProcessUpdated);
+    }
+    async ConvertWithoutGPU(optionData: OptionData,
+                  imageWidth: number, imageHeight: number,
+                  data: Uint8ClampedArray,
+                  getNearestColorFunc: ([x, y]: [number, number], baseColor: RGBColor, colorList: RGBColor[]) => Promise<number>,
+                  onProcessUpdated: (currentProcess: number, maxProcess: number) => void)
+        : Promise<MCMapData> {
         // const start: number = performance.now();
         console.log("start converting!");
-        let returnData: MCMapData = new MCMapData();
+        const returnData: MCMapData = new MCMapData();
 
         const maxProgress = imageWidth * imageHeight;
 
-        let map: number[][] = [];
-        let colorToMapColor: Map<number, RGBColor> = new Map();
+        const map: number[][] = [];
+        const colorToMapColor: Map<number, RGBColor> = new Map();
         for (let y = 0; y < imageHeight; ++y) {
-            let row: number[] = [];
+            const row: number[] = [];
             for (let x = 0; x < imageWidth; ++x) {
                 const index = (y * imageWidth + x) * 4;
                 const r = data[index];

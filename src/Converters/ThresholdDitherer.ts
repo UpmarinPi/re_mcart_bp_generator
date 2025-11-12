@@ -26,6 +26,10 @@ export class ThresholdDitherer extends DithererBase {
         const width = imageData.width;
         const height = imageData.height;
 
+        return await this.ConvertWithWebWorker(optionData, width, height, data);
+    }
+
+    async ConvertWithWebWorker(optionData: OptionData, width: number, height: number, data: Uint8ClampedArray<ArrayBufferLike>): Promise<MCMapData> {
         const ThresholdDithererWorkerClass
             = Comlink.wrap<typeof ThresholdDithererWorker>(new Worker(new URL("./ThresholdDithererWorker.ts", import.meta.url), {type: "module",}));
 
