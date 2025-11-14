@@ -6,7 +6,7 @@ var inputSampler: sampler;
 
 // 入力画像
 @group(0) @binding(1)
-var inputTexture: texture_storage_2d<rgba32float, write>;
+var inputTexture: texture2d<f32>;
 
 // 画像サイズ
 struct ImageSize{
@@ -23,13 +23,13 @@ var<storage, read_write> outputArray: array<u32>;
 
 // 画像に使用可能な色一覧
 @group(2) @binding(0)
-var usableColorList: array<vec4<f32>>;
+var<storage, read> usableColorList: array<vec4<f32>>;
 @group(2) @binding(1)
-var usableColorListNum: u32;
+var<uniform> usableColorListNum: u32;
 
 // 閾値マップ
 @group(3) @binding(0)
-var thresholdMap: array<u32>;
+var<storage, read> thresholdMap: array<u32>;
 struct thresholdMapSize{
     width: u32,
     height: u32,
