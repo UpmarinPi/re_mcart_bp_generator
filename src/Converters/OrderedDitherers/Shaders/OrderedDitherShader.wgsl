@@ -18,7 +18,7 @@ var<uniform> imageSize: ImageSize;
 
 // 出力用
 @group(1) @binding(0)
-var<storage, read_write> outputArray: array<u32>;
+var<storage, write> outputArray: array<u32>;
 
 
 // 画像に使用可能な色一覧
@@ -138,8 +138,6 @@ fn GetThreshold(x: u32, y: u32) -> f32{
 
     return f32(threshold) / thresholdMapNum;
 }
-
-@binding(0) @group(0) var<storage, read_write> storageData:array<u32>;
 
 @compute @workgroup_size(8,8,1)
 fn main(
