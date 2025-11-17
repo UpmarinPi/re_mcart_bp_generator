@@ -20,10 +20,10 @@ export class ThresholdDithererWorker {
         return await this.ConvertWithoutGPU(optionData, imageWidth, imageHeight, data, getNearestColorFunc, onProcessUpdated);
     }
     async ConvertWithoutGPU(optionData: OptionData,
-                  imageWidth: number, imageHeight: number,
-                  data: Uint8ClampedArray,
-                  getNearestColorFunc: ([x, y]: [number, number], baseColor: RGBColor, colorList: RGBColor[]) => Promise<number>,
-                  onProcessUpdated: (currentProcess: number, maxProcess: number) => void)
+                            imageWidth: number, imageHeight: number,
+                            data: Uint8ClampedArray,
+                            getNearestColorFunc: ([x, y]: [number, number], baseColor: RGBColor, colorList: RGBColor[]) => Promise<number>,
+                            onProcessUpdated: (currentProcess: number, maxProcess: number) => void)
         : Promise<MCMapData> {
         // const start: number = performance.now();
         console.log("start converting!");

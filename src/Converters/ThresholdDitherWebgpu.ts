@@ -5,28 +5,38 @@ import type {RGBColor} from "../Cores/Color.ts";
 export class ThresholdDitherWebgpu {
     adapter: GPUAdapter | null = null;
     device: GPUDevice | null = null;
-    wgslPath: string = "Shaders/OrderedDitherShader.wgsl";
+    shaderCode: string = "Shaders/OrderedDitherShader.wgsl";
 
     image: ImageData | null = null;
-    usableColorList: RGBColor[] = [];
+    usableColorList: Array<[number, number, number, number]> = [];
 
     thresholdMap: number[][] = [];
     thresholdMapSize: number = 0;
 
+    private bIsCompletedSettingup: boolean = false;
+
     constructor() {
-        this.SetupGPU().then(_r => {
+        this.SetupGPU().then(() => {
 
         });
     }
+
     async RequestToDither(
+        shaderCode: string,
         image: ImageData,
         usableColorList: RGBColor[],
-        [thresholdMapWidth,thresholdMapHeight , thresholdMap]: [number, number, number[][]]
-    ): Promise<Array<number>>{
+        [thresholdMapWidth, thresholdMapHeight, thresholdMap]: [number, number, number[][]]
+    ): Promise<Array<number> | null> {
+        this.shaderCode = shaderCode;
         this.image = image;
+        usableColorList.forEach((value: RGBColor) => {
+            this.usableColorList.push(value.Tof32Vec4());
+        });
         this.thresholdMap = thresholdMap;
         this.thresholdMapSize = thresholdMapWidth * thresholdMapHeight;
-        await this.SetupGPU();
+        if (!this.bIsCompletedSettingup) {
+            await this.SetupGPU();
+        }
         return await this.Compile();
     }
 
@@ -44,30 +54,30 @@ export class ThresholdDitherWebgpu {
         if (!this.device) {
             return new Promise((resolve, reject) => reject(new Error("failed to request device")));
         }
+
+        this.bIsCompletedSettingup = true;
     }
 
-    async Compile(): Promise<Array<number>> {
+    async Compile(): Promise<Array<number> | null> {
         if (!this.device) {
             return new Promise((resolve, reject) => reject(new Error("failed to get device")));
         }
-        if(!this.image){
+        if (!this.image) {
             return new Promise((resolve, reject) => reject(new Error("it is not set image")));
         }
-        const shaderCode = await fetch(this.wgslPath).then((res) => res.text());
-
         const computePipeline = this.device.createComputePipeline({
             layout: "auto",
             compute: {
-                module: this.device.createShaderModule({code: shaderCode}),
+                module: this.device.createShaderModule({code: this.shaderCode}),
                 entryPoint: "main",
             },
         });
-        const defs: ShaderDataDefinitions = WebgpuUtils.makeShaderDataDefinitions(shaderCode);
+        const defs: ShaderDataDefinitions = WebgpuUtils.makeShaderDataDefinitions(this.shaderCode);
 
         // buffers
         const [bindGroups, outputBuffer] = await this.SetupStorageBuffer(computePipeline, defs, this.image);
-        if(!outputBuffer) {
-            return [];
+        if (!outputBuffer) {
+            return null;
         }
 
         const computeEncoder = this.device.createCommandEncoder();
@@ -92,7 +102,7 @@ export class ThresholdDitherWebgpu {
         )
         const copyEncoder = this.device.createCommandEncoder();
         copyEncoder.copyBufferToBuffer(
-            outputBuffer,0,readBuffer, 0
+            outputBuffer, 0, readBuffer, 0
         );
         this.device.queue.submit([copyEncoder.finish()]);
 
@@ -115,9 +125,6 @@ export class ThresholdDitherWebgpu {
         // 入力画像
         const inputTexture = WebgpuUtils.createTextureFromSource(this.device, image.data);
 
-        // サンプラー
-        const inputSampler = this.device.createSampler();
-
         // input画像サイズ
         const imageSizeView = WebgpuUtils.makeStructuredView(defs.uniforms.imageSize);
         const imageSizeBuffer = this.device.createBuffer({
@@ -131,20 +138,21 @@ export class ThresholdDitherWebgpu {
         this.device.queue.writeBuffer(imageSizeBuffer, 0, imageSizeView.arrayBuffer);
 
         // 出力配列
-        const outputArrayView = WebgpuUtils.makeStructuredView(defs.storages.outputArray);
+        const outputArrayView = WebgpuUtils.makeStructuredView(defs.storages.outputArray, new ArrayBuffer(4 * this.image.width * this.image.height));
         const outputBuffer = this.device.createBuffer({
-            size: 4 * this.image.width * this.image.height, // u32 * image size
+            size: outputArrayView.arrayBuffer.byteLength, // u32 * image size
             usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC
         });
         this.device.queue.writeBuffer(outputBuffer, 0, outputArrayView.arrayBuffer);
 
         // 色一覧
-        const usableColorListView = WebgpuUtils.makeStructuredView(defs.storages.usableColorList);
+        const usableColorListView
+            = WebgpuUtils.makeStructuredView(defs.storages.usableColorList, new ArrayBuffer(4 * 4 * this.usableColorList.length));// f32 * 4 * array
         const usableColorListBuffer = this.device.createBuffer({
-            size: 4 * this.usableColorList.length,
+            size: usableColorListView.arrayBuffer.byteLength,
             usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST
         });
-        // todo 色一覧の登録
+        usableColorListView.set(this.usableColorList);
         this.device.queue.writeBuffer(usableColorListBuffer, 0, usableColorListView.arrayBuffer);
         // 色一覧のサイズ
         const usableColorListNumView = WebgpuUtils.makeStructuredView(defs.uniforms.usableColorListNum);
@@ -156,9 +164,9 @@ export class ThresholdDitherWebgpu {
         this.device.queue.writeBuffer(usableColorListNumBuffer, 0, usableColorListNumView.arrayBuffer);
 
         // 閾値マップ
-        const thresholdMapView = WebgpuUtils.makeStructuredView(defs.storages.thresholdMap);
+        const thresholdMapView = WebgpuUtils.makeStructuredView(defs.storages.thresholdMap, new ArrayBuffer(4 * this.thresholdMapSize));
         const thresholdMapBuffer = this.device.createBuffer({
-            size: 4 * this.thresholdMapSize,
+            size: thresholdMapView.arrayBuffer.byteLength,
             usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST
         });
         thresholdMapView.set(this.thresholdMap);
@@ -178,8 +186,7 @@ export class ThresholdDitherWebgpu {
             layout: pipeline.getBindGroupLayout(0),
             entries: [
                 {binding: 0, resource: inputTexture.createView(),},
-                {binding: 1, resource: inputSampler,},
-                {binding: 2, resource: {buffer: imageSizeBuffer},},
+                {binding: 1, resource: {buffer: imageSizeBuffer},},
             ]
         });
         bindGroupArray.push(bindGroup0);

@@ -4,7 +4,7 @@
     "target": "ES2023",
     "lib": ["ES2023", "webworker"],
     "module": "ESNext",
-    "types": ["node"],
+    "types": ["node", "@webgpu/types"],
     "skipLibCheck": true,
 
     /* Bundler mode */

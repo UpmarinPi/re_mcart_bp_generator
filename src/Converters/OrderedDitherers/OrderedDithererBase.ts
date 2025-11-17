@@ -1,6 +1,11 @@
 import {ThresholdDitherer} from "../ThresholdDitherer";
 import {RGBColor} from "../../Cores/Color";
 import {addScaled, dot, DistSq, norm2, rgbToLab, sub, rgbToTuple} from "../../FunctionLIbraries/ColorFunctionLibrary";
+import {MCMapData} from "../../Datas/MapData/MCMapData.ts";
+import {OptionData} from "../../Datas/Options/OptionData.ts";
+import {ThresholdDitherWebgpu} from "../ThresholdDitherWebgpu.ts";
+import {BoolToEDimensionalMode} from "../../Cores/Types.ts";
+import shaderCode from './Shaders/OrderedDitherShader.wgsl?raw';
 
 export abstract class OrderedDithererBase extends ThresholdDitherer {
     // width, height, threshold map
@@ -11,6 +16,66 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
                 [0],
             ]
         ];
+    }
+
+    ditherWebgpu: ThresholdDitherWebgpu;
+
+    constructor() {
+        super();
+        this.ditherWebgpu = new ThresholdDitherWebgpu();
+    }
+
+    override async Convert(optionData: OptionData): Promise<MCMapData> {
+        console.log("start ordered dither")
+        const MapData = await this.ConvertWithWebgpu(optionData);
+        if (MapData) {
+            return MapData;
+        }
+
+        return super.Convert(optionData);
+    }
+
+    async ConvertWithWebgpu(optionData: OptionData): Promise<MCMapData | null> {
+        const img = optionData.baseImage;
+        const magnification = optionData.magnification;
+
+        const imageData = this.GetActualImageData(img, magnification);
+        if (!imageData) {
+            return null;
+        }
+
+        const width = imageData.width;
+        const height = imageData.height;
+
+        const returnArray = await this.ditherWebgpu.RequestToDither(shaderCode, imageData, optionData.usingColors, this.GetThresholdMap());
+        if (!returnArray || returnArray.length < width * height) {
+            return null;
+        }
+        const returnData = new MCMapData();
+        returnData.dimensionalMode = BoolToEDimensionalMode(optionData.bIsDimensionalMode);
+
+        // width / height
+        returnData.width = width;
+        returnData.height = height;
+
+        // map
+        const map: number[][] = [];
+        for (let y: number = 0; y < height; ++y) {
+            const mapItem: number[] = [];
+            for (let x: number = 0; x < width; ++x) {
+                const index = returnArray[y * width + x];
+                mapItem.push(index);
+            }
+            map.push(mapItem);
+        }
+        returnData.map = map;
+
+        // map to color
+        for(let i = 0; i < optionData.usingColors.length; ++i) {
+            returnData.mapToColor.set(i, optionData.usingColors[i]);
+        }
+
+        return returnData;
     }
 
     override async GetNearestColorId(cords: [number, number], baseColor: RGBColor, colorList: RGBColor[]): Promise<number> {

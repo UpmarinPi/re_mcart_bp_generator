@@ -35,8 +35,12 @@ export class RGBColor {
     }
 
     // rgbが同値であれば同じIDを返す
-    static CreateColorId(color: RGBColor): number{
+    static CreateColorId(color: RGBColor): number {
 
         return color.r * 65536 + color.g * 256 + color.b;
+    }
+
+    Tof32Vec4(): [number, number, number, number] {
+        return [this.r / 256, this.g / 256, this.b / 256, 1];
     }
 }

@@ -18,3 +18,7 @@ export enum EDimensionalMode {
     Flat,   // 高さを持たない。単純な分使用できる色が少ない
     Shape,  // 高さを持つ。明暗を用いて色数を増やしている
 }
+
+export function BoolToEDimensionalMode(bIsDimensionalMode: boolean) {
+    return bIsDimensionalMode ? EDimensionalMode.Shape : EDimensionalMode.Flat;
+}
