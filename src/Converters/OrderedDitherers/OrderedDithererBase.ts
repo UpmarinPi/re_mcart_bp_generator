@@ -3,7 +3,7 @@ import {RGBColor} from "../../Cores/Color";
 import {addScaled, dot, DistSq, norm2, rgbToLab, sub, rgbToTuple} from "../../FunctionLIbraries/ColorFunctionLibrary";
 import {MCMapData} from "../../Datas/MapData/MCMapData.ts";
 import {OptionData} from "../../Datas/Options/OptionData.ts";
-import {ThresholdDitherWebgpu} from "../ThresholdDitherWebgpu.ts";
+import {OrderedDitherWebgpu} from "./OrderedDitherWebgpu.ts";
 import {BoolToEDimensionalMode} from "../../Cores/Types.ts";
 import shaderCode from './Shaders/OrderedDitherShader.wgsl?raw';
 
@@ -18,11 +18,11 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
         ];
     }
 
-    ditherWebgpu: ThresholdDitherWebgpu;
+    ditherWebgpu: OrderedDitherWebgpu;
 
     constructor() {
         super();
-        this.ditherWebgpu = new ThresholdDitherWebgpu();
+        this.ditherWebgpu = new OrderedDitherWebgpu();
     }
 
     override async Convert(optionData: OptionData): Promise<MCMapData> {

@@ -1,8 +1,8 @@
 import * as WebgpuUtils from "webgpu-utils";
 import type {ShaderDataDefinitions} from "webgpu-utils";
-import type {RGBColor} from "../Cores/Color.ts";
+import type {RGBColor} from "../../Cores/Color.ts";
 
-export class ThresholdDitherWebgpu {
+export class OrderedDitherWebgpu {
     adapter: GPUAdapter | null = null;
     device: GPUDevice | null = null;
     shaderCode: string = "Shaders/OrderedDitherShader.wgsl";
@@ -98,9 +98,10 @@ export class ThresholdDitherWebgpu {
         this.device.queue.submit([computeEncoder.finish()]);
 
         // 戻り値取得
+        const readMapView = WebgpuUtils.makeStructuredView(defs.storages.thresholdMap, new ArrayBuffer(4 * this.thresholdMapSize));
         const readBuffer = this.device.createBuffer(
             {
-                size: 4 * this.image.width * this.image.height,
+                size:readMapView.arrayBuffer.byteLength,
                 usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ
             }
         )
