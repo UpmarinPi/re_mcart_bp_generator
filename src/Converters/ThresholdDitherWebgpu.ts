@@ -8,7 +8,7 @@ export class ThresholdDitherWebgpu {
     shaderCode: string = "Shaders/OrderedDitherShader.wgsl";
 
     image: ImageData | null = null;
-    usableColorList: Array<[number, number, number, number]> = [];
+    usableColorList: Array<[number, number, number]> = [];
 
     thresholdMap: number[][] = [];
     thresholdMapSize: number = 0;
@@ -30,7 +30,7 @@ export class ThresholdDitherWebgpu {
         this.shaderCode = shaderCode;
         this.image = image;
         usableColorList.forEach((value: RGBColor) => {
-            this.usableColorList.push(value.Tof32Vec4());
+            this.usableColorList.push(value.Tou32Vec3());
         });
         this.thresholdMap = thresholdMap;
         this.thresholdMapSize = thresholdMapWidth * thresholdMapHeight;
@@ -88,7 +88,11 @@ export class ThresholdDitherWebgpu {
         bindGroups.forEach((bindGroup: GPUBindGroup, index) => {
             pass.setBindGroup(index, bindGroup);
         });
-        pass.dispatchWorkgroups(8, 8, 1);
+
+        //
+        const workgroupCountX: number = (this.image.width / 8);
+        const workgroupCountY: number = (this.image.height / 8);
+        pass.dispatchWorkgroups(workgroupCountX, workgroupCountY);
         pass.end();
         // pass.
         this.device.queue.submit([computeEncoder.finish()]);
@@ -108,7 +112,7 @@ export class ThresholdDitherWebgpu {
 
         await readBuffer.mapAsync(GPUMapMode.READ);
         const data = new Uint32Array(readBuffer.getMappedRange());
-
+        console.log(data);
         return Array.from(data);
     }
 
@@ -141,7 +145,7 @@ export class ThresholdDitherWebgpu {
         const outputArrayView = WebgpuUtils.makeStructuredView(defs.storages.outputArray, new ArrayBuffer(4 * this.image.width * this.image.height));
         const outputBuffer = this.device.createBuffer({
             size: outputArrayView.arrayBuffer.byteLength, // u32 * image size
-            usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC
+            usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
         });
         this.device.queue.writeBuffer(outputBuffer, 0, outputArrayView.arrayBuffer);
 
