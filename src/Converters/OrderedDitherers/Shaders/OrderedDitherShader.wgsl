@@ -61,7 +61,7 @@ fn FindBestApproxWithRGB(targetColor: vec3<u32>)->array<i32, 2> {
     // 初期化
     for (var i = 0u; i < kNearest; i = i + 1u){
         bestIds[i] = -1;
-        bestDists[i] = 1e9;
+        bestDists[i] = -1;
     }
 
     // 全色から近い12色を取る
@@ -71,14 +71,14 @@ fn FindBestApproxWithRGB(targetColor: vec3<u32>)->array<i32, 2> {
         var maxIdx = 0u; // bestIds内での最大距離ID
         var maxDist = bestDists[0]; // bestIds内での最大距離
         for (var j = 1u; j < kNearest; j = j + 1u) {
-            let isBigger: bool = (bestDists[j] > maxDist);
+            let isBigger: bool = (bestDists[j] < 0 || bestDists[j] > maxDist);
             maxIdx = select(maxIdx, j, isBigger);
             maxDist = select(maxDist, bestDists[j], isBigger);
         }
 
 	  	// bestIds内の最大距離と比較して小さい方を入れる
         let d = DistSq(targetColor, usableColorList[i]);
-        let needsUpdateBiggest = d < maxDist;
+        let needsUpdateBiggest: bool = (maxDist < 0 || d < maxDist);
 
         bestDists[maxIdx] = select(bestDists[maxIdx], d, needsUpdateBiggest);
         bestIds[maxIdx] = select(bestIds[maxIdx], i32(i), needsUpdateBiggest);
@@ -90,9 +90,16 @@ fn FindBestApproxWithRGB(targetColor: vec3<u32>)->array<i32, 2> {
     // 色がある程度近いkNearest個の配列のうち、最も綺麗な組み合わせを絞り込み
     for (var a = 0u; a < kNearest; a = a + 1u){
 	  	let aId: i32 = bestIds[a];
+	  	if(aId < 0|| i32(usableColorListNum) <= aId){
+	  	    continue;
+	  	}
         let aColor: vec3<u32> = usableColorList[aId];
         for (var b = 1u; b < kNearest; b = b + 1u){
+
 		  	let bId: i32 = bestIds[b];
+		    if(bId < 0|| i32(usableColorListNum) <= bId){
+                continue;
+            }
             let bColor: vec3<u32> = usableColorList[bId];
             let diff = aColor - bColor;
             let denom = f32(dot(diff, diff));
@@ -143,7 +150,7 @@ fn GetThreshold(x: u32, y: u32) -> f32{
     return f32(threshold) / f32(thresholdMapNum);
 }
 
-@compute @workgroup_size(8,8)
+@compute @workgroup_size(16,16)
 fn main(
     @builtin(global_invocation_id) gid: vec3<u32>,
 ){
@@ -152,7 +159,6 @@ fn main(
 
     // 範囲外回避
     if(x >= imageSize.width || y >= imageSize.height){
-        outputArray[y * imageSize.width + x] = 0;
         return;
     }
     // 色の取得

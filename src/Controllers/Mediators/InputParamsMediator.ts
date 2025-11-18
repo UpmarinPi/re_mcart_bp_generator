@@ -5,12 +5,14 @@ import {MCMapData} from "../../Datas/MapData/MCMapData";
 import {MCMapDataManager} from "../../Datas/MapData/MCMapDataManager";
 import {DithererBase} from "../../Converters/DithererBase";
 import {ColorDataRepository} from "../../Datas/ColorDataRepository";
+import {RGBColor} from "../../Cores/Color.ts";
 
 export class InputParamsMediator extends MediatorBase {
     constructor() {
         super();
         let optionData = OptionManager.get().optionData;
-        optionData.usingColors = ColorDataRepository.get().GetColorList(true);
+        optionData.usingColors = [new RGBColor(1,1,1), new RGBColor(0,0,0)];
+            ;ColorDataRepository.get().GetColorList(true);
     }
 
     convertMode: DithererBase | undefined = undefined;

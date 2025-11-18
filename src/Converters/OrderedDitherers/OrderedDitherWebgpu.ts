@@ -5,21 +5,15 @@ import type {RGBColor} from "../../Cores/Color.ts";
 export class OrderedDitherWebgpu {
     adapter: GPUAdapter | null = null;
     device: GPUDevice | null = null;
-    shaderCode: string = "Shaders/OrderedDitherShader.wgsl";
+    shaderCode: string = "Shaders/OrderedDitherShader.wgsl?row";
 
     image: ImageData | null = null;
     usableColorList: Array<[number, number, number]> = [];
 
-    thresholdMap: number[][] = [];
+    thresholdMap: number[] = [];
     thresholdMapSize: number = 0;
 
     private bIsCompletedSettingup: boolean = false;
-
-    constructor() {
-        this.SetupGPU().then(() => {
-
-        });
-    }
 
     async RequestToDither(
         shaderCode: string,
@@ -27,16 +21,29 @@ export class OrderedDitherWebgpu {
         usableColorList: RGBColor[],
         [thresholdMapWidth, thresholdMapHeight, thresholdMap]: [number, number, number[][]]
     ): Promise<Array<number> | null> {
+
+        // shader code
         this.shaderCode = shaderCode;
+
+        // image
         this.image = image;
+
+        // usableColorList
+        this.usableColorList = [];
         usableColorList.forEach((value: RGBColor) => {
             this.usableColorList.push(value.Tou32Vec3());
         });
-        this.thresholdMap = thresholdMap;
+
+        // threshold map
+        this.thresholdMap = [];
+        thresholdMap.forEach((value: number[])=>{
+            value.forEach(value => {
+                this.thresholdMap.push(value);
+            })
+        });
         this.thresholdMapSize = thresholdMapWidth * thresholdMapHeight;
-        if (!this.bIsCompletedSettingup) {
-            await this.SetupGPU();
-        }
+
+        await this.SetupGPU();
         return await this.Compile();
     }
 
@@ -90,18 +97,18 @@ export class OrderedDitherWebgpu {
         });
 
         //
-        const workgroupCountX: number = (this.image.width / 8);
-        const workgroupCountY: number = (this.image.height / 8);
+        const workgroupCountX: number = Math.ceil(this.image.width / 16);
+        const workgroupCountY: number = Math.ceil(this.image.height / 16);
         pass.dispatchWorkgroups(workgroupCountX, workgroupCountY);
         pass.end();
         // pass.
         this.device.queue.submit([computeEncoder.finish()]);
 
         // 戻り値取得
-        const readMapView = WebgpuUtils.makeStructuredView(defs.storages.thresholdMap, new ArrayBuffer(4 * this.thresholdMapSize));
+        const readMapView = WebgpuUtils.makeStructuredView(defs.storages.outputArray, new ArrayBuffer(4 * this.image.width * this.image.height));
         const readBuffer = this.device.createBuffer(
             {
-                size:readMapView.arrayBuffer.byteLength,
+                size: readMapView.arrayBuffer.byteLength,
                 usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ
             }
         )
@@ -129,6 +136,7 @@ export class OrderedDitherWebgpu {
 
         // 入力画像
         const inputTexture = WebgpuUtils.createTextureFromSource(this.device, image.data);
+        console.log(inputTexture.createView());
 
         // input画像サイズ
         const imageSizeView = WebgpuUtils.makeStructuredView(defs.uniforms.imageSize);
@@ -181,7 +189,7 @@ export class OrderedDitherWebgpu {
         const thresholdMapSizeBuffer = this.device.createBuffer({
             size: thresholdMapSizeView.arrayBuffer.byteLength,
             usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
-        })
+        });
         thresholdMapSizeView.set(this.thresholdMapSize);
         this.device.queue.writeBuffer(thresholdMapSizeBuffer, 0, thresholdMapSizeView.arrayBuffer);
 

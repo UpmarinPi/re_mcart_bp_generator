@@ -31,6 +31,8 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
         if (MapData) {
             return MapData;
         }
+        console.warn("it cannot convert with webgpu.\n" +
+                     "We would make with webworker.");
 
         return super.Convert(optionData);
     }
@@ -59,16 +61,14 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
         returnData.height = height;
 
         // map
-        const map: number[][] = [];
         for (let y: number = 0; y < height; ++y) {
             const mapItem: number[] = [];
             for (let x: number = 0; x < width; ++x) {
                 const index = returnArray[y * width + x];
                 mapItem.push(index);
             }
-            map.push(mapItem);
+            returnData.map.push(mapItem);
         }
-        returnData.map = map;
 
         // map to color
         for(let i = 0; i < optionData.usingColors.length; ++i) {
