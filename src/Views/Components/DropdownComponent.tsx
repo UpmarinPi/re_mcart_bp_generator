@@ -28,6 +28,35 @@ export class DropdownComponent extends ComponentBase {
         this.requestsRenderUpdate.notify();
     }
 
+    private IsValidValue(value: string): boolean {
+        this._options.forEach(option => {
+            if (option.value === value) {
+                return true;
+            }
+        });
+        return false;
+    }
+
+    // 選択項目を設定してから呼び出すこと
+    SetIndex(index: number){
+        if(index >= this._options.length){
+            return;
+        }
+        const myDropdown = this.GetMyRender() as HTMLSelectElement;
+        myDropdown.selectedIndex = index;
+        this.requestsRenderUpdate.notify();
+    }
+
+    // 選択項目を設定してから呼び出すこと
+    SetValue(value: string){
+        if(!this.IsValidValue(value)){
+            return;
+        }
+        const myDropdown = this.GetMyRender() as HTMLSelectElement;
+        myDropdown.value = value;
+        this.requestsRenderUpdate.notify();
+    }
+
     Render(): React.JSX.Element {
         return (
             <div className={this.id}>
