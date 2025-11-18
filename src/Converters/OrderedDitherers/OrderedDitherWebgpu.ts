@@ -136,7 +136,6 @@ export class OrderedDitherWebgpu {
 
         // 入力画像
         const inputTexture = WebgpuUtils.createTextureFromSource(this.device, image.data);
-        console.log(inputTexture.createView());
 
         // input画像サイズ
         const imageSizeView = WebgpuUtils.makeStructuredView(defs.uniforms.imageSize);

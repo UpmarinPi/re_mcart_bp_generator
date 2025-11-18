@@ -49,7 +49,7 @@ fn AddScaled(a: vec3<u32>, b: vec3<u32>, alpha: f32)-> vec3<u32> {
 
 
 fn GetNearestColorId(x: u32, y: u32, baseColor: vec3<u32>)->u32 {
-    let bestApproxPair = FindBestApproxWithRGB(baseColor);
+    let bestApproxPair: array<i32, 2> = FindBestApproxWithRGB(baseColor);
 
     // 2つ目の要素が無効値(0未満)の場合は確定で1つ目の要素を返す
     return select(SelectNumByOrderedDither(x, y, baseColor, bestApproxPair[0], bestApproxPair[1]), u32(bestApproxPair[0]), bestApproxPair[1] < 0);

@@ -11,7 +11,7 @@ export class InputParamsMediator extends MediatorBase {
     constructor() {
         super();
         let optionData = OptionManager.get().optionData;
-        optionData.usingColors = [new RGBColor(1,1,1), new RGBColor(0,0,0)];
+        optionData.usingColors = [new RGBColor(255,255,255), new RGBColor(0,0,0)];
             ;ColorDataRepository.get().GetColorList(true);
     }
 
