@@ -44,7 +44,7 @@ export class RGBColor {
         return [this.r / 256.0, this.g / 256.0, this.b / 256.0, 1.0];
     }
     // static化しようね
-    Tou32Vec3(): [number, number, number] {
-        return [this.r, this.g, this.b];
+    static Tou32Vec3(color: RGBColor): [number, number, number] {
+        return [color.r, color.g, color.b];
     }
 }

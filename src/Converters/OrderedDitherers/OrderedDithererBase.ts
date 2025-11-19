@@ -1,6 +1,6 @@
 import {ThresholdDitherer} from "../ThresholdDitherer";
 import {RGBColor} from "../../Cores/Color";
-import {addScaled, dot, DistSq, norm2, rgbToLab, sub, rgbToTuple} from "../../FunctionLIbraries/ColorFunctionLibrary";
+import {addScaled, dot, DistSq, norm2, rgbToLab, sub} from "../../FunctionLIbraries/ColorFunctionLibrary";
 import {MCMapData} from "../../Datas/MapData/MCMapData.ts";
 import {OptionData} from "../../Datas/Options/OptionData.ts";
 import {OrderedDitherWebgpu} from "./OrderedDitherWebgpu.ts";
@@ -27,12 +27,12 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
 
     override async Convert(optionData: OptionData): Promise<MCMapData> {
         console.log("start ordered dither")
-        // const MapData = await this.ConvertWithWebgpu(optionData);
-        // if (MapData) {
-        //     return MapData;
-        // }
+        const MapData = await this.ConvertWithWebgpu(optionData);
+        if (MapData) {
+            return MapData;
+        }
         console.warn("it cannot convert with webgpu.\n" +
-                     "We would make with webworker.");
+            "We would make with webworker.");
 
         return super.Convert(optionData);
     }
@@ -71,7 +71,7 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
         }
 
         // map to color
-        for(let i = 0; i < optionData.usingColors.length; ++i) {
+        for (let i = 0; i < optionData.usingColors.length; ++i) {
             returnData.mapToColor.set(i, optionData.usingColors[i]);
         }
 
@@ -83,15 +83,15 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
         let bestApproxPair: Array<number> = this.FindBestApproxWithRGB(baseColor, colorList);
 
         // 2つ目の要素が無効値(0未満)の場合は確定で1つ目の要素を返す
-        return bestApproxPair[1] < 0 ? bestApproxPair[0] : this.SelectNumByOrderedDither(cords[0], cords[1], baseColor.Tou32Vec3(), bestApproxPair[0], bestApproxPair[1], colorList);
+        return bestApproxPair[1] < 0 ? bestApproxPair[0] : this.SelectNumByOrderedDither(cords[0], cords[1], RGBColor.Tou32Vec3(baseColor), bestApproxPair[0], bestApproxPair[1], colorList);
     }
 
     private SelectNumByOrderedDither(x: number, y: number, targetColor: [number, number, number], aColorIdx: number, bColorIdx: number, colorList: RGBColor[]): number {
-        if(bColorIdx < 0){
+        if (bColorIdx < 0) {
             return aColorIdx;
         }
-        let aColor: [number, number, number] = colorList[aColorIdx].Tou32Vec3();
-        let bColor: [number,number,number] = colorList[bColorIdx].Tou32Vec3();
+        let aColor: [number, number, number] = RGBColor.Tou32Vec3(colorList[aColorIdx]);
+        let bColor: [number, number, number] = RGBColor.Tou32Vec3(colorList[bColorIdx]);
 
         let aDistance: number = DistSq(targetColor, aColor);
         let bDistance: number = DistSq(targetColor, bColor);
@@ -99,10 +99,10 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
         if ((aDistance + bDistance) <= 0) {
             return aColorIdx;
         }
-        const [thresholdMapSizeHeight, thresholdMapWidth, thresholdMap] = this.GetThresholdMap();
-        let layerIndex = thresholdMap[(x % thresholdMapWidth)][(y % thresholdMapSizeHeight)];
+        const [thresholdMapSizeWidth, thresholdMapSizeHeight, thresholdMap] = this.GetThresholdMap();
+        let layerIndex = thresholdMap[(y % thresholdMapSizeHeight)][(x % thresholdMapSizeWidth)];
 
-        return aDistance / (aDistance + bDistance) > layerIndex / thresholdMapSizeHeight * thresholdMapWidth ? aColorIdx : bColorIdx;
+        return aDistance / (aDistance + bDistance) < layerIndex / (thresholdMapSizeHeight * thresholdMapSizeWidth) ? aColorIdx : bColorIdx;
 
     }
 
@@ -112,55 +112,63 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
         let bestDists: Array<number> = []; // bestIdsの各色のtarget colorとの距離
 
         // 初期化
-        for (let i = 0; i < kNearest; i = i + 1){
+        for (let i = 0; i < kNearest; i = i + 1) {
             bestIds.push(-1);
             bestDists.push(-1);
         }
 
         // 全色から近い12色を取る
-        for (let i = 0; i < colorList.length; i = i + 1){
+        for (let i = 0; i < colorList.length; i = i + 1) {
             // 最大値を取る
 
             let maxIdx = 0; // bestIds内での最大距離ID
             let maxDist = bestDists[0]; // bestIds内での最大距離
             for (let j = 1; j < kNearest; j = j + 1) {
-                let isBigger: boolean = (bestDists[j] < 0 || bestDists[j] > maxDist);
+                let isBigger: boolean = ((maxDist >= 0) && (bestDists[j] < 0 || bestDists[j] > maxDist));
                 maxIdx = isBigger ? j : maxIdx;
-                maxDist = isBigger ? bestDists[j]: maxDist;
+                maxDist = isBigger ? bestDists[j] : maxDist;
             }
 
             // bestIds内の最大距離と比較して小さい方を入れる
-            let d = DistSq(targetColor.Tou32Vec3(), colorList[i].Tou32Vec3());
+            let d = DistSq(RGBColor.Tou32Vec3(targetColor), RGBColor.Tou32Vec3(colorList[i]));
             let needsUpdateBiggest: boolean = (maxDist < 0 || d < maxDist);
 
             bestDists[maxIdx] = needsUpdateBiggest ? d : bestDists[maxIdx];
             bestIds[maxIdx] = needsUpdateBiggest ? i : bestIds[maxIdx];
         }
 
-        let bestPair: Array<number> = Array(0,-1);
+        let bestPair: Array<number> = Array(0, -1);
         let bestPairDist: number = bestDists[0];
 
         // 色がある程度近いkNearest個の配列のうち、最も綺麗な組み合わせを絞り込み
-        for (let a = 0; a < kNearest; a = a + 1){
+        for (let a = 0; a < kNearest; a = a + 1) {
             let aId: number = bestIds[a];
-            if(aId < 0|| colorList.length <= aId){
+            if (aId < 0 || colorList.length <= aId) {
                 continue;
             }
-            let aColor: [number, number,number] = colorList[aId].Tou32Vec3();
-            for (let b = 1; b < kNearest; b = b + 1){
+            let aColor: [number, number, number] = RGBColor.Tou32Vec3(colorList[aId]);
+            for (let b = 0; b < kNearest; b = b + 1) {
 
                 let bId: number = bestIds[b];
-                if(bId < 0|| colorList.length <= bId){
+                if (bId < 0 || colorList.length <= bId) {
                     continue;
                 }
-                let bColor: [number, number, number] = colorList[bId].Tou32Vec3();
-                let diff =  sub(aColor, bColor);
+                let bColor: [number, number, number] = RGBColor.Tou32Vec3(colorList[bId]);
+                // console.log(`a = [${aId}]: ${aColor}`);
+                // console.log(`b = [${bId}]: ${bColor}`);
+                let diff = sub(aColor, bColor);
                 let denom = dot(diff, diff);
 
-                let alphaStar = dot(sub(targetColor.Tou32Vec3(), bColor), diff) / denom;
-                let alpha = Math.max(0, Math.min(1, alphaStar));
-                let mix = addScaled(aColor, bColor, alpha);
-                let dist = DistSq(targetColor.Tou32Vec3(), mix);
+                let dist: number;
+                if (denom >= 1e-6) {
+                    let alphaStar = dot(sub(RGBColor.Tou32Vec3(targetColor), bColor), diff) / denom;
+                    let alpha = Math.max(0, Math.min(1, alphaStar));
+                    let mix = addScaled(aColor, bColor, alpha);
+                    dist = DistSq(RGBColor.Tou32Vec3(targetColor), mix);
+                } else {
+                    dist = DistSq(RGBColor.Tou32Vec3(targetColor), aColor);
+                }
+
 
                 // よりよい値なら更新
                 let isBetter = dist < bestPairDist;
@@ -170,7 +178,6 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
 
             }
         }
-
         return bestPair;
     }
 
