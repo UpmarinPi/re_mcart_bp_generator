@@ -15,6 +15,8 @@ import {MCMapDataManager} from "../Datas/MapData/MCMapDataManager";
 import {InputParamsMediator} from "./Mediators/InputParamsMediator";
 import {ButtonComponent} from "../Views/Components/ButtonComponent";
 import {InputNumberComponent} from "../Views/Components/InputComponents/InputNumberComponent";
+import type {SelectMapdataComponent} from "../Views/Components/InputComponents/SelectMapdataComponent.tsx";
+import {MapdataInput} from "../IOSystems/MapdataInput.tsx";
 
 export class InputParamsController extends ControllerBase {
 
@@ -150,8 +152,14 @@ export class InputParamsController extends ControllerBase {
         });
     }
 
+
+    // InitializeOutputMapData(outputMapdata: ): void {
+    //
+    // }
+
     OnMapDataChange(mapData: MCMapData) {
         if (!this.resultImagePreview) {
+            console.error("mapData must be defined");
             return;
         }
 
@@ -161,11 +169,32 @@ export class InputParamsController extends ControllerBase {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "mapdata.txt";
+        a.download = "mapData.txt";
         a.click();
         URL.revokeObjectURL(url);
         // -----------------------------
         this.resultImagePreview.SetMapData(mapData);
+    }
+
+    InitializeSelectMapData(selectMapData: SelectMapdataComponent) :void {
+        if (!selectMapData) {
+            console.error("mapData must be defined");
+            return;
+        }
+        selectMapData.onComponentChange.Subscribe(
+            (value: File) => {
+                this.OnSelectedFileChange(value);
+            })
+    }
+
+    OnSelectedFileChange(value: File) {
+        if (!value) {
+            return;
+        }
+
+        const mapDataReader = new MapdataInput();
+        mapDataReader.setFile(value);
+        mapDataReader.loadSelectedFile();
     }
 
     constructor(viewInputParams: ViewInputParams) {
