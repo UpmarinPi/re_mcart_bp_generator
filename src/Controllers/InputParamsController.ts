@@ -10,7 +10,7 @@ import {MapDataImagePreviewComponent} from "../Views/Components/MapDataImagePrev
 import {ColorDataRepository} from "../Datas/ColorDataRepository";
 import {ProgressBarComponent} from "../Views/Components/ProgressBarComponent";
 import {MCMapData} from "../Datas/MapData/MCMapData";
-import {ImageCanvasToImageData} from "../FunctionLIbraries/ImageFunctionLibrary";
+import {ImageCanvasToImageData} from "../FunctionLibraries/ImageFunctionLibrary";
 import {MCMapDataManager} from "../Datas/MapData/MCMapDataManager";
 import {InputParamsMediator} from "./Mediators/InputParamsMediator";
 import {ButtonComponent} from "../Views/Components/ButtonComponent";

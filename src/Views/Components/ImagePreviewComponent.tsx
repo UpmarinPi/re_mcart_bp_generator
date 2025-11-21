@@ -1,6 +1,6 @@
 import {ComponentBase} from "./ComponentBase";
 import React from "react";
-import {ImageDataToImageURL} from "../../FunctionLIbraries/ImageFunctionLibrary";
+import {ImageDataToImageURL} from "../../FunctionLibraries/ImageFunctionLibrary";
 
 export class ImagePreviewComponent extends ComponentBase {
 
