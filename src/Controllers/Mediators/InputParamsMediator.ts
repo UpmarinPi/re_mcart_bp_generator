@@ -4,19 +4,22 @@ import {ConverterFactory} from "../../Converters/ConverterFactory";
 import {MCMapData} from "../../Datas/MapData/MCMapData";
 import {MCMapDataManager} from "../../Datas/MapData/MCMapDataManager";
 import {DithererBase} from "../../Converters/DithererBase";
-import {ColorDataRepository} from "../../Datas/ColorDataRepository";
-import {RGBColor} from "../../Cores/Color.ts";
+import {ColorDataRepository} from "../../Datas/Repositories/ColorDataRepository.ts";
+import {ERepositoryIds, RepositoryManager} from "../../Datas/Repositories/RepositoryManager.ts";
 
 export class InputParamsMediator extends MediatorBase {
     constructor() {
         super();
         let optionData = OptionManager.get().optionData;
-        optionData.usingColors = ColorDataRepository.get().GetColorList(true);
+        const ColorDataRepo = RepositoryManager.get().GetRepository<ColorDataRepository>(ERepositoryIds.ColorData);
+        if (ColorDataRepo) {
+            optionData.usingColors = ColorDataRepo.GetColorList(true);
+        }
     }
 
     convertMode: DithererBase | undefined = undefined;
 
-    RequestToConverting(){
+    RequestToConverting() {
         const optionData = OptionManager.get().optionData;
         this.convertMode = ConverterFactory.get().GetConverter(optionData.convertMode);
         if (!this.convertMode) {

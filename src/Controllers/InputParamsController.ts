@@ -7,7 +7,7 @@ import {SelectImageComponent} from "../Views/Components/InputComponents/SelectIm
 import {ImagePreviewComponent} from "../Views/Components/ImagePreviewComponent";
 import {OptionData} from "../Datas/Options/OptionData";
 import {MapDataImagePreviewComponent} from "../Views/Components/MapDataImagePreviewComponent";
-import {ColorDataRepository} from "../Datas/ColorDataRepository";
+import {ColorDataRepository} from "../Datas/Repositories/ColorDataRepository.ts";
 import {ProgressBarComponent} from "../Views/Components/ProgressBarComponent";
 import {MCMapData} from "../Datas/MapData/MCMapData";
 import {ImageCanvasToImageData} from "../FunctionLibraries/ImageFunctionLibrary";
