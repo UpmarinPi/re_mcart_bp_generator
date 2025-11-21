@@ -1,8 +1,6 @@
-import {Singleton} from "../Cores/Singleton";
-
-// jsonファイル
-import blockInfoListJson from "./jsons/block_info_list.json";
-import colorBlockMapJson from "./jsons/color_block_map.json";
+import blockInfoListJson from "../jsons/block_info_list.json";
+import colorBlockMapJson from "../jsons/color_block_map.json";
+import {RepositoryBase} from "./RepositoryBase.ts";
 
 const texturePath: string = "../assets/block_textures";
 
@@ -31,7 +29,7 @@ interface IBlockDataRepository {
 }
 
 // ブロック情報を保持する。色→使用可能なブロックID群, ブロックID→ブロック情報 に変換可能
-export class BlockDataRepository extends Singleton implements IBlockDataRepository {
+export class BlockDataRepository extends RepositoryBase implements IBlockDataRepository {
 
     private blockIdToDataMap: Map<string, BlockData>;
     private colorIdToBlockIdMap: Map<string, string[]>;

@@ -1,6 +1,6 @@
-import {Singleton} from "../Cores/Singleton";
-import colorListJson from "./jsons/minecraft_colors.json";
-import {RGBColor} from "../Cores/Color";
+import colorListJson from "../jsons/minecraft_colors.json";
+import {RGBColor} from "../../Cores/Color.ts";
+import {RepositoryBase} from "./RepositoryBase.ts";
 
 class ColorData {
     constructor(isDefaultActive: boolean, defaultColor: RGBColor, lightColor: RGBColor, darkColor: RGBColor, darkestColor: RGBColor) {
@@ -20,7 +20,7 @@ class ColorData {
 }
 
 // 色情報を保持する
-export class ColorDataRepository extends Singleton {
+export class ColorDataRepository extends RepositoryBase {
 
     colorIdToColorDataMap: Map<string, ColorData> = new Map();
 

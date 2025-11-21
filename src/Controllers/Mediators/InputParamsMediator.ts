@@ -4,19 +4,43 @@ import {ConverterFactory} from "../../Converters/ConverterFactory";
 import {MCMapData} from "../../Datas/MapData/MCMapData";
 import {MCMapDataManager} from "../../Datas/MapData/MCMapDataManager";
 import {DithererBase} from "../../Converters/DithererBase";
-import {ColorDataRepository} from "../../Datas/ColorDataRepository";
-import {RGBColor} from "../../Cores/Color.ts";
+import {ColorDataRepository} from "../../Datas/Repositories/ColorDataRepository.ts";
+import {ERepositoryIds, RepositoryManager} from "../../Datas/Repositories/RepositoryManager.ts";
 
 export class InputParamsMediator extends MediatorBase {
     constructor() {
         super();
-        let optionData = OptionManager.get().optionData;
-        optionData.usingColors = ColorDataRepository.get().GetColorList(true);
+        this.InitializeOptionData();
+        this.InitializeOptionManagerBinding();
     }
 
     convertMode: DithererBase | undefined = undefined;
 
-    RequestToConverting(){
+    private InitializeOptionData() {
+        this.UpdateUsingColorsOfOptionData();
+    }
+
+    private InitializeOptionManagerBinding() {
+        const optionManager = OptionManager.get();
+        optionManager.onIsDemensionalModeChange.Subscribe(() => {
+            this.OnIsDemensionalModeChange();
+        });
+    }
+
+    private OnIsDemensionalModeChange(): void {
+        this.UpdateUsingColorsOfOptionData();
+    }
+
+    private UpdateUsingColorsOfOptionData() {
+        const optionManager = OptionManager.get();
+        const ColorDataRepo = RepositoryManager.get().GetRepository<ColorDataRepository>(ERepositoryIds.ColorData);
+        if (!optionManager || !ColorDataRepo) {
+            return;
+        }
+        optionManager.SetUsingColors(ColorDataRepo.GetColorList(optionManager.optionData.bIsDimensionalMode));
+    }
+
+    RequestToConverting() {
         const optionData = OptionManager.get().optionData;
         this.convertMode = ConverterFactory.get().GetConverter(optionData.convertMode);
         if (!this.convertMode) {
