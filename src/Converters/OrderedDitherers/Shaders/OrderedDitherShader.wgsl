@@ -19,7 +19,7 @@ var<storage, read_write> outputArray: array<u32>;
 
 // 画像に使用可能な色一覧
 @group(2) @binding(0)
-var<storage, read> usableColorList: array<vec3<u32>>;
+var<storage, read> usableColorList: array<vec3<f32>>;
 @group(2) @binding(1)
 var<uniform> usableColorListNum: u32;
 
@@ -36,25 +36,25 @@ var<uniform> thresholdMapSize: ThresholdMapSize;
 // その他パラメータ
 const kNearest = 12;
 
-fn DistSq(a: vec3<u32>, b: vec3<u32>)->f32{
+fn DistSq(a: vec3<f32>, b: vec3<f32>)->f32{
     let diff = a - b;
-    return f32(dot(diff, diff));
+    return dot(diff, diff);
 }
-fn AddScaled(a: vec3<u32>, b: vec3<u32>, alpha: f32)-> vec3<u32> {
-    return vec3(u32(alpha * f32(a.x) + (1.f - alpha) * f32(b.x)),
-	  			u32(alpha * f32(a.y) + (1.f - alpha) * f32(b.y)),
-	  			u32(alpha * f32(a.z) + (1.f - alpha) * f32(b.z))
+fn AddScaled(a: vec3<f32>, b: vec3<f32>, alpha: f32)-> vec3<f32> {
+    return vec3(alpha * a.x + (1.f - alpha) * b.x,
+	  			alpha * a.y + (1.f - alpha) * b.y,
+	  			alpha * a.z + (1.f - alpha) * b.z
   				);
 }
 
 
-fn GetNearestColorId(x: u32, y: u32, baseColor: vec3<u32>)->u32 {
+fn GetNearestColorId(x: u32, y: u32, baseColor: vec3<f32>)->u32 {
     let bestApproxPair: array<i32, 2> = FindBestApproxWithRGB(baseColor);
 
     // 2つ目の要素が無効値(0未満)の場合は確定で1つ目の要素を返す
     return select(SelectNumByOrderedDither(x, y, baseColor, u32(bestApproxPair[0]), u32(bestApproxPair[1])), u32(bestApproxPair[0]), bestApproxPair[1] < 0);
 }
-fn FindBestApproxWithRGB(targetColor: vec3<u32>)->array<i32, 2> {
+fn FindBestApproxWithRGB(targetColor: vec3<f32>)->array<i32, 2> {
     var bestIds: array<i32, kNearest>; // targetColorに近い12色を持つ配列
     var bestDists: array<f32, kNearest>; // bestIdsの各色のtarget colorとの距離
 
@@ -85,7 +85,7 @@ fn FindBestApproxWithRGB(targetColor: vec3<u32>)->array<i32, 2> {
     }
 
     var bestPair: array<i32, 2> = array(0,-1);
-    var bestPairDist: f32 = bestDists[0];
+    var bestPairDist: f32 = -1;
 
     // 色がある程度近いkNearest個の配列のうち、最も綺麗な組み合わせを絞り込み
     for (var a = 0u; a < kNearest; a = a + 1u){
@@ -93,16 +93,17 @@ fn FindBestApproxWithRGB(targetColor: vec3<u32>)->array<i32, 2> {
 	  	if(aId < 0 || i32(usableColorListNum) <= aId){
 	  	    continue;
 	  	}
-        let aColor: vec3<u32> = usableColorList[aId];
+        let aColor: vec3<f32> = usableColorList[aId];
         for (var b = 0u; b < kNearest; b = b + 1u){
 
 		  	let bId: i32 = bestIds[b];
 		    if(bId < 0|| i32(usableColorListNum) <= bId){
                 continue;
             }
-            let bColor: vec3<u32> = usableColorList[bId];
+            let bColor: vec3<f32> = usableColorList[bId];
             let diff = aColor - bColor;
-            let denom = f32(dot(diff, diff));
+            let isTheSameColor: bool = (aId == bId || f32(dot(diff, diff)) < 1e-6);
+            let denom = select(f32(dot(diff, diff)), 1.f, isTheSameColor); // 0除算を避けるために
 
             // ほぼ同じ色のとき
             let distInSameColor = DistSq(targetColor, aColor);
@@ -113,26 +114,25 @@ fn FindBestApproxWithRGB(targetColor: vec3<u32>)->array<i32, 2> {
             let mix = AddScaled(aColor, bColor, alpha);
             let distInDiffColor = DistSq(targetColor, mix);
 
-            let dist = select(distInDiffColor, distInSameColor, denom < 1e-6);
+            let dist = select(distInDiffColor, distInSameColor, isTheSameColor);
 
             // よりよい値なら更新
-            let isBetter = dist < bestPairDist;
+            let isBetter = (dist < bestPairDist || bestPairDist < 0);
             bestPair[0] = select(bestPair[0], i32(aId), isBetter);
-		    bestPair[1] = select(bestPair[1], i32(bId), isBetter);
+		    bestPair[1] = select(bestPair[1], select(i32(bId), -1, isTheSameColor), isBetter);
             bestPairDist = select(bestPairDist, dist, isBetter);
-
         }
     }
 
     return bestPair;
 }
 
-fn SelectNumByOrderedDither(x: u32, y: u32, targetColor: vec3<u32>, aColorIdx: u32, bColorIdx: u32)->u32{
+fn SelectNumByOrderedDither(x: u32, y: u32, targetColor: vec3<f32>, aColorIdx: u32, bColorIdx: u32)->u32{
     if(thresholdMapSize.height * thresholdMapSize.width <= 0){
         return aColorIdx;
     }
-    let aColor: vec3<u32> = usableColorList[aColorIdx];
-    let bColor: vec3<u32> = usableColorList[bColorIdx];
+    let aColor: vec3<f32> = usableColorList[aColorIdx];
+    let bColor: vec3<f32> = usableColorList[bColorIdx];
 
     let aDistance: f32 = DistSq(targetColor, aColor);
     let bDistance: f32 = DistSq(targetColor, bColor);
@@ -152,7 +152,7 @@ fn SelectNumByOrderedDither(x: u32, y: u32, targetColor: vec3<u32>, aColorIdx: u
 fn GetThreshold(x: u32, y: u32) -> f32{
     let thresholdMapIndex: u32 = y * thresholdMapSize.width + x;
 
-    let threshold: u32 = thresholdMap[thresholdMapIndex]; // todo: 配列外回避は必要？
+    let threshold: u32 = thresholdMap[thresholdMapIndex];
     let thresholdMapNum: u32 = thresholdMapSize.width * thresholdMapSize.height;
 
     return f32(threshold) / f32(thresholdMapNum);
@@ -171,7 +171,7 @@ fn main(
     }
     // 色の取得
     let actualColor: vec4<f32> = textureLoad(inputTexture, vec2(x,y), 0);
-    let color: vec3<u32> = vec3(u32(actualColor.x * 256), u32(actualColor.y * 256), u32(actualColor.z * 256));
+    let color: vec3<f32> = vec3(actualColor.x * 256, actualColor.y * 256, actualColor.z * 256);
 
     // 取得した色に最も近い色を出力配列に書く
     outputArray[y * imageSize.width + x] = GetNearestColorId(x, y, color);

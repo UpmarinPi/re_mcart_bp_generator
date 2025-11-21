@@ -157,23 +157,24 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
                 // console.log(`a = [${aId}]: ${aColor}`);
                 // console.log(`b = [${bId}]: ${bColor}`);
                 let diff = sub(aColor, bColor);
-                let denom = dot(diff, diff);
 
                 let dist: number;
-                if (denom >= 1e-6) {
+                let isTheSameColor = (dot(diff, diff) < 1e-6 || aId == bId);
+                let denom: number = isTheSameColor ? 1 : dot(diff, diff);
+                if (isTheSameColor) {
+                    dist = DistSq(RGBColor.Tou32Vec3(targetColor), aColor);
+                } else {
                     let alphaStar = dot(sub(RGBColor.Tou32Vec3(targetColor), bColor), diff) / denom;
                     let alpha = Math.max(0, Math.min(1, alphaStar));
                     let mix = addScaled(aColor, bColor, alpha);
                     dist = DistSq(RGBColor.Tou32Vec3(targetColor), mix);
-                } else {
-                    dist = DistSq(RGBColor.Tou32Vec3(targetColor), aColor);
                 }
 
 
                 // よりよい値なら更新
                 let isBetter = dist < bestPairDist;
                 bestPair[0] = isBetter ? aId : bestPair[0];
-                bestPair[1] = isBetter ? bId : bestPair[1];
+                bestPair[1] = isBetter ? (isTheSameColor ? -1 : bId) : bestPair[1];
                 bestPairDist = isBetter ? dist : bestPairDist;
 
             }
