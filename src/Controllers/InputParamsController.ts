@@ -206,5 +206,6 @@ export class InputParamsController extends ControllerBase {
         this.InitializeConvertButton(viewInputParams.convertButtonComponent);
         this.InitializeProgressBar(viewInputParams.progressBarComponent);
         this.InitializeResultImagePreview(viewInputParams.resultImagePreview);
+        this.InitializeSelectMapData(viewInputParams.selectMapdata);
     }
 }
