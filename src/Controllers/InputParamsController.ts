@@ -17,6 +17,7 @@ import {ButtonComponent} from "../Views/Components/ButtonComponent";
 import {InputNumberComponent} from "../Views/Components/InputComponents/InputNumberComponent";
 import type {SelectMapdataComponent} from "../Views/Components/InputComponents/SelectMapdataComponent.tsx";
 import {MapDataInput} from "../IOSystems/MapdataInput.tsx";
+import type {InputCheckBoxComponent} from "../Views/Components/InputComponents/InputCheckBoxComponent.tsx";
 
 export class InputParamsController extends ControllerBase {
 
@@ -68,11 +69,29 @@ export class InputParamsController extends ControllerBase {
             console.error("baseImage must be defined");
             return;
         }
-        OptionManager.get().onOptionChange.Subscribe(
-            (optionData: OptionData) => {
-                baseImage.SetImage(optionData.baseImage);
+        OptionManager.get().onImageChange.Subscribe(
+            (image: ImageData) => {
+                baseImage.SetImage(image);
             }
         );
+    }
+
+    // is Dimensional mode Checkbox
+
+    InitializeIsDimensionalModeCheckbox(checkbox: InputCheckBoxComponent): void{
+        if(!checkbox) {
+            console.error("checkbox must be defined");
+            return;
+        }
+
+        checkbox.onComponentChange.Subscribe((value)=>{
+            if(typeof value != "boolean"){
+                console.log("isDimensionalModeCheckbox value must be a boolean but: ", typeof value);
+                return;
+            }
+
+            OptionManager.get().SetIsDimensionalMode(value);
+        });
     }
 
     //magnificationInputComponent
@@ -202,6 +221,7 @@ export class InputParamsController extends ControllerBase {
         this.InitializeConvertModeDropdown(viewInputParams.convertModeDropdown);
         this.InitializeSelectBaseImage(viewInputParams.selectBaseImage);
         this.InitializeBaseImagePreview(viewInputParams.baseImagePreview);
+        this.InitializeIsDimensionalModeCheckbox(viewInputParams.isDimensionalModeCheckbox);
         this.InitializeMagnification(viewInputParams.magnificationInputComponent);
         this.InitializeConvertButton(viewInputParams.convertButtonComponent);
         this.InitializeProgressBar(viewInputParams.progressBarComponent);
