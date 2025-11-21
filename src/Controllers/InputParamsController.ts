@@ -16,7 +16,7 @@ import {InputParamsMediator} from "./Mediators/InputParamsMediator";
 import {ButtonComponent} from "../Views/Components/ButtonComponent";
 import {InputNumberComponent} from "../Views/Components/InputComponents/InputNumberComponent";
 import type {SelectMapdataComponent} from "../Views/Components/InputComponents/SelectMapdataComponent.tsx";
-import {MapdataInput} from "../IOSystems/MapdataInput.tsx";
+import {MapDataInput} from "../IOSystems/MapdataInput.tsx";
 
 export class InputParamsController extends ControllerBase {
 
@@ -192,7 +192,7 @@ export class InputParamsController extends ControllerBase {
             return;
         }
 
-        const mapDataReader = new MapdataInput();
+        const mapDataReader = new MapDataInput();
         mapDataReader.setFile(value);
         mapDataReader.loadSelectedFile();
     }
