@@ -9,8 +9,8 @@ export class UsingBlockComponent extends ComponentBase{
     AddItem(id: string, colorId: string, blockList: string[]){
         this.selectColorItemComponents.push(new SelectColorItemComponent(id, colorId, blockList));
     }
-    Render(): React.JSX.Element {
-        return super.Render();
+    GetRender(): React.JSX.Element {
+        return super.GetRender();
         // return (
         //     <div id={this.id}>
         //             // {

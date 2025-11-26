@@ -1,35 +1,34 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import {SceneManager} from "./Cores/SceneManager.ts";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [, update] = useState({});
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const sceneManager = SceneManager.get();
+    useEffect(() => {
+        sceneManager.onUserEffectChange.Subscribe(
+            () => {
+                update({})
+            }
+        );
+
+        return ()=>{
+            unsubscribe();
+        }
+    }, []);
+
+    const Scene = sceneManager.GetCurrentScene();
+    if (!Scene) {
+        return <>Loading...</>;
+    }
+    return (
+        <>
+            {Scene.GetRender()}
+        </>
+    );
 }
 
 export default App

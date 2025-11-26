@@ -35,11 +35,11 @@ export class SelectColorItemComponent extends ComponentBase {
         this.colorPreviewComponent.color = RGBColor.ColorCodeToRGB(this.colorId);
     }
 
-    Render(): React.JSX.Element {
+    GetRender(): React.JSX.Element {
         return (
             <div className={this.id}>
-                {this.colorPreviewComponent.Render()}
-                {this.usingBlockComponent.Render()}
+                {this.colorPreviewComponent.GetRender()}
+                {this.usingBlockComponent.GetRender()}
             </div>
         );
     }

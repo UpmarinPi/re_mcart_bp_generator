@@ -57,7 +57,7 @@ export class MapDataImagePreviewComponent extends ComponentBase {
         ctx.putImageData(imageData, 0, 0);
     }
 
-    Render(): React.JSX.Element {
+    GetRender(): React.JSX.Element {
         return (
             <canvas id={this.id} width="200%" height="200%"/>
         );

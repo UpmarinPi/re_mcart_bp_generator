@@ -4,7 +4,7 @@ import {ObserverSubject} from "../Cores/Observer";
 export interface IViewBase {
     requestsRenderUpdate: ObserverSubject;
 
-    Render(): React.JSX.Element;
+    GetRender(): React.JSX.Element;
 }
 
 export abstract class ViewBase implements IViewBase {
@@ -17,7 +17,7 @@ export abstract class ViewBase implements IViewBase {
         this.postRender = new ObserverSubject();
     }
 
-    Render(): React.JSX.Element {
+    GetRender(): React.JSX.Element {
         this.updateTitle("hogehoge")
         return (<></>);
     }

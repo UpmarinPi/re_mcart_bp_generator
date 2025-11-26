@@ -9,7 +9,7 @@ export class ButtonComponent extends ComponentBase {
         this.displayText = displayText;
     }
 
-    Render(): React.JSX.Element {
+    GetRender(): React.JSX.Element {
         return (
             <div className={this.id}>
                 <button

@@ -1,18 +1,14 @@
 import type {IViewBase} from "../Views/ViewBase";
-import {Renderer} from "../Cores/Renderer";
+import React from "react";
 
 export abstract class SceneBase {
     view: IViewBase | undefined;
 
-
-    UpdateRender(){
-        this.Render();
-    }
-    private Render(){
+    GetRender(): React.JSX.Element | null{
         if(!this.view){
-            return;
+            return null;
         }
-        Renderer.get().Render(this.view);
+        return this.view.GetRender();
     }
 
     protected InitializeView<T extends IViewBase>
@@ -22,6 +18,5 @@ export abstract class SceneBase {
             return;
         }
         this.view = new viewType();
-        this.Render();
     }
 }

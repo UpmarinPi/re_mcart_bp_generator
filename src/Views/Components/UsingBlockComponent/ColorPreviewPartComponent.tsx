@@ -27,7 +27,7 @@ export class ColorPreviewPartComponent extends ComponentBase {
         this.height = height;
     }
 
-    Render(): React.JSX.Element {
+    GetRender(): React.JSX.Element {
         return (
             <div className={this.id}
                  style={{

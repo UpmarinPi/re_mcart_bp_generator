@@ -56,21 +56,21 @@ export class ViewInputParams extends ViewBase {
         
     }
 
-    Render(): React.JSX.Element {
-        super.Render();
+    GetRender(): React.JSX.Element {
+        super.GetRender();
         return (
             <>
-                {this.convertModeDropdown.Render()}
-                {this.selectBaseImage.Render()}
-                {this.baseImagePreview.Render()}
+                {this.convertModeDropdown.GetRender()}
+                {this.selectBaseImage.GetRender()}
+                {this.baseImagePreview.GetRender()}
                 {/*{this.usingBlockItemComponent.Render()}*/}
-                {this.isDimensionalModeCheckbox.Render()}
-                {this.selectMapdata.Render()}
-                {this.importButtonComponent.Render()}
-                {this.magnificationInputComponent.Render()}
-                {this.convertButtonComponent.Render()}
-                {this.progressBarComponent.Render()}
-                {this.resultImagePreview.Render()}
+                {this.isDimensionalModeCheckbox.GetRender()}
+                {this.selectMapdata.GetRender()}
+                {this.importButtonComponent.GetRender()}
+                {this.magnificationInputComponent.GetRender()}
+                {this.convertButtonComponent.GetRender()}
+                {this.progressBarComponent.GetRender()}
+                {this.resultImagePreview.GetRender()}
             </>
         );
     }

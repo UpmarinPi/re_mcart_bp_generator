@@ -78,7 +78,7 @@ export class ImagePreviewComponent extends ComponentBase {
         });
     }
 
-    Render(): React.JSX.Element {
+    GetRender(): React.JSX.Element {
         return (
             <div className={this.id}>
                 <img
