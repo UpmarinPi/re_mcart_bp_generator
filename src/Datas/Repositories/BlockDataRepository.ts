@@ -9,12 +9,13 @@ interface IBlockData {
     image_src: string;
 }
 
-class BlockData implements IBlockData {
-    constructor(name: string = "", image_src: string = "") {
+export class BlockData implements IBlockData {
+    constructor(id: string = "", name: string = "", image_src: string = "") {
+        this.id = id;
         this.name = name;
         this.image_src = image_src;
     }
-
+    id: string;
     name: string;
     image_src: string;
 }
@@ -31,15 +32,13 @@ interface IBlockDataRepository {
 // ブロック情報を保持する。色→使用可能なブロックID群, ブロックID→ブロック情報 に変換可能
 export class BlockDataRepository extends RepositoryBase implements IBlockDataRepository {
 
-    private blockIdToDataMap: Map<string, BlockData>;
-    private colorIdToBlockIdMap: Map<string, string[]>;
+    private blockIdToDataMap: Map<string, BlockData> = new Map();
+    private colorIdToBlockIdMap: Map<string, string[]> = new Map();
 
     constructor() {
         super();
-        this.blockIdToDataMap = new Map();
-        this.InitializeBlockIdToData();
 
-        this.colorIdToBlockIdMap = new Map();
+        this.InitializeBlockIdToData();
         this.InitializeColorIdToBlockIdMap();
     }
 
@@ -47,7 +46,7 @@ export class BlockDataRepository extends RepositoryBase implements IBlockDataRep
         this.blockIdToDataMap.clear();
         for (const [id, {name}] of Object.entries(blockInfoListJson)) {
             const img_src: string = `${texturePath}/${name}.png`;
-            const blockData: BlockData = new BlockData(name, img_src);
+            const blockData: BlockData = new BlockData(id, name, img_src);
 
             this.blockIdToDataMap.set(id, blockData);
         }
@@ -85,7 +84,22 @@ export class BlockDataRepository extends RepositoryBase implements IBlockDataRep
         return this.GetBlockData(blockId[0]);
     }
 
-    private GetBlockData(blockId: string): BlockData {
+    GetUsableBlocksFromColor(colorId: string): BlockData[] {
+        const usableBlockIds = this.GetUsableBlockIdsFromColor(colorId);
+        let usableBlocks: BlockData[] = [];
+        usableBlockIds.forEach((blockId: string) => {
+            usableBlocks.push(this.GetBlockData(blockId));
+        });
+
+        return usableBlocks;
+    }
+
+    private GetUsableBlockIdsFromColor(colorId: string): string[]{
+        const blockIds = this.colorIdToBlockIdMap.get(colorId);
+        return blockIds ? blockIds : [];
+    }
+
+    GetBlockData(blockId: string): BlockData {
         const blockData: BlockData | undefined = this.blockIdToDataMap.get(blockId);
         if (!blockData) {
             return new BlockData();
