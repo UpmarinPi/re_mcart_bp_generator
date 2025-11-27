@@ -1,6 +1,6 @@
 import {ThresholdDitherer} from "../ThresholdDitherer";
 import {RGBColor} from "../../Cores/Color";
-import {addScaled, dot, DistSq, norm2, rgbToLab, sub} from "../../FunctionLibraries/ColorFunctionLibrary";
+import {addScaled, dot, DistSq, norm2, rgbToLab, sub} from "../../FunctionLibraries/ColorFunctionLibrary.ts";
 import {MCMapData} from "../../Datas/MapData/MCMapData.ts";
 import {OptionData} from "../../Datas/Options/OptionData.ts";
 import {OrderedDitherWebgpu} from "./OrderedDitherWebgpu.ts";
