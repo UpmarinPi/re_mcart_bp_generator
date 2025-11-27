@@ -33,7 +33,7 @@ export class InputNumberComponent extends InputBaseComponent {
     // タイトル
     // 表示物: {Input} %
 
-    override Render(): React.JSX.Element {
+    override GetRender(): React.JSX.Element {
         return (
             <div id={this.id}>
                 <p>{this.title}</p>

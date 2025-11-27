@@ -1,27 +1,30 @@
 import type {IViewBase} from "../Views/ViewBase";
-import {Renderer} from "../Cores/Renderer";
+import React from "react";
+import type {ControllerBase} from "../Controllers/ControllerBase.ts";
 
 export abstract class SceneBase {
     view: IViewBase | undefined;
 
-
-    UpdateRender(){
-        this.Render();
-    }
-    private Render(){
-        if(!this.view){
-            return;
+    GetRender(): React.JSX.Element | null {
+        if (!this.view) {
+            return null;
         }
-        Renderer.get().Render(this.view);
+        return this.view.GetRender();
     }
 
     protected InitializeView<T extends IViewBase>
     (viewType: (new () => T)): void {
-        if(this.view !== undefined) {
+        if (this.view !== undefined) {
             console.warn("viewは既に初期化済みです");
             return;
         }
         this.view = new viewType();
-        this.Render();
     }
+
+    NotifyToPostRender() {
+
+    }
+
+    // controllers
+    protected controller: ControllerBase | null = null;
 }

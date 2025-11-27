@@ -18,7 +18,7 @@ export class InputCheckBoxComponent extends InputBaseComponent {
         this.OnComponentChange(event.target.checked);
     }
 
-    override Render(): React.JSX.Element {
+    override GetRender(): React.JSX.Element {
         return (
             <div>
                 <input

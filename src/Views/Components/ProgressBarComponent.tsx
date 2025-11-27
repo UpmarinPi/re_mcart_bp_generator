@@ -30,7 +30,7 @@ export class ProgressBarComponent extends ComponentBase {
         super(id);
     }
 
-    Render(): React.JSX.Element {
+    GetRender(): React.JSX.Element {
         let percentage = 0;
         if (this._maxProgress > 0) {
             const basePercentage = this._currentProgress / this._maxProgress * 10000;

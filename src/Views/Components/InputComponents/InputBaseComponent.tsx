@@ -18,7 +18,7 @@ export abstract class InputBaseComponent extends ComponentBase{
         }
     }
 
-    override Render(): React.JSX.Element {
+    override GetRender(): React.JSX.Element {
         return (
             <div className={this.id}>
                 <input

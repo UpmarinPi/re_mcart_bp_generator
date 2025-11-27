@@ -5,9 +5,7 @@ import {ConvertModes} from "../Cores/Types";
 import {OptionManager} from "../Datas/Options/OptionManager";
 import {SelectImageComponent} from "../Views/Components/InputComponents/SelectImageComponent";
 import {ImagePreviewComponent} from "../Views/Components/ImagePreviewComponent";
-import {OptionData} from "../Datas/Options/OptionData";
 import {MapDataImagePreviewComponent} from "../Views/Components/MapDataImagePreviewComponent";
-import {ColorDataRepository} from "../Datas/Repositories/ColorDataRepository.ts";
 import {ProgressBarComponent} from "../Views/Components/ProgressBarComponent";
 import {MCMapData} from "../Datas/MapData/MCMapData";
 import {ImageCanvasToImageData} from "../FunctionLibraries/ImageFunctionLibrary";
@@ -18,6 +16,7 @@ import {InputNumberComponent} from "../Views/Components/InputComponents/InputNum
 import type {SelectMapdataComponent} from "../Views/Components/InputComponents/SelectMapdataComponent.tsx";
 import {MapDataInput} from "../IOSystems/MapdataInput.tsx";
 import type {InputCheckBoxComponent} from "../Views/Components/InputComponents/InputCheckBoxComponent.tsx";
+import {SceneManager, SceneTypes} from "../Cores/SceneManager.ts";
 
 export class InputParamsController extends ControllerBase {
 
@@ -192,7 +191,8 @@ export class InputParamsController extends ControllerBase {
         a.click();
         URL.revokeObjectURL(url);
         // -----------------------------
-        this.resultImagePreview.SetMapData(mapData);
+        SceneManager.get().SwitchScene(SceneTypes.ResultPreviewScene);
+        // this.resultImagePreview.SetMapData(mapData);
     }
 
     InitializeSelectMapData(selectMapData: SelectMapdataComponent) :void {

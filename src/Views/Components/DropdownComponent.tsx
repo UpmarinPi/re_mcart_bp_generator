@@ -65,7 +65,7 @@ export class DropdownComponent extends ComponentBase {
         this.OnComponentChange(value);
     }
 
-    Render(): React.JSX.Element {
+    GetRender(): React.JSX.Element {
         return (
             <div className={this.id}>
                 <select

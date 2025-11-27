@@ -1,20 +1,51 @@
 import {Singleton} from "./Singleton";
 import {SceneBase} from "../Scenes/SceneBase";
+import {InputParamsScene} from "../Scenes/InputParamsScene.ts";
+import {ObserverSubject} from "./Observer.ts";
+import {ResultPreviewScene} from "../Scenes/ResultPreviewScene.ts";
 
-export class SceneManager extends Singleton{
-    private set scene(value: SceneBase | undefined) {
-        this._scene = value;
+export enum SceneTypes {
+    InputParamsScene,
+    ResultPreviewScene,
+}
+export class SceneManager extends Singleton {
+    onUserEffectChange: ObserverSubject = new ObserverSubject();
+    onRenderFinished: ObserverSubject = new ObserverSubject();
+    currentSceneType: SceneTypes = SceneTypes.InputParamsScene;
+    SceneTypeToScene: Map<SceneTypes, SceneBase> = new Map();
+
+    // scene登録
+    private RegisterScenes(){
+        this.SceneTypeToScene.set(SceneTypes.InputParamsScene, new InputParamsScene());
+        this.SceneTypeToScene.set(SceneTypes.ResultPreviewScene, new ResultPreviewScene());
     }
-    get scene(): SceneBase | undefined {
-        return this._scene;
+
+    private constructor() {
+        super();
+        this.RegisterScenes();
+        this.StartScene(SceneTypes.InputParamsScene);
+        this.onRenderFinished.Subscribe(()=>{
+            const scene = this.SceneTypeToScene.get(this.currentSceneType);
+            if(!scene){
+                return;
+            }
+            scene.NotifyToPostRender();
+        });
     }
-    private _scene: SceneBase | undefined;
+
+    StartScene(sceneType: SceneTypes): void {
+        this.currentSceneType = sceneType;
+        this.onUserEffectChange.notify();
+    }
+
+    // start sceneと同じ
+    SwitchScene(sceneType: SceneTypes): void {
+        this.StartScene(sceneType);
+    }
+
+    GetCurrentScene(): SceneBase | undefined {
+        return this.SceneTypeToScene.get(this.currentSceneType);
+    }
 
 
-    StartScene<T extends SceneBase>(sceneType: new () => T): void{
-        this.scene = new sceneType();
-    }
-    SwitchScene<T extends SceneBase>(sceneType: new () => T): void{
-        this.scene = new sceneType();
-    }
 }
