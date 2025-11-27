@@ -3,6 +3,7 @@ import {ObserverSubject} from "../Cores/Observer";
 
 export interface IViewBase {
     requestsRenderUpdate: ObserverSubject;
+    postRender: ObserverSubject;
 
     GetRender(): React.JSX.Element;
 }
@@ -10,7 +11,10 @@ export interface IViewBase {
 export abstract class ViewBase implements IViewBase {
     // 描画を更新したくなったらコイツをnotify
     requestsRenderUpdate: ObserverSubject;
-    protected postRender: ObserverSubject;
+
+    // render直後に呼び出される
+    // Renderの中身をいじりたくなったときに
+    postRender: ObserverSubject;
 
     constructor() {
         this.requestsRenderUpdate = new ObserverSubject();
@@ -28,11 +32,14 @@ export abstract class ViewBase implements IViewBase {
         view.requestsRenderUpdate.Subscribe(() => {
             this.requestsRenderUpdate.notify();
         });
+        this.postRender.Subscribe(() => {
+            view.postRender.notify();
+        })
 
         return view;
     }
 
-    updateTitle(title: string){
-        document.title=title
+    updateTitle(title: string) {
+        document.title = title;
     }
 }

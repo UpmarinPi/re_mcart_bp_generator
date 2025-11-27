@@ -116,7 +116,7 @@ export class OrderedDitherWebgpu {
 
         await readBuffer.mapAsync(GPUMapMode.READ);
         const data = new Uint32Array(readBuffer.getMappedRange());
-        console.log(data);
+        console.debug(data);
         return Array.from(data);
     }
 

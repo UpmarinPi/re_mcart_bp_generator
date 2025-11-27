@@ -3,7 +3,10 @@ import {ObserverSubject} from "../../Cores/Observer";
 import {MCMapData} from "./MCMapData";
 
 export class MCMapDataManager extends Singleton {
-    private mapData : MCMapData = new MCMapData();
+    get mapData(): MCMapData {
+        return this._mapData;
+    }
+    private _mapData : MCMapData = new MCMapData();
 
     constructor() {
         super();
@@ -11,8 +14,8 @@ export class MCMapDataManager extends Singleton {
     }
 
     SetMapData(mapData : MCMapData) : void {
-        this.mapData = mapData;
-        this.onMapDataChange.notify(this.mapData);
+        this._mapData = mapData;
+        this.onMapDataChange.notify(this._mapData);
     }
 
     // observer

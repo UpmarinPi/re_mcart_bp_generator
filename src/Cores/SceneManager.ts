@@ -10,6 +10,7 @@ export enum SceneTypes {
 }
 export class SceneManager extends Singleton {
     onUserEffectChange: ObserverSubject = new ObserverSubject();
+    onRenderFinished: ObserverSubject = new ObserverSubject();
     currentSceneType: SceneTypes = SceneTypes.InputParamsScene;
     SceneTypeToScene: Map<SceneTypes, SceneBase> = new Map();
 
@@ -19,10 +20,17 @@ export class SceneManager extends Singleton {
         this.SceneTypeToScene.set(SceneTypes.ResultPreviewScene, new ResultPreviewScene());
     }
 
-    constructor() {
+    private constructor() {
         super();
         this.RegisterScenes();
         this.StartScene(SceneTypes.InputParamsScene);
+        this.onRenderFinished.Subscribe(()=>{
+            const scene = this.SceneTypeToScene.get(this.currentSceneType);
+            if(!scene){
+                return;
+            }
+            scene.NotifyToPostRender();
+        });
     }
 
     StartScene(sceneType: SceneTypes): void {

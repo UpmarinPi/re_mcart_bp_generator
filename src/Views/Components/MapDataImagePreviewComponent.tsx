@@ -9,7 +9,7 @@ export class MapDataImagePreviewComponent extends ComponentBase {
     constructor(id: string) {
         super(id);
 
-        this.requestsRenderUpdate.Subscribe(() => {
+        this.postRender.Subscribe(() => {
             this.UpdateCanvas();
         })
 
@@ -18,20 +18,36 @@ export class MapDataImagePreviewComponent extends ComponentBase {
 
     SetMapData(data: MCMapData): void {
         this.mapData = data;
-        this.requestsRenderUpdate.notify();
+        this.UpdateCanvas();
     }
 
     UpdateCanvas() {
-        if(!this.mapData){
+        if(!this.mapData) {
             return;
         }
         const canvas = this.GetMyRender() as HTMLCanvasElement;
-        const ctx = canvas.getContext("2d")!;
+        if(!canvas){
+            return;
+        }
+        const ctx = canvas.getContext("2d");
+        if(!ctx){
+            return;
+        }
+
+        // キャンバスを初期化
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
 
         const width = this.mapData.width;
         const height = this.mapData.height;
         canvas.width = width;
         canvas.height = height;
+
+        // map dataが無効な値の場合、中身を作らずに削除
+        if(this.mapData.width <= 0 || this.mapData.height <= 0){
+            return;
+        }
 
         const imageData = ctx.createImageData(width, height);
         const data = imageData.data;
