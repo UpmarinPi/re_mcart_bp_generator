@@ -17,6 +17,7 @@
     "gh-pages": "^6.3.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-error-boundary": "^6.0.0",
     "webgpu-utils": "^2.0.2"
   },
   "devDependencies": {
