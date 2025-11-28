@@ -5,6 +5,9 @@ import {RGBColor} from "../../Cores/Color";
 
 export class MapDataImagePreviewComponent extends ComponentBase {
     mapData: MCMapData = new MCMapData();
+    resultCanvasId: string = "resultCanvas";
+
+    gridCanvasId: string = "gridCanvas";
 
     constructor(id: string) {
         super(id);
@@ -12,8 +15,6 @@ export class MapDataImagePreviewComponent extends ComponentBase {
         this.postRender.Subscribe(() => {
             this.UpdateCanvas();
         })
-
-
     }
 
     SetMapData(data: MCMapData): void {
@@ -22,27 +23,29 @@ export class MapDataImagePreviewComponent extends ComponentBase {
     }
 
     UpdateCanvas() {
-        if(!this.mapData) {
+        if (!this.mapData) {
             return;
         }
-        const canvas = this.GetMyRender() as HTMLCanvasElement;
-        if(!canvas){
+
+        const resultCanvas = document.getElementById(this.resultCanvasId) as HTMLCanvasElement;
+        if (!resultCanvas) {
+            console.warn("no canvas");
             return;
         }
-        const ctx = canvas.getContext("2d");
+        const ctx = resultCanvas.getContext("2d");
         if(!ctx){
             return;
         }
 
         // キャンバスを初期化
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, resultCanvas.width, resultCanvas.height);
 
 
 
         const width = this.mapData.width;
         const height = this.mapData.height;
-        canvas.width = width;
-        canvas.height = height;
+        resultCanvas.width = width;
+        resultCanvas.height = height;
 
         // map dataが無効な値の場合、中身を作らずに削除
         if(this.mapData.width <= 0 || this.mapData.height <= 0){
@@ -57,8 +60,8 @@ export class MapDataImagePreviewComponent extends ComponentBase {
                 const dataNumber = this.mapData.map[y][x];
                 const index = (y * width + x) * 4;
                 let color: RGBColor|undefined = undefined;
-                if(this.mapData.mapToColor && this.mapData.mapToColor.has(dataNumber)) {
-                    color = this.mapData.mapToColor.get(dataNumber);
+                if(this.mapData.mapToColorId && this.mapData.mapToColorId.has(dataNumber)) {
+                    color = this.mapData.mapToColorId.get(dataNumber);
                 }
                 if (!color) {
                     color = new RGBColor();
@@ -75,7 +78,10 @@ export class MapDataImagePreviewComponent extends ComponentBase {
 
     GetRender(): React.JSX.Element {
         return (
-            <canvas id={this.id} width="200%" height="200%"/>
+            <div id={this.id}>
+                <canvas id={this.resultCanvasId} width="200%" height="200%"/>
+                <canvas id={this.gridCanvasId} width="200%" height="200%"/>
+            </div>
         );
     }
 }

@@ -17,8 +17,8 @@ export class MCMapData {
     dimensionalMap: number[][] = [];
 
     // id to color
-    mapToColor: Map<number, RGBColor> = new Map();
+    mapToColorId: Map<number, RGBColor> = new Map();
 
     // id to block
-    mapToBlock: Map<number, string> = new Map();
+    mapToBlockId: Map<number, string> = new Map();
 }

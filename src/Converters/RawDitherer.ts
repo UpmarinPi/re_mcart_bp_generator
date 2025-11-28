@@ -50,7 +50,7 @@ export class RawDitherer extends DithererBase {
         ReturnData.map = map;
         ReturnData.width = width;
         ReturnData.height = height;
-        ReturnData.mapToColor = colorToMapColor;
+        ReturnData.mapToColorId = colorToMapColor;
 
         return ReturnData;
     }

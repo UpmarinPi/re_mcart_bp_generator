@@ -63,7 +63,7 @@ export class ThresholdDithererWorker {
         returnData.map = map;
         returnData.width = imageWidth;
         returnData.height = imageHeight;
-        returnData.mapToColor = colorToMapColor;
+        returnData.mapToColorId = colorToMapColor;
 
         console.log("Completed!");
         // const end: number = performance.now();

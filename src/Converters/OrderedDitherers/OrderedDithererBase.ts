@@ -72,7 +72,7 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
 
         // map to color
         for (let i = 0; i < optionData.usingColors.length; ++i) {
-            returnData.mapToColor.set(i, optionData.usingColors[i]);
+            returnData.mapToColorId.set(i, optionData.usingColors[i]);
         }
 
         return returnData;
