@@ -6,8 +6,9 @@ export class MapdataOutput{
         const blob = new Blob([json],{type: "text/plain"});
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
+        const date = new Date().toISOString().replace(/[:.]/g, "-")
         a.href = url;
-        a.download = "mapdata.txt";
+        a.download = `mapdata-${date}.txt`;
         a.click();
         URL.revokeObjectURL(url);
     }

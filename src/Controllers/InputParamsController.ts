@@ -17,6 +17,7 @@ import type {SelectMapdataComponent} from "../Views/Components/InputComponents/S
 import {MapDataInput} from "../IOSystems/MapdataInput.tsx";
 import type {InputCheckBoxComponent} from "../Views/Components/InputComponents/InputCheckBoxComponent.tsx";
 import {SceneManager, SceneTypes} from "../Cores/SceneManager.ts";
+import {MapdataOutput} from "../IOSystems/MapdataOutput.tsx";
 
 export class InputParamsController extends ControllerBase {
 
@@ -182,14 +183,8 @@ export class InputParamsController extends ControllerBase {
         }
 
         // --- To mame: ここに処理あるのよくない ---
-        const json = JSON.stringify(mapData, null, 2);
-        const blob = new Blob([json], {type: "text/plain"});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "mapData.txt";
-        a.click();
-        URL.revokeObjectURL(url);
+        const mapDataDownloader = new MapdataOutput;
+        mapDataDownloader.getData(mapData)
         // -----------------------------
         SceneManager.get().SwitchScene(SceneTypes.ResultPreviewScene);
         // this.resultImagePreview.SetMapData(mapData);
