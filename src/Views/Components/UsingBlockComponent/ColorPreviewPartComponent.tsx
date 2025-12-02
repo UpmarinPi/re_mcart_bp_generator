@@ -31,7 +31,7 @@ export class ColorPreviewPartComponent extends ComponentBase {
         return (
             <div className={this.id}
                  style={{
-                     background: this.color.ToString(),
+                     background: this.color.ToRgb256String(),
                      width: this._width,
                      height: this._height,
                  }}>

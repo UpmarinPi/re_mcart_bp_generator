@@ -9,7 +9,7 @@ export class RGBColor {
         this.b = b;
     }
 
-    public ToString(): string {
+    public ToRgb256String(): string {
         return `rgb(${this.r}, ${this.g}, ${this.b})`;
     }
 
