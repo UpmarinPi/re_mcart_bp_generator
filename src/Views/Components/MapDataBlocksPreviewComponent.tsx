@@ -3,33 +3,43 @@ import React from "react";
 import {MCMapData} from "../../Datas/MapData/MCMapData.ts";
 import {ERepositoryIds, RepositoryManager} from "../../Datas/Repositories/RepositoryManager.ts";
 import type {BlockDataRepository} from "../../Datas/Repositories/BlockDataRepository.ts";
+import {RGBColor} from "../../Cores/Color.ts";
 
 export class MapDataBlocksPreviewComponent extends ComponentBase {
     mapData: MCMapData = new MCMapData();
 
-    UpdateCanvas(){
+    // mapdataBlocksPreviewの一辺の長さ
+    // 実際は上下左右に隣のブロックをプレビューで足すので+2になる
+    previewMapLength: number = 16;
+    // プレビューしたい座標の左上座標
+    previewTopLeftCoords: [number, number] = [0, 0];
+
+    // 16px想定
+    texSize: number = 16;
+
+    UpdateCanvas() {
         const canvas = this.GetMyRender() as HTMLCanvasElement;
         if (!canvas) {
             console.warn("no canvas");
             return;
         }
         const ctx = canvas.getContext("2d");
-        if(!ctx){
+        if (!ctx) {
             return;
         }
 
-        // キャンバスを初期化
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-
-
-        const width = this.mapData.width;
-        const height = this.mapData.height;
+        const canvasSize = (this.previewMapLength + 2) * this.texSize;
+        const width = canvasSize;
+        const height = canvasSize;
         canvas.width = width;
         canvas.height = height;
 
+        // キャンバスを初期化
+        ctx.clearRect(0, 0, width, height);
+
         // map dataが無効な値の場合、中身を作らずに削除
-        if(this.mapData.width <= 0 || this.mapData.height <= 0){
+        if (this.mapData.width <= 0 || this.mapData.height <= 0) {
             return;
         }
 
@@ -40,9 +50,9 @@ export class MapDataBlocksPreviewComponent extends ComponentBase {
             for (let x = 0; x < width; x++) {
                 const dataNumber = this.mapData.map[y][x];
                 const index = (y * width + x) * 4;
-                let blockSrc: string |undefined = undefined;
+                let blockSrc: string | undefined = undefined;
                 const blockId = this.mapData.mapToBlockId.get(dataNumber);
-                if(this.mapData.mapToColorId && blockId) {
+                if (this.mapData.mapToColorId && blockId) {
                     blockSrc = this.GetBlockSrcById(blockId);
                 }
                 if (!blockSrc) {
@@ -60,15 +70,50 @@ export class MapDataBlocksPreviewComponent extends ComponentBase {
         ctx.putImageData(imageData, 0, 0);
     }
 
-    private GetBlockSrcById(id: string): string | undefined{
+    private async DrawImage(ctx: CanvasRenderingContext2D, [x, y]: [number, number], drawSrc: string) {
+        const image = new Image();
+        image.src = drawSrc;
+        image.onload = () => {
+            ctx.drawImage(image, this.texSize * x, this.texSize * y, this.texSize, this.texSize);
+        }
+    }
+
+    private async DrawEmptyImage(ctx: CanvasRenderingContext2D, [x, y]: [number, number]) {
+        const color: RGBColor = new RGBColor(255, 255, 255);
+        ctx.fillStyle = color.ToRgb256String();
+        ctx.fillRect(this.texSize * x, this.texSize * y, this.texSize, this.texSize);
+    }
+
+    private GetBlockSrcById(id: string): string | undefined {
         const blockDataRepository = RepositoryManager.get().GetRepository<BlockDataRepository>(ERepositoryIds.BlockData);
-        if(!blockDataRepository){
+        if (!blockDataRepository) {
             return undefined;
         }
 
         return blockDataRepository.GetBlockImageSrc(id);
     }
-    override GetRender(): React.JSX.Element{
+
+    private GetCanViewBeyondLeft(): boolean {
+        return (this.previewTopLeftCoords[0] > 0);
+    }
+
+    private GetCanViewBeyondTop(): boolean {
+        return (this.previewTopLeftCoords[1] > 0);
+    }
+
+    private GetCanViewBeyondRight(): boolean {
+        const mapDataWidth: number = this.mapData.width;
+        const previewRightCoord: number = this.previewTopLeftCoords[0] + this.previewMapLength - 1;
+        return (previewRightCoord < mapDataWidth);
+    }
+
+    private GetCanViewBeyondBottom(): boolean {
+        const mapDataHeight: number = this.mapData.height;
+        const previewBottomCoord: number = this.previewTopLeftCoords[1] + this.previewMapLength - 1;
+        return (previewBottomCoord < mapDataHeight);
+    }
+
+    override GetRender(): React.JSX.Element {
         return (
             <>
                 <canvas id={this.id}/>
