@@ -8,7 +8,7 @@ namespace ViewResultPreviewIds {
     export const backButtonId: string = "backButton";
 }
 
-export class ViewResultPreview extends ViewBase{
+export class ResultPreviewView extends ViewBase{
     resultImagePreview: MapDataImagePreviewComponent;
     backButton: ButtonComponent;
 

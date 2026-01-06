@@ -1,4 +1,4 @@
-import {ViewInputParams} from "../Views/ViewInputParams";
+import {InputParamsView} from "../Views/InputParamsView.tsx";
 import {ControllerBase} from "./ControllerBase";
 import {ConstObjectToOption, DropdownComponent} from "../Views/Components/DropdownComponent";
 import {ConvertModes} from "../Cores/Types";
@@ -211,7 +211,7 @@ export class InputParamsController extends ControllerBase {
         mapDataReader.loadSelectedFile();
     }
 
-    constructor(viewInputParams: ViewInputParams) {
+    constructor(viewInputParams: InputParamsView) {
         super();
         this.InitializeConvertModeDropdown(viewInputParams.convertModeDropdown);
         this.InitializeSelectBaseImage(viewInputParams.selectBaseImage);

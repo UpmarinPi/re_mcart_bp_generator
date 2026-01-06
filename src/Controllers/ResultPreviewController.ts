@@ -1,5 +1,5 @@
 import {ControllerBase} from "./ControllerBase.ts";
-import {ViewResultPreview} from "../Views/ViewResultPreview.tsx";
+import {ResultPreviewView} from "../Views/ResultPreviewView.tsx";
 import {MCMapDataManager} from "../Datas/MapData/MCMapDataManager.ts";
 import type {MapDataImagePreviewComponent} from "../Views/Components/MapDataImagePreviewComponent.tsx";
 import type {ButtonComponent} from "../Views/Components/ButtonComponent.tsx";
@@ -36,7 +36,7 @@ export class ResultPreviewController extends ControllerBase {
         resultImagePreview.SetMapData(MCMapDataManager.get().mapData);
     }
 
-    constructor(view: ViewResultPreview) {
+    constructor(view: ResultPreviewView) {
         super();
         this.InitializeResultImagePreview(view.resultImagePreview);
         this.InitializeBackButton(view.backButton);

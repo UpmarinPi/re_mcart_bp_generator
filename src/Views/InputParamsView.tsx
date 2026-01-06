@@ -24,7 +24,7 @@ namespace ViewInputParamIds {
     export const imporButtonId: string = "importButton";
 }
 
-export class ViewInputParams extends ViewBase {
+export class InputParamsView extends ViewBase {
     convertModeDropdown: DropdownComponent;
     selectBaseImage: SelectImageComponent;
     baseImagePreview: ImagePreviewComponent;

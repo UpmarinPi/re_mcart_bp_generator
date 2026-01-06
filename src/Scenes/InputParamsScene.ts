@@ -1,13 +1,13 @@
 import {SceneBase} from "./SceneBase";
-import {ViewInputParams} from "../Views/ViewInputParams";
+import {InputParamsView} from "../Views/InputParamsView.tsx";
 import {InputParamsController} from "../Controllers/InputParamsController";
 
 export class InputParamsScene extends SceneBase {
 
     constructor() {
         super();
-        this.InitializeView(ViewInputParams);
-        this.controller = new InputParamsController(this.view as ViewInputParams);
+        this.InitializeView(InputParamsView);
+        this.controller = new InputParamsController(this.view as InputParamsView);
     }
 
     override NotifyToPostRender() {
