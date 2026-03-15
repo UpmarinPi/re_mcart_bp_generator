@@ -1,4 +1,5 @@
-import {InputBaseComponent} from "./InputBaseComponent";
+import {InputBaseComponent} from "../InputBaseComponent";
+import "./SelectMapdataComponent.css";
 
 export class SelectMapdataComponent extends InputBaseComponent {
 

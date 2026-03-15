@@ -1,5 +1,5 @@
 import {SceneBase} from "./SceneBase";
-import {InputParamsView} from "../Views/InputParamsView.tsx";
+import {InputParamsView} from "../Views/InputParamsView/InputParamsView.tsx";
 import {InputParamsController} from "../Controllers/InputParamsController";
 
 export class InputParamsScene extends SceneBase {

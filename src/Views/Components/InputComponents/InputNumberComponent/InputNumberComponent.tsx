@@ -1,5 +1,6 @@
-import {InputBaseComponent} from "./InputBaseComponent";
+import {InputBaseComponent} from "../InputBaseComponent";
 import React from "react";
+import "./InputNumberComponent.css";
 import type {ChangeEvent} from "react";
 
 export class InputNumberComponent extends InputBaseComponent {
@@ -35,7 +36,7 @@ export class InputNumberComponent extends InputBaseComponent {
 
     override GetRender(): React.JSX.Element {
         return (
-            <div id={this.id}>
+            <div id={this.id} className={"input-number-component"}>
                 <p>{this.title}</p>
                 <span>{this.displayPreInput}</span>
                 <input

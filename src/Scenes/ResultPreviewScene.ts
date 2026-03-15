@@ -1,5 +1,5 @@
 import {SceneBase} from "./SceneBase.ts";
-import {ResultPreviewView} from "../Views/ResultPreviewView.tsx";
+import {ResultPreviewView} from "../Views/ResultPreviewView/ResultPreviewView.tsx";
 import {ResultPreviewController} from "../Controllers/ResultPreviewController.ts";
 
 export class ResultPreviewScene extends SceneBase {

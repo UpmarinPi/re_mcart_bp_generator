@@ -1,7 +1,8 @@
-import {ComponentBase} from "./ComponentBase";
-import {MCMapData} from "../../Datas/MapData/MCMapData";
+import {ComponentBase} from "../ComponentBase";
+import {MCMapData} from "../../../Datas/MapData/MCMapData";
 import React from "react";
-import {RGBColor} from "../../Cores/Color";
+import {RGBColor} from "../../../Cores/Color";
+import "./MapDataImagePreviewComponent.css";
 
 export class MapDataImagePreviewComponent extends ComponentBase {
     mapData: MCMapData = new MCMapData();
@@ -78,7 +79,7 @@ export class MapDataImagePreviewComponent extends ComponentBase {
 
     GetRender(): React.JSX.Element {
         return (
-            <div id={this.id}>
+            <div id={this.id} className={"map-data-image-preview-component"}>
                 <canvas id={this.resultCanvasId} width="200%" height="200%"/>
                 <canvas id={this.gridCanvasId} width="200%" height="200%"/>
             </div>

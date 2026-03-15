@@ -1,5 +1,6 @@
 import React, {type ChangeEvent} from "react";
-import {InputBaseComponent} from "./InputBaseComponent.tsx";
+import {InputBaseComponent} from "../InputBaseComponent.tsx";
+import "./InputCheckBoxComponent.css";
 
 // チェックボックス
 export class InputCheckBoxComponent extends InputBaseComponent {
@@ -20,7 +21,7 @@ export class InputCheckBoxComponent extends InputBaseComponent {
 
     override GetRender(): React.JSX.Element {
         return (
-            <div>
+            <div className={"input-check-box-component " + this.id}>
                 <input
                     id={this.id}
                     type={this.type}

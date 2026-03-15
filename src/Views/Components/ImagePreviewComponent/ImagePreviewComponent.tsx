@@ -1,6 +1,7 @@
-import {ComponentBase} from "./ComponentBase";
+import {ComponentBase} from "../ComponentBase";
 import React from "react";
-import {ImageDataToImageURL} from "../../FunctionLibraries/ImageFunctionLibrary";
+import {ImageDataToImageURL} from "../../../FunctionLibraries/ImageFunctionLibrary";
+import "./ImagePreviewComponent.css";
 
 export class ImagePreviewComponent extends ComponentBase {
 
@@ -80,7 +81,7 @@ export class ImagePreviewComponent extends ComponentBase {
 
     GetRender(): React.JSX.Element {
         return (
-            <div className={this.id}>
+            <div className={"image-preview-component " + this.id}>
                 <img
                     id={this.id}
                     alt={this.id}

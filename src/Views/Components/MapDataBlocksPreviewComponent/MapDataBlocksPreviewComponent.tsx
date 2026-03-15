@@ -1,9 +1,10 @@
-import {ComponentBase} from "./ComponentBase.ts";
+import {ComponentBase} from "../ComponentBase.ts";
 import React from "react";
-import {MCMapData} from "../../Datas/MapData/MCMapData.ts";
-import {ERepositoryIds, RepositoryManager} from "../../Datas/Repositories/RepositoryManager.ts";
-import type {BlockDataRepository} from "../../Datas/Repositories/BlockDataRepository.ts";
-import {RGBColor} from "../../Cores/Color.ts";
+import {MCMapData} from "../../../Datas/MapData/MCMapData.ts";
+import {ERepositoryIds, RepositoryManager} from "../../../Datas/Repositories/RepositoryManager.ts";
+import type {BlockDataRepository} from "../../../Datas/Repositories/BlockDataRepository.ts";
+import {RGBColor} from "../../../Cores/Color.ts";
+import "./MapDataBlocksPreviewComponent.css";
 
 export class MapDataBlocksPreviewComponent extends ComponentBase {
     mapData: MCMapData = new MCMapData();
@@ -115,9 +116,9 @@ export class MapDataBlocksPreviewComponent extends ComponentBase {
 
     override GetRender(): React.JSX.Element {
         return (
-            <>
+            <div className={"map-data-blocks-preview-component " + this.id}>
                 <canvas id={this.id}/>
-            </>
+            </div>
         );
     }
 }

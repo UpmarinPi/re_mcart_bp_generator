@@ -1,5 +1,6 @@
-import {ComponentBase} from "./ComponentBase";
+import {ComponentBase} from "../ComponentBase";
 import React from "react";
+import "./ProgressBarComponent.css";
 
 export class ProgressBarComponent extends ComponentBase {
     get maxProgress(): number {
@@ -43,9 +44,11 @@ export class ProgressBarComponent extends ComponentBase {
         }
         this.percentage = percentage;
         return (
-            <p>
-                {this.percentage}%
-            </p>
+            <div className={"progress-bar-component " + this.id}>
+                <p>
+                    {this.percentage}%
+                </p>
+            </div>
         );
     }
 }

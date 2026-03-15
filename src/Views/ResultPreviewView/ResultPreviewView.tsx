@@ -1,7 +1,8 @@
 import React from "react";
-import {ViewBase} from "./ViewBase.tsx";
-import {MapDataImagePreviewComponent} from "./Components/MapDataImagePreviewComponent.tsx";
-import {ButtonComponent} from "./Components/ButtonComponent.tsx";
+import {ViewBase} from "../ViewBase.tsx";
+import "./ResultPreviewView.css";
+import {MapDataImagePreviewComponent} from "../Components/MapDataImagePreviewComponent/MapDataImagePreviewComponent.tsx";
+import {ButtonComponent} from "../Components/ButtonComponent/ButtonComponent.tsx";
 
 namespace ViewResultPreviewIds {
     export const resultImagePreviewId: string = "resultImagePreview";
@@ -21,10 +22,10 @@ export class ResultPreviewView extends ViewBase{
     GetRender(): React.JSX.Element {
         super.GetRender();
         return (
-            <>
+            <div className="result-preview-view">
                 {this.backButton.GetRender()}
                 {this.resultImagePreview.GetRender()}
-            </>
+            </div>
         );
     }
 }

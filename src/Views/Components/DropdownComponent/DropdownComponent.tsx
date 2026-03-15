@@ -1,5 +1,6 @@
 import React from "react";
-import {ComponentBase} from "./ComponentBase";
+import {ComponentBase} from "../ComponentBase";
+import "./DropdownComponent.css";
 
 interface IOption {
     value: string;
@@ -67,7 +68,7 @@ export class DropdownComponent extends ComponentBase {
 
     GetRender(): React.JSX.Element {
         return (
-            <div className={this.id}>
+            <div className={"dropdown-component " + this.id}>
                 <select
                     id={this.id}
                     onChange={

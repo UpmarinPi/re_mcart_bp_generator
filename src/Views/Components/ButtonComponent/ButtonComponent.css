@@ -1,0 +1,16 @@
+.button-component {
+    display: inline-block;
+}
+
+.button-component button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.button-component button:hover {
+    background-color: #0056b3;
+}

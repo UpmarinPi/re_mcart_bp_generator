@@ -1,14 +1,15 @@
-import {ViewBase} from "./ViewBase";
+import {ViewBase} from "../ViewBase";
 import React from "react";
-import {DropdownComponent} from "./Components/DropdownComponent";
-import {SelectImageComponent} from "./Components/InputComponents/SelectImageComponent";
-import {ImagePreviewComponent} from "./Components/ImagePreviewComponent";
-import {ButtonComponent} from "./Components/ButtonComponent";
-import {MapDataImagePreviewComponent} from "./Components/MapDataImagePreviewComponent";
-import {ProgressBarComponent} from "./Components/ProgressBarComponent";
-import {SelectMapdataComponent} from "./Components/InputComponents/SelectMapdataComponent";
-import {InputNumberComponent} from "./Components/InputComponents/InputNumberComponent";
-import {InputCheckBoxComponent} from "./Components/InputComponents/InputCheckBoxComponent.tsx";
+import "./InputParamsView.css";
+import {DropdownComponent} from "../Components/DropdownComponent/DropdownComponent";
+import {SelectImageComponent} from "../Components/InputComponents/SelectImageComponent/SelectImageComponent";
+import {ImagePreviewComponent} from "../Components/ImagePreviewComponent/ImagePreviewComponent";
+import {ButtonComponent} from "../Components/ButtonComponent/ButtonComponent";
+import {MapDataImagePreviewComponent} from "../Components/MapDataImagePreviewComponent/MapDataImagePreviewComponent";
+import {ProgressBarComponent} from "../Components/ProgressBarComponent/ProgressBarComponent";
+import {SelectMapdataComponent} from "../Components/InputComponents/SelectMapdataComponent/SelectMapdataComponent";
+import {InputNumberComponent} from "../Components/InputComponents/InputNumberComponent/InputNumberComponent";
+import {InputCheckBoxComponent} from "../Components/InputComponents/InputCheckBoxComponent/InputCheckBoxComponent.tsx";
 
 namespace ViewInputParamIds {
     export const convertModeDropdownId: string = "convertModeDropdown";
@@ -59,7 +60,7 @@ export class InputParamsView extends ViewBase {
     GetRender(): React.JSX.Element {
         super.GetRender();
         return (
-            <>
+            <div className="input-params-view">
                 {this.convertModeDropdown.GetRender()}
                 {this.selectBaseImage.GetRender()}
                 {this.baseImagePreview.GetRender()}
@@ -71,7 +72,7 @@ export class InputParamsView extends ViewBase {
                 {this.convertButtonComponent.GetRender()}
                 {this.progressBarComponent.GetRender()}
                 {this.resultImagePreview.GetRender()}
-            </>
+            </div>
         );
     }
 }

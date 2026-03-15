@@ -1,8 +1,8 @@
 import {ControllerBase} from "./ControllerBase.ts";
-import {ResultPreviewView} from "../Views/ResultPreviewView.tsx";
+import {ResultPreviewView} from "../Views/ResultPreviewView/ResultPreviewView.tsx";
 import {MCMapDataManager} from "../Datas/MapData/MCMapDataManager.ts";
-import type {MapDataImagePreviewComponent} from "../Views/Components/MapDataImagePreviewComponent.tsx";
-import type {ButtonComponent} from "../Views/Components/ButtonComponent.tsx";
+import type {MapDataImagePreviewComponent} from "../Views/Components/MapDataImagePreviewComponent/MapDataImagePreviewComponent.tsx";
+import type {ButtonComponent} from "../Views/Components/ButtonComponent/ButtonComponent.tsx";
 import {SceneManager, SceneTypes} from "../Cores/SceneManager.ts";
 
 export class ResultPreviewController extends ControllerBase {

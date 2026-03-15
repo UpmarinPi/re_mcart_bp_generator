@@ -1,4 +1,5 @@
-import {InputBaseComponent} from "./InputBaseComponent";
+import {InputBaseComponent} from "../InputBaseComponent";
+import "./SelectImageComponent.css";
 
 export class SelectImageComponent extends InputBaseComponent {
 

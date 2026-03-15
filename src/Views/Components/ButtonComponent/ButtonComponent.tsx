@@ -1,5 +1,6 @@
-import {ComponentBase} from "./ComponentBase";
+import {ComponentBase} from "../ComponentBase";
 import React from "react";
+import "./ButtonComponent.css";
 
 export class ButtonComponent extends ComponentBase {
     displayText: string;
@@ -11,7 +12,7 @@ export class ButtonComponent extends ComponentBase {
 
     GetRender(): React.JSX.Element {
         return (
-            <div className={this.id}>
+            <div className={"button-component " + this.id}>
                 <button
                     type={"button"} className={this.id + "button"}
                     onClick={
