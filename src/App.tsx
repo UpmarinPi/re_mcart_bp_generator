@@ -1,9 +1,7 @@
-import {useEffect, useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
-import {SceneManager} from "./Cores/SceneManager.ts";
-import type {SceneBase} from "./Scenes/SceneBase.ts";
+import { SceneManager } from "./Cores/SceneManager.ts";
+import type { SceneBase } from "./Scenes/SceneBase.ts";
 
 function App() {
     const [, update] = useState({});
