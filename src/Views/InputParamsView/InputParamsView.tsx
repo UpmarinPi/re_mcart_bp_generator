@@ -61,7 +61,7 @@ export class InputParamsView extends ViewBase {
         super.GetRender();
         return (
             <div className="input-params-view">
-                <div className="input-params-view-left">
+                <div className="input-params-view left">
                     {this.convertModeDropdown.GetRender()}
                     {this.selectBaseImage.GetRender()}
                     {/*{this.usingBlockItemComponent.Render()}*/}
@@ -73,7 +73,7 @@ export class InputParamsView extends ViewBase {
                     {this.progressBarComponent.GetRender()}
                     {this.resultImagePreview.GetRender()}
                 </div>
-                <div className="input-params-view-right">
+                <div className="input-params-view right">
                     {this.baseImagePreview.GetRender()}
                 </div>
             </div>
