@@ -1,10 +1,21 @@
 .image-preview-component {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
 .image-preview-component img {
     max-width: 100%;
     border-radius: 4px;
+}
+
+.image-preview-component img:not([src]), 
+.image-preview-component img[src=""] {
+    display: none;
+}
+
+.image-preview-component:has(img:not([src]))::before, 
+.image-preview-component:has(img[src=""])::before {
+    content: "no image selected";
+    color: #888;
 }
