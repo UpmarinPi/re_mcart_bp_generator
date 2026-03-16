@@ -61,17 +61,21 @@ export class InputParamsView extends ViewBase {
         super.GetRender();
         return (
             <div className="input-params-view">
-                {this.convertModeDropdown.GetRender()}
-                {this.selectBaseImage.GetRender()}
-                {this.baseImagePreview.GetRender()}
-                {/*{this.usingBlockItemComponent.Render()}*/}
-                {this.isDimensionalModeCheckbox.GetRender()}
-                {this.selectMapdata.GetRender()}
-                {this.importButtonComponent.GetRender()}
-                {this.magnificationInputComponent.GetRender()}
-                {this.convertButtonComponent.GetRender()}
-                {this.progressBarComponent.GetRender()}
-                {this.resultImagePreview.GetRender()}
+                <div className="input-params-view-left">
+                    {this.convertModeDropdown.GetRender()}
+                    {this.selectBaseImage.GetRender()}
+                    {/*{this.usingBlockItemComponent.Render()}*/}
+                    {this.isDimensionalModeCheckbox.GetRender()}
+                    {this.selectMapdata.GetRender()}
+                    {this.importButtonComponent.GetRender()}
+                    {this.magnificationInputComponent.GetRender()}
+                    {this.convertButtonComponent.GetRender()}
+                    {this.progressBarComponent.GetRender()}
+                    {this.resultImagePreview.GetRender()}
+                </div>
+                <div className="input-params-view-right">
+                    {this.baseImagePreview.GetRender()}
+                </div>
             </div>
         );
     }
