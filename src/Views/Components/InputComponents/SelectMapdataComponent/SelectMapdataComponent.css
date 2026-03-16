@@ -1,3 +1,34 @@
 .select-mapdata-component {
     margin: 8px 0;
 }
+
+.select-mapdata-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.select-mapdata-input-hidden {
+    display: none;
+}
+
+.select-mapdata-label {
+    display: inline-block;
+    padding: 2px 6px;
+    background-color: #f0f0f0;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 13.3333px;
+    font-family: Arial, sans-serif;
+    color: buttontext;
+}
+
+.select-mapdata-label:hover {
+    background-color: #e8e8e8;
+}
+
+.select-mapdata-label:active {
+    background-color: #d4d4d4;
+    border-color: #4f4f4f;
+}

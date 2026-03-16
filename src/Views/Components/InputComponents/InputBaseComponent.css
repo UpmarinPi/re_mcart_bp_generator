@@ -1,0 +1,7 @@
+.input-base-component-input[type="file"] {
+    color: transparent;
+}
+
+.input-base-component-input[type="file"]::file-selector-button {
+    color: initial;
+}
