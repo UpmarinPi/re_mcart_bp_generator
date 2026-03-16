@@ -17,7 +17,6 @@ import type {SelectMapdataComponent} from "../Views/Components/InputComponents/S
 import {MapDataInput} from "../IOSystems/MapdataInput.tsx";
 import type {InputCheckBoxComponent} from "../Views/Components/InputComponents/InputCheckBoxComponent/InputCheckBoxComponent.tsx";
 import {SceneManager, SceneTypes} from "../Cores/SceneManager.ts";
-import {MapdataOutput} from "../IOSystems/MapdataOutput.tsx";
 
 export class InputParamsController extends ControllerBase {
 
@@ -182,12 +181,7 @@ export class InputParamsController extends ControllerBase {
             return;
         }
 
-        // --- To mame: ここに処理あるのよくない ---
-        const mapDataDownloader = new MapdataOutput;
-        mapDataDownloader.getData(mapData)
-        // -----------------------------
         SceneManager.get().SwitchScene(SceneTypes.ResultPreviewScene);
-        // this.resultImagePreview.SetMapData(mapData);
     }
 
     InitializeSelectMapData(selectMapData: SelectMapdataComponent) :void {
