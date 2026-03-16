@@ -1,6 +1,7 @@
 .input-params-view {
     display: flex;
     flex-direction: column;
+    text-align: left;
     gap: 15px;
     padding: 20px;
     background-color: #ffffff;
