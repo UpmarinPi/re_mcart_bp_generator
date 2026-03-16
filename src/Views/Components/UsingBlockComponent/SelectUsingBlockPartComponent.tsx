@@ -1,4 +1,4 @@
-import {DropdownComponent} from "../DropdownComponent";
+import {DropdownComponent} from "../DropdownComponent/DropdownComponent";
 
 export class SelectUsingBlockPartComponent extends DropdownComponent{
 

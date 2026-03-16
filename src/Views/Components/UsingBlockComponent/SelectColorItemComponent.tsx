@@ -1,9 +1,9 @@
-import {ComponentBase} from "../ComponentBase";
+import { ComponentBase } from "../ComponentBase";
 import React from "react";
-import {ColorPreviewPartComponent} from "./ColorPreviewPartComponent";
-import {RGBColor} from "../../../Cores/Color";
-import {SelectUsingBlockPartComponent} from "./SelectUsingBlockPartComponent";
-import {StringListToOption} from "../DropdownComponent";
+import { ColorPreviewPartComponent } from "./ColorPreviewPartComponent";
+import { RGBColor } from "../../../Cores/Color";
+import { SelectUsingBlockPartComponent } from "./SelectUsingBlockPartComponent";
+import { StringListToOption } from "../DropdownComponent/DropdownComponent";
 
 export interface ISelectColorItemComponentParams {
     colorId: string;
@@ -27,7 +27,7 @@ export class SelectColorItemComponent extends ComponentBase {
         this.usingBlockComponent = new SelectUsingBlockPartComponent(actualId);
         this.usingBlockComponent.options = StringListToOption(this.blockList);
     }
-    Set(params: ISelectColorItemComponentParams): void{
+    Set(params: ISelectColorItemComponentParams): void {
         this.colorId = params.colorId;
         this.blockList = params.blockList;
         this.isAvailable = params.isAvailable;
