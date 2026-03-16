@@ -1,15 +1,15 @@
-import {ViewBase} from "../ViewBase";
+import { ViewBase } from "../ViewBase";
 import React from "react";
 import "./InputParamsView.css";
-import {DropdownComponent} from "../Components/DropdownComponent/DropdownComponent";
-import {SelectImageComponent} from "../Components/InputComponents/SelectImageComponent/SelectImageComponent";
-import {ImagePreviewComponent} from "../Components/ImagePreviewComponent/ImagePreviewComponent";
-import {ButtonComponent} from "../Components/ButtonComponent/ButtonComponent";
-import {MapDataImagePreviewComponent} from "../Components/MapDataImagePreviewComponent/MapDataImagePreviewComponent";
-import {ProgressBarComponent} from "../Components/ProgressBarComponent/ProgressBarComponent";
-import {SelectMapdataComponent} from "../Components/InputComponents/SelectMapdataComponent/SelectMapdataComponent";
-import {InputNumberComponent} from "../Components/InputComponents/InputNumberComponent/InputNumberComponent";
-import {InputCheckBoxComponent} from "../Components/InputComponents/InputCheckBoxComponent/InputCheckBoxComponent.tsx";
+import { DropdownComponent } from "../Components/DropdownComponent/DropdownComponent";
+import { SelectImageComponent } from "../Components/InputComponents/SelectImageComponent/SelectImageComponent";
+import { ImagePreviewComponent } from "../Components/ImagePreviewComponent/ImagePreviewComponent";
+import { ButtonComponent, ButtonStyle } from "../Components/ButtonComponent/ButtonComponent";
+import { MapDataImagePreviewComponent } from "../Components/MapDataImagePreviewComponent/MapDataImagePreviewComponent";
+import { ProgressBarComponent } from "../Components/ProgressBarComponent/ProgressBarComponent";
+import { SelectMapdataComponent } from "../Components/InputComponents/SelectMapdataComponent/SelectMapdataComponent";
+import { InputNumberComponent } from "../Components/InputComponents/InputNumberComponent/InputNumberComponent";
+import { InputCheckBoxComponent } from "../Components/InputComponents/InputCheckBoxComponent/InputCheckBoxComponent.tsx";
 
 namespace ViewInputParamIds {
     export const convertModeDropdownId: string = "convertModeDropdown";
@@ -46,15 +46,15 @@ export class InputParamsView extends ViewBase {
         // this.usingBlockItemComponent = this.CreateView(SelectColorItemComponent, ViewInputParamIds.usingBlockItemComponentId, "#ff0000");
         this.isDimensionalModeCheckbox = this.CreateView(InputCheckBoxComponent, ViewInputParamIds.isDimensionalModeCheckboxId, "詳細モード");
         this.selectMapdata = this.CreateView(SelectMapdataComponent, ViewInputParamIds.selectMapdataId);
-        this.importButtonComponent = this.CreateView(ButtonComponent, ViewInputParamIds.imporButtonId, "インポート");
+        this.importButtonComponent = this.CreateView(ButtonComponent, ViewInputParamIds.imporButtonId, "インポート", ButtonStyle.Import);
         this.magnificationInputComponent = this.CreateView(InputNumberComponent, ViewInputParamIds.magnificationInputComponentId, 100, "[拡大率]", "拡大率: ", "%");
-        this.convertButtonComponent = this.CreateView(ButtonComponent, ViewInputParamIds.convertButtonId, "変換");
+        this.convertButtonComponent = this.CreateView(ButtonComponent, ViewInputParamIds.convertButtonId, "変換", ButtonStyle.Convert);
         this.progressBarComponent = this.CreateView(ProgressBarComponent, ViewInputParamIds.progressBarId);
         this.resultImagePreview = this.CreateView(MapDataImagePreviewComponent, ViewInputParamIds.resultImagePreviewId);
 
         this.baseImagePreview.SetSize(0.2);
 
-        
+
     }
 
     GetRender(): React.JSX.Element {

@@ -1,0 +1,8 @@
+.button-style-import button {
+    background-color: #28a745;
+    color: white;
+}
+
+.button-style-import button:hover {
+    background-color: #218838;
+}

@@ -1,0 +1,8 @@
+.button-style-default button {
+    background-color: #007bff;
+    color: white;
+}
+
+.button-style-default button:hover {
+    background-color: #0056b3;
+}

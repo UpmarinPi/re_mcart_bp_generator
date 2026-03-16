@@ -1,3 +1,9 @@
+@import "./ButtonStyles/button-default.css";
+@import "./ButtonStyles/button-back.css";
+@import "./ButtonStyles/button-convert.css";
+@import "./ButtonStyles/button-import.css";
+@import "./ButtonStyles/button-save.css";
+
 .button-component {
     display: inline-block;
 }
@@ -6,11 +12,6 @@
     padding: 8px 16px;
     border-radius: 4px;
     border: none;
-    background-color: #007bff;
-    color: white;
     cursor: pointer;
-}
-
-.button-component button:hover {
-    background-color: #0056b3;
+    transition: background-color 0.2s;
 }

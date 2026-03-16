@@ -1,0 +1,8 @@
+.button-style-back button {
+    background-color: #6c757d;
+    color: white;
+}
+
+.button-style-back button:hover {
+    background-color: #5a6268;
+}

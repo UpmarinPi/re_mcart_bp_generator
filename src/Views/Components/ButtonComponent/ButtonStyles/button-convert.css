@@ -1,0 +1,8 @@
+.button-style-convert button {
+    background-color: #ffc107;
+    color: black;
+}
+
+.button-style-convert button:hover {
+    background-color: #e0a800;
+}
