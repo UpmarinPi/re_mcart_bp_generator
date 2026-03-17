@@ -26,10 +26,8 @@ export class ResultPreviewView extends ViewBase {
         super.GetRender();
         return (
             <div className="result-preview-view">
-                <div className="result-preview-view-button-container">
-                    {this.backButton.GetRender()}
-                    {this.saveButton.GetRender()}
-                </div>
+                {this.backButton.GetRender()}
+                {this.saveButton.GetRender()}
                 {this.resultImagePreview.GetRender()}
             </div>
         );
