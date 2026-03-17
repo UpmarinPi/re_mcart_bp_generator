@@ -66,6 +66,29 @@ export class DropdownComponent extends ComponentBase {
         this.OnComponentChange(value);
     }
 
+    AddValue(value: string, label: string) {
+        this._options.push({value, label});
+        if (this._options.length === 1) {
+            this.SetValue(value); // This might fail if the element isn't rendered, so maybe just set it internally
+            // Actually native select gets set automatically to first item if not specified, 
+            // but let's notify for React
+        }
+        this.requestsRenderUpdate.notify();
+    }
+
+    ResetValues() {
+        this._options = [];
+        this.requestsRenderUpdate.notify();
+    }
+
+    GetCurrentSelect(): string {
+        const myDropdown = this.GetMyRender() as HTMLSelectElement;
+        if (myDropdown) {
+            return myDropdown.value;
+        }
+        return this._options.length > 0 ? this._options[0].value : "";
+    }
+
     GetRender(): React.JSX.Element {
         return (
             <div className={"dropdown-component " + this.id}>

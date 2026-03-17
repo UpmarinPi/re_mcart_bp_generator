@@ -10,6 +10,7 @@ import { ProgressBarComponent } from "../Components/ProgressBarComponent/Progres
 import { SelectMapdataComponent } from "../Components/InputComponents/SelectMapdataComponent/SelectMapdataComponent";
 import { InputNumberComponent } from "../Components/InputComponents/InputNumberComponent/InputNumberComponent";
 import { InputCheckBoxComponent } from "../Components/InputComponents/InputCheckBoxComponent/InputCheckBoxComponent.tsx";
+import { UsingBlockComponent } from "../Components/UsingBlockComponent/UsingBlockComponent.tsx";
 
 namespace ViewInputParamIds {
     export const convertModeDropdownId: string = "convertModeDropdown";
@@ -29,7 +30,7 @@ export class InputParamsView extends ViewBase {
     convertModeDropdown: DropdownComponent;
     selectBaseImage: SelectImageComponent;
     baseImagePreview: ImagePreviewComponent;
-    // usingBlockItemComponent: SelectColorItemComponent;
+    usingBlockItemComponent: UsingBlockComponent;
     isDimensionalModeCheckbox: InputCheckBoxComponent;
     magnificationInputComponent: InputNumberComponent;
     convertButtonComponent: ButtonComponent;
@@ -43,7 +44,7 @@ export class InputParamsView extends ViewBase {
         this.convertModeDropdown = this.CreateView(DropdownComponent, ViewInputParamIds.convertModeDropdownId);
         this.selectBaseImage = this.CreateView(SelectImageComponent, ViewInputParamIds.selectBaseImageId);
         this.baseImagePreview = this.CreateView(ImagePreviewComponent, ViewInputParamIds.baseImagePreviewId);
-        // this.usingBlockItemComponent = this.CreateView(SelectColorItemComponent, ViewInputParamIds.usingBlockItemComponentId, "#ff0000");
+        this.usingBlockItemComponent = this.CreateView(UsingBlockComponent, ViewInputParamIds.usingBlockItemComponentId);
         this.isDimensionalModeCheckbox = this.CreateView(InputCheckBoxComponent, ViewInputParamIds.isDimensionalModeCheckboxId, "詳細モード");
         this.selectMapdata = this.CreateView(SelectMapdataComponent, ViewInputParamIds.selectMapdataId);
         this.importButtonComponent = this.CreateView(ButtonComponent, ViewInputParamIds.imporButtonId, "インポート", ButtonStyle.Import);
@@ -54,7 +55,6 @@ export class InputParamsView extends ViewBase {
 
         this.baseImagePreview.SetSize(0.2);
 
-
     }
 
     GetRender(): React.JSX.Element {
@@ -64,7 +64,7 @@ export class InputParamsView extends ViewBase {
                 <div className="input-params-view left">
                     {this.convertModeDropdown.GetRender()}
                     {this.selectBaseImage.GetRender()}
-                    {/*{this.usingBlockItemComponent.Render()}*/}
+                    {this.usingBlockItemComponent.GetRender()}
                     {this.isDimensionalModeCheckbox.GetRender()}
                     {this.selectMapdata.GetRender()}
                     {this.importButtonComponent.GetRender()}

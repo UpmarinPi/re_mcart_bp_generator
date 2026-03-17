@@ -3,7 +3,8 @@ import React from "react";
 import { ColorPreviewPartComponent } from "./ColorPreviewPartComponent";
 import { RGBColor } from "../../../Cores/Color";
 import { SelectUsingBlockPartComponent } from "./SelectUsingBlockPartComponent";
-import { StringListToOption } from "../DropdownComponent/DropdownComponent";
+import { InputCheckBoxComponent } from "../InputComponents/InputCheckBoxComponent/InputCheckBoxComponent";
+import "./SelectColorItemComponent.css";
 
 export interface ISelectColorItemComponentParams {
     colorId: string;
@@ -15,6 +16,7 @@ export class SelectColorItemComponent extends ComponentBase {
     colorId: string = "#000000";
     colorPreviewComponent: ColorPreviewPartComponent;
     usingBlockComponent: SelectUsingBlockPartComponent;
+    checkBoxComponent: InputCheckBoxComponent;
     blockList: string[] = []; // todo: 後々 HTMLSelectElement になる予定
     isAvailable: boolean = true;
 
@@ -25,7 +27,9 @@ export class SelectColorItemComponent extends ComponentBase {
         this.blockList = blockList;
 
         this.usingBlockComponent = new SelectUsingBlockPartComponent(actualId);
-        this.usingBlockComponent.options = StringListToOption(this.blockList);
+        this.usingBlockComponent.SetBlockIds(blockList);
+
+        this.checkBoxComponent = new InputCheckBoxComponent(actualId + "CheckBox");
     }
     Set(params: ISelectColorItemComponentParams): void {
         this.colorId = params.colorId;
@@ -37,7 +41,8 @@ export class SelectColorItemComponent extends ComponentBase {
 
     GetRender(): React.JSX.Element {
         return (
-            <div className={this.id}>
+            <div className={`select-color-item-component ${this.id}`}>
+                {this.checkBoxComponent.GetRender()}
                 {this.colorPreviewComponent.GetRender()}
                 {this.usingBlockComponent.GetRender()}
             </div>

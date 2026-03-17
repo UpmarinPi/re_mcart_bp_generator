@@ -12,6 +12,7 @@ import {ImageCanvasToImageData} from "../FunctionLibraries/ImageFunctionLibrary"
 import {MCMapDataManager} from "../Datas/MapData/MCMapDataManager";
 import {InputParamsMediator} from "./Mediators/InputParamsMediator";
 import {ButtonComponent} from "../Views/Components/ButtonComponent/ButtonComponent";
+import {UsingBlockComponent} from "../Views/Components/UsingBlockComponent/UsingBlockComponent.tsx";
 import {InputNumberComponent} from "../Views/Components/InputComponents/InputNumberComponent/InputNumberComponent";
 import type {SelectMapdataComponent} from "../Views/Components/InputComponents/SelectMapdataComponent/SelectMapdataComponent.tsx";
 import {MapDataInput} from "../IOSystems/MapdataInput.tsx";
@@ -205,11 +206,26 @@ export class InputParamsController extends ControllerBase {
         mapDataReader.loadSelectedFile();
     }
 
+    // using block component
+    InitializeUsingBlockItem(usingBlockItemComponent: UsingBlockComponent): void {
+        if (!usingBlockItemComponent) {
+            console.error("usingBlockItemComponent must be defined");
+            return;
+        }
+
+        usingBlockItemComponent.AddItem("dummy1", "#ff0000", ["stone", "cobblestone"]);
+        usingBlockItemComponent.AddItem("dummy2", "#00ff00", ["grass_block", "leaves"]);
+        usingBlockItemComponent.AddItem("dummy3", "#0000ff", ["water", "ice"]);
+        usingBlockItemComponent.AddItem("dummy4", "#ffff00", ["sand", "gold_block"]);
+        usingBlockItemComponent.AddItem("dummy5", "#ff00ff", ["magenta_wool", "purpur_block"]);
+    }
+
     constructor(viewInputParams: InputParamsView) {
         super();
         this.InitializeConvertModeDropdown(viewInputParams.convertModeDropdown);
         this.InitializeSelectBaseImage(viewInputParams.selectBaseImage);
         this.InitializeBaseImagePreview(viewInputParams.baseImagePreview);
+        this.InitializeUsingBlockItem(viewInputParams.usingBlockItemComponent);
         this.InitializeIsDimensionalModeCheckbox(viewInputParams.isDimensionalModeCheckbox);
         this.InitializeMagnification(viewInputParams.magnificationInputComponent);
         this.InitializeConvertButton(viewInputParams.convertButtonComponent);
