@@ -9,7 +9,6 @@ import "./SelectColorItemComponent.css";
 export interface ISelectColorItemComponentParams {
     colorId: string;
     blockList: string[];
-    isAvailable: boolean;
 }
 
 export class SelectColorItemComponent extends ComponentBase {
@@ -18,23 +17,21 @@ export class SelectColorItemComponent extends ComponentBase {
     usingBlockComponent: SelectUsingBlockPartComponent;
     checkBoxComponent: InputCheckBoxComponent;
     blockList: string[] = [];
-    isAvailable: boolean = true;
 
     constructor(id: string, colorId: string, blockList: string[]) {
         const actualId: string = `${id}${colorId}`;
         super(actualId);
         this.colorPreviewComponent = new ColorPreviewPartComponent(actualId + "ColorPreview");
-        this.blockList = blockList;
 
         this.usingBlockComponent = new SelectUsingBlockPartComponent(actualId);
-        this.usingBlockComponent.SetBlockIds(blockList);
 
         this.checkBoxComponent = new InputCheckBoxComponent(actualId + "CheckBox");
+
+        this.Set({ colorId, blockList });
     }
     Set(params: ISelectColorItemComponentParams): void {
         this.colorId = params.colorId;
-        this.blockList = params.blockList;
-        this.isAvailable = params.isAvailable;
+        this.usingBlockComponent.SetBlockIds(params.blockList);
 
         this.colorPreviewComponent.color = RGBColor.ColorCodeToRGB(this.colorId);
     }

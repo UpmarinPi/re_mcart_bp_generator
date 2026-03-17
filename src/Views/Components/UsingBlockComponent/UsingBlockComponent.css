@@ -1,5 +1,15 @@
 .using-block-component {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.using-block-component-scroll-area {
+    display: flex;
+    flex-direction: column;
     gap: 8px;
+    overflow-y: auto;
+    height: 100%;
 }

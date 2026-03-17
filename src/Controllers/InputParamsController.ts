@@ -1,23 +1,23 @@
-import {InputParamsView} from "../Views/InputParamsView/InputParamsView.tsx";
-import {ControllerBase} from "./ControllerBase";
-import {ConstObjectToOption, DropdownComponent} from "../Views/Components/DropdownComponent/DropdownComponent";
-import {ConvertModes} from "../Cores/Types";
-import {OptionManager} from "../Datas/Options/OptionManager";
-import {SelectImageComponent} from "../Views/Components/InputComponents/SelectImageComponent/SelectImageComponent";
-import {ImagePreviewComponent} from "../Views/Components/ImagePreviewComponent/ImagePreviewComponent";
-import {MapDataImagePreviewComponent} from "../Views/Components/MapDataImagePreviewComponent/MapDataImagePreviewComponent";
-import {ProgressBarComponent} from "../Views/Components/ProgressBarComponent/ProgressBarComponent";
-import {MCMapData} from "../Datas/MapData/MCMapData";
-import {ImageCanvasToImageData} from "../FunctionLibraries/ImageFunctionLibrary";
-import {MCMapDataManager} from "../Datas/MapData/MCMapDataManager";
-import {InputParamsMediator} from "./Mediators/InputParamsMediator";
-import {ButtonComponent} from "../Views/Components/ButtonComponent/ButtonComponent";
-import {UsingBlockComponent} from "../Views/Components/UsingBlockComponent/UsingBlockComponent.tsx";
-import {InputNumberComponent} from "../Views/Components/InputComponents/InputNumberComponent/InputNumberComponent";
-import type {SelectMapdataComponent} from "../Views/Components/InputComponents/SelectMapdataComponent/SelectMapdataComponent.tsx";
-import {MapDataInput} from "../IOSystems/MapdataInput.tsx";
-import type {InputCheckBoxComponent} from "../Views/Components/InputComponents/InputCheckBoxComponent/InputCheckBoxComponent.tsx";
-import {SceneManager, SceneTypes} from "../Cores/SceneManager.ts";
+import { InputParamsView } from "../Views/InputParamsView/InputParamsView.tsx";
+import { ControllerBase } from "./ControllerBase";
+import { ConstObjectToOption, DropdownComponent } from "../Views/Components/DropdownComponent/DropdownComponent";
+import { ConvertModes } from "../Cores/Types";
+import { OptionManager } from "../Datas/Options/OptionManager";
+import { SelectImageComponent } from "../Views/Components/InputComponents/SelectImageComponent/SelectImageComponent";
+import { ImagePreviewComponent } from "../Views/Components/ImagePreviewComponent/ImagePreviewComponent";
+import { MapDataImagePreviewComponent } from "../Views/Components/MapDataImagePreviewComponent/MapDataImagePreviewComponent";
+import { ProgressBarComponent } from "../Views/Components/ProgressBarComponent/ProgressBarComponent";
+import { MCMapData } from "../Datas/MapData/MCMapData";
+import { ImageCanvasToImageData } from "../FunctionLibraries/ImageFunctionLibrary";
+import { MCMapDataManager } from "../Datas/MapData/MCMapDataManager";
+import { InputParamsMediator } from "./Mediators/InputParamsMediator";
+import { ButtonComponent } from "../Views/Components/ButtonComponent/ButtonComponent";
+import { UsingBlockComponent } from "../Views/Components/UsingBlockComponent/UsingBlockComponent.tsx";
+import { InputNumberComponent } from "../Views/Components/InputComponents/InputNumberComponent/InputNumberComponent";
+import type { SelectMapdataComponent } from "../Views/Components/InputComponents/SelectMapdataComponent/SelectMapdataComponent.tsx";
+import { MapDataInput } from "../IOSystems/MapdataInput.tsx";
+import type { InputCheckBoxComponent } from "../Views/Components/InputComponents/InputCheckBoxComponent/InputCheckBoxComponent.tsx";
+import { SceneManager, SceneTypes } from "../Cores/SceneManager.ts";
 
 export class InputParamsController extends ControllerBase {
 
@@ -78,14 +78,14 @@ export class InputParamsController extends ControllerBase {
 
     // is Dimensional mode Checkbox
 
-    InitializeIsDimensionalModeCheckbox(checkbox: InputCheckBoxComponent): void{
-        if(!checkbox) {
+    InitializeIsDimensionalModeCheckbox(checkbox: InputCheckBoxComponent): void {
+        if (!checkbox) {
             console.error("checkbox must be defined");
             return;
         }
 
-        checkbox.onComponentChange.Subscribe((value)=>{
-            if(typeof value != "boolean"){
+        checkbox.onComponentChange.Subscribe((value) => {
+            if (typeof value != "boolean") {
                 console.log("isDimensionalModeCheckbox value must be a boolean but: ", typeof value);
                 return;
             }
@@ -185,7 +185,7 @@ export class InputParamsController extends ControllerBase {
         SceneManager.get().SwitchScene(SceneTypes.ResultPreviewScene);
     }
 
-    InitializeSelectMapData(selectMapData: SelectMapdataComponent) :void {
+    InitializeSelectMapData(selectMapData: SelectMapdataComponent): void {
         if (!selectMapData) {
             console.error("mapData must be defined");
             return;
@@ -213,11 +213,10 @@ export class InputParamsController extends ControllerBase {
             return;
         }
 
-        usingBlockItemComponent.AddItem("dummy1", "#ff0000", ["stone", "cobblestone"]);
-        usingBlockItemComponent.AddItem("dummy2", "#00ff00", ["grass_block", "leaves"]);
-        usingBlockItemComponent.AddItem("dummy3", "#0000ff", ["water", "ice"]);
-        usingBlockItemComponent.AddItem("dummy4", "#ffff00", ["sand", "gold_block"]);
-        usingBlockItemComponent.AddItem("dummy5", "#ff00ff", ["magenta_wool", "purpur_block"]);
+        const usingBlockDataList = this.inputParamsMediator.GetUsingBlockItemData();
+        usingBlockDataList.forEach(data => {
+            usingBlockItemComponent.AddItem(data.id, data.colorId, data.blockList);
+        });
     }
 
     constructor(viewInputParams: InputParamsView) {

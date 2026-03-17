@@ -15,12 +15,13 @@ export class UsingBlockComponent extends ComponentBase {
         this.selectColorItemComponents.push(new SelectColorItemComponent(id, colorId, blockList));
     }
     GetRender(): React.JSX.Element {
-        // return super.GetRender();
         return (
             <div className={`using-block-component ${this.id}`}>
-                {this.selectColorItemComponents.map((selectColorItemComponent) => (
-                    <div key={selectColorItemComponent.id}>{selectColorItemComponent.GetRender()}</div>
-                ))}
+                <div className="using-block-component-scroll-area">
+                    {this.selectColorItemComponents.map((selectColorItemComponent) => (
+                        <div key={selectColorItemComponent.id}>{selectColorItemComponent.GetRender()}</div>
+                    ))}
+                </div>
             </div>
         );
     }

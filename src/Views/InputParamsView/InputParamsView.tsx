@@ -64,7 +64,6 @@ export class InputParamsView extends ViewBase {
                 <div className="input-params-view left">
                     {this.convertModeDropdown.GetRender()}
                     {this.selectBaseImage.GetRender()}
-                    {this.usingBlockItemComponent.GetRender()}
                     {this.isDimensionalModeCheckbox.GetRender()}
                     {this.selectMapdata.GetRender()}
                     {this.importButtonComponent.GetRender()}
@@ -75,6 +74,7 @@ export class InputParamsView extends ViewBase {
                 </div>
                 <div className="input-params-view right">
                     {this.baseImagePreview.GetRender()}
+                    {this.usingBlockItemComponent.GetRender()}
                 </div>
             </div>
         );
