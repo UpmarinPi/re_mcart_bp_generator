@@ -8,7 +8,7 @@ import "./SelectColorItemComponent.css";
 
 export interface ISelectColorItemComponentParams {
     colorId: string;
-    blockList: string[]; // todo: 後々 HTMLSelectElement になる予定
+    blockList: string[];
     isAvailable: boolean;
 }
 
@@ -17,7 +17,7 @@ export class SelectColorItemComponent extends ComponentBase {
     colorPreviewComponent: ColorPreviewPartComponent;
     usingBlockComponent: SelectUsingBlockPartComponent;
     checkBoxComponent: InputCheckBoxComponent;
-    blockList: string[] = []; // todo: 後々 HTMLSelectElement になる予定
+    blockList: string[] = [];
     isAvailable: boolean = true;
 
     constructor(id: string, colorId: string, blockList: string[]) {
