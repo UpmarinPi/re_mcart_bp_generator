@@ -4,8 +4,8 @@
     --item-size: 32px;
 
     gap: 1px;
-    background-color: #555;
     /* 格子の色 */
-    border: 1px solid #555;
+    background-color: #555;
     /* 外枠 */
+    border: 1px solid #555;
 }
