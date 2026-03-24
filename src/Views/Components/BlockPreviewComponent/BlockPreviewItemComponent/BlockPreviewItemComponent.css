@@ -1,0 +1,4 @@
+.block-preview-item-component {
+    /* 隙間（格子）を可視化するためのアイテムごとの背景色指定 */
+    background-color: #222;
+}

@@ -1,0 +1,11 @@
+.block-preview-component {
+    display: grid;
+    width: max-content;
+    --item-size: 32px;
+
+    gap: 1px;
+    background-color: #555;
+    /* 格子の色 */
+    border: 1px solid #555;
+    /* 外枠 */
+}
