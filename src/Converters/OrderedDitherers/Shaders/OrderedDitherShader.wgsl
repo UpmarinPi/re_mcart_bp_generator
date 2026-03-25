@@ -34,7 +34,7 @@ struct ThresholdMapSize{
 var<uniform> thresholdMapSize: ThresholdMapSize;
 
 // その他パラメータ
-const kNearest = 12;
+const kNearest = 5;
 
 fn DistSq(a: vec3<f32>, b: vec3<f32>)->f32{
     let diff = a - b;
