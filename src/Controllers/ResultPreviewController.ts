@@ -3,7 +3,8 @@ import { ResultPreviewView } from "../Views/ResultPreviewView/ResultPreviewView.
 import { MCMapDataManager } from "../Datas/MapData/MCMapDataManager.ts";
 import type { MapDataImagePreviewComponent } from "../Views/Components/MapDataImagePreviewComponent/MapDataImagePreviewComponent.tsx";
 import type { ButtonComponent } from "../Views/Components/ButtonComponent/ButtonComponent.tsx";
-import { SceneManager, SceneTypes } from "../Cores/SceneManager.ts";
+import { SceneManager } from "../Cores/SceneManager.ts";
+import { SceneTypes } from "../Scenes/SceneTypes.ts";
 import { MapdataOutput } from "../IOSystems/MapdataOutput.tsx";
 
 export class ResultPreviewController extends ControllerBase {

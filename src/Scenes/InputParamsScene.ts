@@ -4,6 +4,10 @@ import {InputParamsController} from "../Controllers/InputParamsController";
 
 export class InputParamsScene extends SceneBase {
 
+    GetScenePathName(): string {
+        return "/";
+    }
+
     constructor() {
         super();
         this.InitializeView(InputParamsView);

@@ -5,6 +5,8 @@ import type {ControllerBase} from "../Controllers/ControllerBase.ts";
 export abstract class SceneBase {
     view: IViewBase | undefined;
 
+    abstract GetScenePathName(): string;
+
     GetRender(): React.JSX.Element | null {
         if (!this.view) {
             return null;

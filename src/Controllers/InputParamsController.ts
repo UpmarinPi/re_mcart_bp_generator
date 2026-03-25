@@ -17,7 +17,8 @@ import { InputNumberComponent } from "../Views/Components/InputComponents/InputN
 import type { SelectMapdataComponent } from "../Views/Components/InputComponents/SelectMapdataComponent/SelectMapdataComponent.tsx";
 import { MapDataInput } from "../IOSystems/MapdataInput.tsx";
 import type { InputCheckBoxComponent } from "../Views/Components/InputComponents/InputCheckBoxComponent/InputCheckBoxComponent.tsx";
-import { SceneManager, SceneTypes } from "../Cores/SceneManager.ts";
+import { SceneManager } from "../Cores/SceneManager.ts";
+import { SceneTypes } from "../Scenes/SceneTypes.ts";
 
 export class InputParamsController extends ControllerBase {
 
