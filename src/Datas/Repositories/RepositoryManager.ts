@@ -1,11 +1,13 @@
-import {Singleton} from "../../Cores/Singleton.ts";
-import type {RepositoryBase} from "./RepositoryBase.ts";
-import {ColorDataRepository} from "./ColorDataRepository.ts";
-import {BlockDataRepository} from "./BlockDataRepository.ts";
+import { Singleton } from "../../Cores/Singleton.ts";
+import type { RepositoryBase } from "./RepositoryBase.ts";
+import { ColorDataRepository } from "./ColorDataRepository.ts";
+import { BlockDataRepository } from "./BlockDataRepository.ts";
+import { UsingBlockTemplateRepository } from "./UsingBlockTemplateRepository.ts";
 
 export enum ERepositoryIds {
-     ColorData,
+    ColorData,
     BlockData,
+    UsingBlockTemplateData,
 
 }
 
@@ -18,13 +20,14 @@ export class RepositoryManager extends Singleton {
     }
 
     // repository登録
-    private SubscribeRepositories(){
+    private SubscribeRepositories() {
         this.SubscribeRepository(ERepositoryIds.ColorData, ColorDataRepository);
         this.SubscribeRepository(ERepositoryIds.BlockData, BlockDataRepository);
+        this.SubscribeRepository(ERepositoryIds.UsingBlockTemplateData, UsingBlockTemplateRepository);
     }
 
 
-    private SubscribeRepository<T extends RepositoryBase, TArgs extends any[]>(Id: ERepositoryIds, T: (new (...args: TArgs) => T), ...args:TArgs){
+    private SubscribeRepository<T extends RepositoryBase, TArgs extends any[]>(Id: ERepositoryIds, T: (new (...args: TArgs) => T), ...args: TArgs) {
         this.IdToRepositoryMap.set(Id, new T(...args));
     }
 

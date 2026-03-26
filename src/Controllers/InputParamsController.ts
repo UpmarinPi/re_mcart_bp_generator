@@ -19,6 +19,7 @@ import { MapDataInput } from "../IOSystems/MapdataInput.tsx";
 import type { InputCheckBoxComponent } from "../Views/Components/InputComponents/InputCheckBoxComponent/InputCheckBoxComponent.tsx";
 import { SceneManager } from "../Cores/SceneManager.ts";
 import { SceneTypes } from "../Scenes/SceneTypes.ts";
+import type { InputCheckBoxListComponent } from "../Views/Components/InputComponents/InputCheckBoxListComponent/InputCheckBoxListComponent.tsx";
 
 export class InputParamsController extends ControllerBase {
 
@@ -220,6 +221,19 @@ export class InputParamsController extends ControllerBase {
         });
     }
 
+    // using block template
+    InitializeUsingBlockTemplate(usingBlockTemplateComponent: InputCheckBoxListComponent): void {
+        if (!usingBlockTemplateComponent) {
+            console.error("usingBlockTemplateComponent must be defined");
+            return;
+        }
+
+        const usingBlockTemplateDataList = this.inputParamsMediator.GetUsingBlockTemplateData();
+        usingBlockTemplateDataList.forEach(data => {
+            usingBlockTemplateComponent.AddItem({ label: data.name, value: data.id, checked: false });
+        });
+    }
+
     constructor(viewInputParams: InputParamsView) {
         super();
         this.InitializeConvertModeDropdown(viewInputParams.convertModeDropdown);
@@ -232,5 +246,6 @@ export class InputParamsController extends ControllerBase {
         this.InitializeProgressBar(viewInputParams.progressBarComponent);
         this.InitializeResultImagePreview(viewInputParams.resultImagePreview);
         this.InitializeSelectMapData(viewInputParams.selectMapdata);
+        this.InitializeUsingBlockTemplate(viewInputParams.usingBlockTemplateComponent);
     }
 }

@@ -7,6 +7,7 @@ import { DithererBase } from "../../Converters/DithererBase";
 import { ColorDataRepository } from "../../Datas/Repositories/ColorDataRepository.ts";
 import { ERepositoryIds, RepositoryManager } from "../../Datas/Repositories/RepositoryManager.ts";
 import { BlockDataRepository } from "../../Datas/Repositories/BlockDataRepository.ts";
+import { UsingBlockTemplateRepository } from "../../Datas/Repositories/UsingBlockTemplateRepository.ts";
 
 export class InputParamsMediator extends MediatorBase {
     constructor() {
@@ -77,5 +78,15 @@ export class InputParamsMediator extends MediatorBase {
         });
 
         return result;
+    }
+
+    GetUsingBlockTemplateData(): { id: string, name: string }[] {
+        const usingBlockTemplateRepo = RepositoryManager.get().GetRepository<UsingBlockTemplateRepository>(ERepositoryIds.UsingBlockTemplateData);
+        if (!usingBlockTemplateRepo) {
+            console.error("There has no using block template repository");
+            return [];
+        }
+        console.log("usingBlockTemplateRepo", usingBlockTemplateRepo.GetTemplateList());
+        return usingBlockTemplateRepo.GetTemplateList();
     }
 }

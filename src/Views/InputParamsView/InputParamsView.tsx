@@ -11,11 +11,13 @@ import { SelectMapdataComponent } from "../Components/InputComponents/SelectMapd
 import { InputNumberComponent } from "../Components/InputComponents/InputNumberComponent/InputNumberComponent";
 import { InputCheckBoxComponent } from "../Components/InputComponents/InputCheckBoxComponent/InputCheckBoxComponent.tsx";
 import { UsingBlockComponent } from "../Components/UsingBlockComponent/UsingBlockComponent.tsx";
+import { InputCheckBoxListComponent } from "../Components/InputComponents/InputCheckBoxListComponent/InputCheckBoxListComponent.tsx";
 
 namespace ViewInputParamIds {
     export const convertModeDropdownId: string = "convertModeDropdown";
     export const selectBaseImageId: string = "selectBaseImageId";
     export const baseImagePreviewId: string = "baseImagePreview";
+    export const usingBlockTemplateComponentId: string = "usingBlockTemplateComponent";
     export const usingBlockItemComponentId: string = "usingBlockItem";
     export const isDimensionalModeCheckboxId: string = "isDimensionalModeCheckbox";
     export const magnificationInputComponentId: string = "magnificationInputComponent";
@@ -30,6 +32,7 @@ export class InputParamsView extends ViewBase {
     convertModeDropdown: DropdownComponent;
     selectBaseImage: SelectImageComponent;
     baseImagePreview: ImagePreviewComponent;
+    usingBlockTemplateComponent: InputCheckBoxListComponent;
     usingBlockItemComponent: UsingBlockComponent;
     isDimensionalModeCheckbox: InputCheckBoxComponent;
     magnificationInputComponent: InputNumberComponent;
@@ -44,6 +47,7 @@ export class InputParamsView extends ViewBase {
         this.convertModeDropdown = this.CreateView(DropdownComponent, ViewInputParamIds.convertModeDropdownId);
         this.selectBaseImage = this.CreateView(SelectImageComponent, ViewInputParamIds.selectBaseImageId);
         this.baseImagePreview = this.CreateView(ImagePreviewComponent, ViewInputParamIds.baseImagePreviewId);
+        this.usingBlockTemplateComponent = this.CreateView(InputCheckBoxListComponent, ViewInputParamIds.usingBlockTemplateComponentId);
         this.usingBlockItemComponent = this.CreateView(UsingBlockComponent, ViewInputParamIds.usingBlockItemComponentId);
         this.isDimensionalModeCheckbox = this.CreateView(InputCheckBoxComponent, ViewInputParamIds.isDimensionalModeCheckboxId, "詳細モード");
         this.selectMapdata = this.CreateView(SelectMapdataComponent, ViewInputParamIds.selectMapdataId);
@@ -74,6 +78,7 @@ export class InputParamsView extends ViewBase {
                 </div>
                 <div className="input-params-view right">
                     {this.baseImagePreview.GetRender()}
+                    {this.usingBlockTemplateComponent.GetRender()}
                     {this.usingBlockItemComponent.GetRender()}
                 </div>
             </div>
