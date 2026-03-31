@@ -20,6 +20,8 @@ namespace ViewInputParamIds {
     export const usingBlockTemplateComponentId: string = "usingBlockTemplateComponent";
     export const usingBlockItemComponentId: string = "usingBlockItem";
     export const isDimensionalModeCheckboxId: string = "isDimensionalModeCheckbox";
+    export const bGeneratesSimpleDitherIntermediateCheckboxId: string = "bGeneratesSimpleDitherIntermediateCheckbox";
+    export const simpleDitherColorCutPowInputComponentId: string = "simpleDitherColorCutPowInputComponent";
     export const magnificationInputComponentId: string = "magnificationInputComponent";
     export const convertButtonId: string = "convertButton";
     export const progressBarId: string = "progressBar";
@@ -35,6 +37,8 @@ export class InputParamsView extends ViewBase {
     usingBlockTemplateComponent: InputCheckBoxListComponent;
     usingBlockItemComponent: UsingBlockComponent;
     isDimensionalModeCheckbox: InputCheckBoxComponent;
+    bGeneratesSimpleDitherIntermediateCheckbox: InputCheckBoxComponent;
+    simpleDitherColorCutPowInputComponent: InputNumberComponent;
     magnificationInputComponent: InputNumberComponent;
     convertButtonComponent: ButtonComponent;
     progressBarComponent: ProgressBarComponent;
@@ -50,9 +54,11 @@ export class InputParamsView extends ViewBase {
         this.usingBlockTemplateComponent = this.CreateView(InputCheckBoxListComponent, ViewInputParamIds.usingBlockTemplateComponentId);
         this.usingBlockItemComponent = this.CreateView(UsingBlockComponent, ViewInputParamIds.usingBlockItemComponentId);
         this.isDimensionalModeCheckbox = this.CreateView(InputCheckBoxComponent, ViewInputParamIds.isDimensionalModeCheckboxId, "詳細モード");
+        this.bGeneratesSimpleDitherIntermediateCheckbox = this.CreateView(InputCheckBoxComponent, ViewInputParamIds.bGeneratesSimpleDitherIntermediateCheckboxId, "単純ディザリングの中間生成");
+        this.simpleDitherColorCutPowInputComponent = this.CreateView(InputNumberComponent, ViewInputParamIds.simpleDitherColorCutPowInputComponentId, 3, "[単純ディザリングの色分割数]", "");
         this.selectMapdata = this.CreateView(SelectMapdataComponent, ViewInputParamIds.selectMapdataId);
         this.importButtonComponent = this.CreateView(ButtonComponent, ViewInputParamIds.imporButtonId, "インポート", ButtonStyle.Import);
-        this.magnificationInputComponent = this.CreateView(InputNumberComponent, ViewInputParamIds.magnificationInputComponentId, 100, "[拡大率]", "拡大率: ", "%");
+        this.magnificationInputComponent = this.CreateView(InputNumberComponent, ViewInputParamIds.magnificationInputComponentId, 100, "[拡大率]", "%");
         this.convertButtonComponent = this.CreateView(ButtonComponent, ViewInputParamIds.convertButtonId, "変換", ButtonStyle.Convert);
         this.progressBarComponent = this.CreateView(ProgressBarComponent, ViewInputParamIds.progressBarId);
         this.resultImagePreview = this.CreateView(MapDataImagePreviewComponent, ViewInputParamIds.resultImagePreviewId);
@@ -69,6 +75,8 @@ export class InputParamsView extends ViewBase {
                     {this.convertModeDropdown.GetRender()}
                     {this.selectBaseImage.GetRender()}
                     {this.isDimensionalModeCheckbox.GetRender()}
+                    {this.bGeneratesSimpleDitherIntermediateCheckbox.GetRender()}
+                    {this.simpleDitherColorCutPowInputComponent.GetRender()}
                     {this.selectMapdata.GetRender()}
                     {this.importButtonComponent.GetRender()}
                     {this.magnificationInputComponent.GetRender()}

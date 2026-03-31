@@ -1,7 +1,6 @@
-import { SpiralMatrixOrderedDitherer } from "../Converters/OrderedDitherers/SpiralMatrixOrderedDitherer";
-
 export const ConvertModes = {
     RawDither: "RawDither",
+    SimpleDither: "SimpleDither",
     BayerMatrixOrderedDither: "BayerMatrixOrderedDither",
     DynamicBayerMatrixOrderedDither: "DynamicBayerMatrixOrderedDither",
     SpiralMatrixOrderedDither: "SpiralMatrixOrderedDither",

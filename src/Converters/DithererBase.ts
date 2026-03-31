@@ -1,7 +1,6 @@
-import {MCMapData} from "../Datas/MapData/MCMapData";
-import {OptionData} from "../Datas/Options/OptionData";
-import {ObserverSubject} from "../Cores/Observer";
-import {wrap} from 'comlink';
+import { MCMapData } from "../Datas/MapData/MCMapData";
+import { OptionData } from "../Datas/Options/OptionData";
+import { ObserverSubject } from "../Cores/Observer";
 
 export abstract class DithererBase {
 

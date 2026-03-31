@@ -1,11 +1,13 @@
-import {ThresholdDitherer} from "../ThresholdDitherer";
-import {RGBColor} from "../../Cores/Color";
-import {addScaled, dot, DistSq, norm2, rgbToLab, sub} from "../../FunctionLibraries/ColorFunctionLibrary.ts";
-import {MCMapData} from "../../Datas/MapData/MCMapData.ts";
-import {OptionData} from "../../Datas/Options/OptionData.ts";
-import {OrderedDitherWebgpu} from "./OrderedDitherWebgpu.ts";
-import {BoolToEDimensionalMode} from "../../Cores/Types.ts";
+import { ThresholdDitherer } from "../ThresholdDitherer";
+import { RGBColor } from "../../Cores/Color";
+import { addScaled, dot, DistSq, norm2, rgbToLab, sub } from "../../FunctionLibraries/ColorFunctionLibrary.ts";
+import { MCMapData } from "../../Datas/MapData/MCMapData.ts";
+import { OptionData } from "../../Datas/Options/OptionData.ts";
+import { OrderedDitherWebgpu } from "./OrderedDitherWebgpu.ts";
+import { BoolToEDimensionalMode } from "../../Cores/Types.ts";
 import shaderCode from './Shaders/OrderedDitherShader.wgsl?raw';
+import { DitherImageGenerator } from "../ShaderPipelines/DitherImageGenerator.ts";
+import { SimpleDitherer } from "../SimpleDitherer/SimpleDitherer.ts";
 
 export abstract class OrderedDithererBase extends ThresholdDitherer {
     // width, height, threshold map
@@ -41,9 +43,13 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
         const img = optionData.baseImage;
         const magnification = optionData.magnification;
 
-        const imageData = this.GetActualImageData(img, magnification);
+        let imageData = this.GetActualImageData(img, magnification);
         if (!imageData) {
             return null;
+        }
+
+        if (optionData.bGeneratesSimpleDitherIntermediate) {
+            imageData = await this.GetSimpleDitherImage(imageData, optionData.usingColors, optionData.simpleDitherColorCutPow);
         }
 
         const width = imageData.width;
@@ -104,6 +110,25 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
 
         return aDistance / (aDistance + bDistance) < layerIndex / (thresholdMapSizeHeight * thresholdMapSizeWidth) ? aColorIdx : bColorIdx;
 
+    }
+
+    private async GetSimpleDitherImage(baseImage: ImageData, colorList: RGBColor[], colorCutPow: number): Promise<ImageData> {
+        const simpleDitherImageGenerator = new DitherImageGenerator<SimpleDitherer>(new SimpleDitherer());
+        const usingColorsInSimpleDither: RGBColor[] = [];
+        const colorCut = Math.pow(2, colorCutPow);
+        for (let i = 0; i < colorList.length; i = i + 1) {
+            for (let j = i + 1; j < colorList.length; j = j + 1) {
+                // 中間色を追加
+                for (let k = 0; k < colorCut; k = k + 1) {
+                    const ToAddColor = new RGBColor((colorList[i].r * (colorCut - k) + colorList[j].r * k) / colorCut, (colorList[i].g * (colorCut - k) + colorList[j].g * k) / colorCut, (colorList[i].b * (colorCut - k) + colorList[j].b * k) / colorCut)
+                    usingColorsInSimpleDither.push(ToAddColor);
+                }
+            }
+            if (i % 10 == 0) {
+                await new Promise((resolve) => setTimeout(resolve, 0));
+            }
+        }
+        return await simpleDitherImageGenerator.Convert(baseImage, usingColorsInSimpleDither);
     }
 
     // 単に近い二色ではなく、ある程度近い色から、市松模様にしたときに最も色が近くなる組み合わせを取得

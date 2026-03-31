@@ -234,6 +234,40 @@ export class InputParamsController extends ControllerBase {
         });
     }
 
+    // bGeneratesSimpleDitherIntermediateCheckbox
+    InitializeBGeneratesSimpleDitherIntermediateCheckbox(checkbox: InputCheckBoxComponent): void {
+        if (!checkbox) {
+            console.error("checkbox must be defined");
+            return;
+        }
+
+        checkbox.onComponentChange.Subscribe((value) => {
+            if (typeof value != "boolean") {
+                console.log("bGeneratesSimpleDitherIntermediateCheckbox value must be a boolean but: ", typeof value);
+                return;
+            }
+
+            OptionManager.get().SetBGeneratesSimpleDitherIntermediate(value);
+        });
+    }
+
+    // simpleDitherColorCutPowInputComponent
+    InitializeSimpleDitherColorCutPowInputComponent(inputNumberComponent: InputNumberComponent): void {
+        if (!inputNumberComponent) {
+            console.error("inputNumberComponent must be defined");
+            return;
+        }
+
+        inputNumberComponent.onComponentChange.Subscribe((value) => {
+            if (typeof value != "number") {
+                console.log("simpleDitherColorCutInputComponent value must be a number but: ", typeof value);
+                return;
+            }
+
+            OptionManager.get().SetSimpleDitherColorCutPow(value);
+        });
+    }
+
     constructor(viewInputParams: InputParamsView) {
         super();
         this.InitializeConvertModeDropdown(viewInputParams.convertModeDropdown);
@@ -241,6 +275,8 @@ export class InputParamsController extends ControllerBase {
         this.InitializeBaseImagePreview(viewInputParams.baseImagePreview);
         this.InitializeUsingBlockItem(viewInputParams.usingBlockItemComponent);
         this.InitializeIsDimensionalModeCheckbox(viewInputParams.isDimensionalModeCheckbox);
+        this.InitializeBGeneratesSimpleDitherIntermediateCheckbox(viewInputParams.bGeneratesSimpleDitherIntermediateCheckbox);
+        this.InitializeSimpleDitherColorCutPowInputComponent(viewInputParams.simpleDitherColorCutPowInputComponent);
         this.InitializeMagnification(viewInputParams.magnificationInputComponent);
         this.InitializeConvertButton(viewInputParams.convertButtonComponent);
         this.InitializeProgressBar(viewInputParams.progressBarComponent);

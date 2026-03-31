@@ -1,20 +1,18 @@
-import {InputBaseComponent} from "../InputBaseComponent";
+import { InputBaseComponent } from "../InputBaseComponent";
 import React from "react";
 import "./InputNumberComponent.css";
-import type {ChangeEvent} from "react";
+import type { ChangeEvent } from "react";
 
 export class InputNumberComponent extends InputBaseComponent {
     title: string;
     value: number;
-    displayPreInput: string;
     displayPostInput: string;
 
-    constructor(id: string, defaultValue: number = 0, title: string = "", displayPreInput: string = "", displayPostInput: string = "") {
+    constructor(id: string, defaultValue: number = 0, title: string = "", displayPostInput: string = "") {
         super(id);
         this.type = "number";
         this.value = defaultValue;
         this.title = title;
-        this.displayPreInput = displayPreInput;
         this.displayPostInput = displayPostInput;
 
         this.onComponentChange.Subscribe((value: number) => {
@@ -38,7 +36,6 @@ export class InputNumberComponent extends InputBaseComponent {
         return (
             <div id={this.id} className={"input-number-component"}>
                 <p>{this.title}</p>
-                <span>{this.displayPreInput}</span>
                 <input
                     id={"numberInput"} type={this.type} accept={this.accept}
                     defaultValue={this.value}

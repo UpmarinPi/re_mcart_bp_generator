@@ -7,6 +7,7 @@ import { Singleton } from "../Cores/Singleton";
 import { SpiralMatrixOrderedDitherer } from "./OrderedDitherers/SpiralMatrixOrderedDitherer";
 import { DynamicSpiralMatrixOrderedDitherer } from "./OrderedDitherers/DynamicSpiralMatrixOrderedDitherer";
 import { HalftoneMatrixOrderedDitherer } from "./OrderedDitherers/HalftoneMatrixOrderedDitherer";
+import { SimpleDitherer } from "./SimpleDitherer/SimpleDitherer";
 
 export class ConverterFactory extends Singleton {
     private convertModeToDitherSystem: Map<string, DithererBase>;
@@ -14,6 +15,7 @@ export class ConverterFactory extends Singleton {
         super();
         this.convertModeToDitherSystem = new Map();
         this.convertModeToDitherSystem.set(ConvertModes.RawDither, new RawDitherer());
+        this.convertModeToDitherSystem.set(ConvertModes.SimpleDither, new SimpleDitherer());
         this.convertModeToDitherSystem.set(ConvertModes.BayerMatrixOrderedDither, new BayerMatrixOrderedDitherer());
         this.convertModeToDitherSystem.set(ConvertModes.DynamicBayerMatrixOrderedDither, new DynamicBayerMatrixOrderedDitherer());
         this.convertModeToDitherSystem.set(ConvertModes.SpiralMatrixOrderedDither, new SpiralMatrixOrderedDitherer());
