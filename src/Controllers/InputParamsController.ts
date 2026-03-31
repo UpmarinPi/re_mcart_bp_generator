@@ -23,6 +23,18 @@ import type { InputCheckBoxListComponent } from "../Views/Components/InputCompon
 
 export class InputParamsController extends ControllerBase {
 
+    viewInputParams: InputParamsView;
+
+    override Reload(): void {
+        super.Reload();
+        this.ReloadIsDimensionalModeCheckbox();
+        this.ReloadBaseImagePreview();
+        this.ReloadMagnification();
+        this.ReloadConvertModeDropdown();
+        this.ReloadBGeneratesSimpleDitherIntermediateCheckbox();
+        this.ReloadSimpleDitherColorCutPowInputComponent();
+    }
+
     OnInputParamChange(value: string): void {
         OptionManager.get().SetConvertMode(value);
     }
@@ -78,6 +90,10 @@ export class InputParamsController extends ControllerBase {
         );
     }
 
+    ReloadBaseImagePreview(): void {
+        this.viewInputParams.baseImagePreview.SetImage(OptionManager.get().optionData.baseImage);
+    }
+
     // is Dimensional mode Checkbox
 
     InitializeIsDimensionalModeCheckbox(checkbox: InputCheckBoxComponent): void {
@@ -96,12 +112,18 @@ export class InputParamsController extends ControllerBase {
         });
     }
 
+    ReloadIsDimensionalModeCheckbox(): void {
+        const optionData = OptionManager.get().optionData;
+        this.viewInputParams.isDimensionalModeCheckbox.checked = optionData.bIsDimensionalMode;
+    }
+
     //magnificationInputComponent
     InitializeMagnification(magnificationInputComponent: InputNumberComponent): void {
         if (!magnificationInputComponent) {
             console.error("magnificationInputComponent must be defined");
             return;
         }
+
         magnificationInputComponent.onComponentChange.Subscribe((value) => {
             if (typeof value != "number") {
                 console.log("magnificationInputComponent must be a number: ", typeof value);
@@ -111,6 +133,11 @@ export class InputParamsController extends ControllerBase {
             const ratio = value / 100;
             OptionManager.get().SetMagnification(ratio);
         })
+    }
+
+    ReloadMagnification(): void {
+        const optionData = OptionManager.get().optionData;
+        this.viewInputParams.magnificationInputComponent.value = optionData.magnification * 100;
     }
 
     // convert button
@@ -139,6 +166,11 @@ export class InputParamsController extends ControllerBase {
             });
     }
 
+    ReloadConvertModeDropdown(): void {
+        const optionData = OptionManager.get().optionData;
+        this.viewInputParams.convertModeDropdown.defaultValue = optionData.convertMode;
+    }
+
     // progress bar
     progressBar: ProgressBarComponent | undefined = undefined;
 
@@ -156,35 +188,6 @@ export class InputParamsController extends ControllerBase {
         //     progressBar.currentProgress = currentProgress;
         //     progressBar.maxProgress = maxProgress;
         // });
-    }
-
-    // result image preview
-    resultImagePreview: MapDataImagePreviewComponent | undefined = undefined;
-
-    InitializeResultImagePreview(resultImagePreview: MapDataImagePreviewComponent): void {
-        if (!resultImagePreview) {
-            console.error("ResultImagePreview must be defined");
-            return;
-        }
-
-        this.resultImagePreview = resultImagePreview;
-        MCMapDataManager.get().onMapDataChange.Subscribe((mapData: MCMapData) => {
-            this.OnMapDataChange(mapData);
-        });
-    }
-
-
-    // InitializeOutputMapData(outputMapdata: ): void {
-    //
-    // }
-
-    OnMapDataChange(mapData: MCMapData) {
-        if (!this.resultImagePreview) {
-            console.error("mapData must be defined");
-            return;
-        }
-
-        SceneManager.get().SwitchScene(SceneTypes.ResultPreviewScene);
     }
 
     InitializeSelectMapData(selectMapData: SelectMapdataComponent): void {
@@ -251,6 +254,11 @@ export class InputParamsController extends ControllerBase {
         });
     }
 
+    ReloadBGeneratesSimpleDitherIntermediateCheckbox(): void {
+        const optionData = OptionManager.get().optionData;
+        this.viewInputParams.bGeneratesSimpleDitherIntermediateCheckbox.checked = optionData.bGeneratesSimpleDitherIntermediate;
+    }
+
     // simpleDitherColorCutPowInputComponent
     InitializeSimpleDitherColorCutPowInputComponent(inputNumberComponent: InputNumberComponent): void {
         if (!inputNumberComponent) {
@@ -268,8 +276,14 @@ export class InputParamsController extends ControllerBase {
         });
     }
 
+    ReloadSimpleDitherColorCutPowInputComponent(): void {
+        const optionData = OptionManager.get().optionData;
+        this.viewInputParams.simpleDitherColorCutPowInputComponent.value = optionData.simpleDitherColorCutPow;
+    }
+
     constructor(viewInputParams: InputParamsView) {
         super();
+        this.viewInputParams = viewInputParams;
         this.InitializeConvertModeDropdown(viewInputParams.convertModeDropdown);
         this.InitializeSelectBaseImage(viewInputParams.selectBaseImage);
         this.InitializeBaseImagePreview(viewInputParams.baseImagePreview);
@@ -280,8 +294,8 @@ export class InputParamsController extends ControllerBase {
         this.InitializeMagnification(viewInputParams.magnificationInputComponent);
         this.InitializeConvertButton(viewInputParams.convertButtonComponent);
         this.InitializeProgressBar(viewInputParams.progressBarComponent);
-        this.InitializeResultImagePreview(viewInputParams.resultImagePreview);
         this.InitializeSelectMapData(viewInputParams.selectMapdata);
         this.InitializeUsingBlockTemplate(viewInputParams.usingBlockTemplateComponent);
+        this.Reload();
     }
 }

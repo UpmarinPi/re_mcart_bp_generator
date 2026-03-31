@@ -1,6 +1,6 @@
-import {ComponentBase} from "../ComponentBase";
+import { ComponentBase } from "../ComponentBase";
 import React from "react";
-import {ImageDataToImageURL} from "../../../FunctionLibraries/ImageFunctionLibrary";
+import { ImageDataToImageURL } from "../../../FunctionLibraries/ImageFunctionLibrary";
 import "./ImagePreviewComponent.css";
 
 export class ImagePreviewComponent extends ComponentBase {
@@ -41,7 +41,7 @@ export class ImagePreviewComponent extends ComponentBase {
 
     ClearImage() {
         this.img = null;
-        this.requestsRenderUpdate.notify();
+        this.OnComponentChange(null);
     }
 
     private UpdateImage(): void {
@@ -55,7 +55,7 @@ export class ImagePreviewComponent extends ComponentBase {
             return;
         }
         const imageURL = ImageDataToImageURL(this.canvas, this.img);
-        if(!imageURL) {
+        if (!imageURL) {
             return;
         }
         // 画像ソース設定
@@ -75,6 +75,9 @@ export class ImagePreviewComponent extends ComponentBase {
         this.canvas = document.createElement('canvas');
         // 描画して
         this.requestsRenderUpdate.Subscribe(() => {
+            this.UpdateImage();
+        });
+        this.postRender.Subscribe(() => {
             this.UpdateImage();
         });
     }

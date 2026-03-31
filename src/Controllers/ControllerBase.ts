@@ -1,11 +1,15 @@
 export interface IControllerBase {
-    onVCAppended() : void;
+    onVCAppended(): void;
 }
 
 export class ControllerBase implements IControllerBase {
     onVCAppended() {
     }
     constructor() {
+
+    }
+
+    Reload(): void {
 
     }
 }

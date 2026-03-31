@@ -1,6 +1,6 @@
-import type {IViewBase} from "../Views/ViewBase";
+import type { IViewBase } from "../Views/ViewBase";
 import React from "react";
-import type {ControllerBase} from "../Controllers/ControllerBase.ts";
+import type { ControllerBase } from "../Controllers/ControllerBase.ts";
 
 export abstract class SceneBase {
     view: IViewBase | undefined;
@@ -14,13 +14,17 @@ export abstract class SceneBase {
         return this.view.GetRender();
     }
 
-    protected InitializeView<T extends IViewBase>
-    (viewType: (new () => T)): void {
+    InitializeView<T extends IViewBase>
+        (viewType: (new () => T)): void {
         if (this.view !== undefined) {
-            console.warn("viewは既に初期化済みです");
             return;
         }
         this.view = new viewType();
+    }
+
+    ReloadScene(): void {
+        this.InitializeView(this.view?.constructor as new () => IViewBase);
+        this.controller?.Reload();
     }
 
     NotifyToPostRender() {

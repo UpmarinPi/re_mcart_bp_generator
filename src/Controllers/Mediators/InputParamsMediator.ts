@@ -8,6 +8,8 @@ import { ColorDataRepository } from "../../Datas/Repositories/ColorDataRepositor
 import { ERepositoryIds, RepositoryManager } from "../../Datas/Repositories/RepositoryManager.ts";
 import { BlockDataRepository } from "../../Datas/Repositories/BlockDataRepository.ts";
 import { UsingBlockTemplateRepository } from "../../Datas/Repositories/UsingBlockTemplateRepository.ts";
+import { SceneManager } from "../../Cores/SceneManager.ts";
+import { SceneTypes } from "../../Scenes/SceneTypes.ts";
 
 export class InputParamsMediator extends MediatorBase {
     constructor() {
@@ -27,6 +29,9 @@ export class InputParamsMediator extends MediatorBase {
         optionManager.onIsDemensionalModeChange.Subscribe(() => {
             this.OnIsDemensionalModeChange();
         });
+        MCMapDataManager.get().onMapDataChange.Subscribe((mapData: MCMapData) => {
+            this.OnMapDataChange();
+        });
     }
 
     private OnIsDemensionalModeChange(): void {
@@ -42,6 +47,14 @@ export class InputParamsMediator extends MediatorBase {
         optionManager.SetUsingColors(ColorDataRepo.GetColorList(optionManager.optionData.bIsDimensionalMode));
     }
 
+    private OnConvertCompleted(mapData: MCMapData) {
+        MCMapDataManager.get().SetMapData(mapData);
+    }
+
+    private OnMapDataChange() {
+        SceneManager.get().SwitchScene(SceneTypes.ResultPreviewScene);
+    }
+
     RequestToConverting() {
         const optionData = OptionManager.get().optionData;
         this.convertMode = ConverterFactory.get().GetConverter(optionData.convertMode);
@@ -52,10 +65,6 @@ export class InputParamsMediator extends MediatorBase {
         this.convertMode.Convert(optionData).then((mapData: MCMapData) => {
             this.OnConvertCompleted(mapData);
         });
-    }
-
-    OnConvertCompleted(mapData: MCMapData) {
-        MCMapDataManager.get().SetMapData(mapData);
     }
 
     GetUsingBlockItemData(): { id: string, colorId: string, blockList: string[] }[] {
@@ -86,7 +95,6 @@ export class InputParamsMediator extends MediatorBase {
             console.error("There has no using block template repository");
             return [];
         }
-        console.log("usingBlockTemplateRepo", usingBlockTemplateRepo.GetTemplateList());
         return usingBlockTemplateRepo.GetTemplateList();
     }
 }

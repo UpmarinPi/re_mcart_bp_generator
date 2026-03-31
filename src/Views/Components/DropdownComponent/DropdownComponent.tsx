@@ -17,6 +17,7 @@ export function StringListToOption(_list: string[]): IOption[] {
 
 export class DropdownComponent extends ComponentBase {
 
+    defaultValue: string = "";
     constructor(id: string = "", options: IOption[] = []) {
         super(id);
         this.options = options;
@@ -94,6 +95,7 @@ export class DropdownComponent extends ComponentBase {
             <div className={"dropdown-component " + this.id}>
                 <select
                     id={this.id}
+                    defaultValue={this.defaultValue}
                     onChange={
                         (event) => this.OnComponentChange(event.target.value)
                     }

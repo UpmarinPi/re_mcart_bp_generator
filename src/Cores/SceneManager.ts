@@ -65,6 +65,7 @@ export class SceneManager extends Singleton {
         if (pushHistory) {
             const scene = this.SceneTypeToScene.get(sceneType);
             if (scene) {
+                scene.ReloadScene();
                 window.history.pushState({ sceneType }, "", "#" + scene.GetScenePathName());
             }
         }

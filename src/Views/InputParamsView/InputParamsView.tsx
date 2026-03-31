@@ -25,7 +25,6 @@ namespace ViewInputParamIds {
     export const magnificationInputComponentId: string = "magnificationInputComponent";
     export const convertButtonId: string = "convertButton";
     export const progressBarId: string = "progressBar";
-    export const resultImagePreviewId: string = "resultImagePreview";
     export const selectMapdataId: string = "selectMapdataId";
     export const imporButtonId: string = "importButton";
 }
@@ -42,7 +41,6 @@ export class InputParamsView extends ViewBase {
     magnificationInputComponent: InputNumberComponent;
     convertButtonComponent: ButtonComponent;
     progressBarComponent: ProgressBarComponent;
-    resultImagePreview: MapDataImagePreviewComponent;
     selectMapdata: SelectMapdataComponent;
     importButtonComponent: ButtonComponent;
 
@@ -61,7 +59,6 @@ export class InputParamsView extends ViewBase {
         this.magnificationInputComponent = this.CreateView(InputNumberComponent, ViewInputParamIds.magnificationInputComponentId, 100, "[拡大率]", "%");
         this.convertButtonComponent = this.CreateView(ButtonComponent, ViewInputParamIds.convertButtonId, "変換", ButtonStyle.Convert);
         this.progressBarComponent = this.CreateView(ProgressBarComponent, ViewInputParamIds.progressBarId);
-        this.resultImagePreview = this.CreateView(MapDataImagePreviewComponent, ViewInputParamIds.resultImagePreviewId);
 
         this.baseImagePreview.SetSize(0.2);
 
@@ -82,7 +79,6 @@ export class InputParamsView extends ViewBase {
                     {this.magnificationInputComponent.GetRender()}
                     {this.convertButtonComponent.GetRender()}
                     {this.progressBarComponent.GetRender()}
-                    {this.resultImagePreview.GetRender()}
                 </div>
                 <div className="input-params-view right">
                     {this.baseImagePreview.GetRender()}

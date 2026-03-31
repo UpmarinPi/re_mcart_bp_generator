@@ -1,6 +1,6 @@
-import {SceneBase} from "./SceneBase.ts";
-import {ResultPreviewView} from "../Views/ResultPreviewView/ResultPreviewView.tsx";
-import {ResultPreviewController} from "../Controllers/ResultPreviewController.ts";
+import { SceneBase } from "./SceneBase.ts";
+import { ResultPreviewView } from "../Views/ResultPreviewView/ResultPreviewView.tsx";
+import { ResultPreviewController } from "../Controllers/ResultPreviewController.ts";
 
 export class ResultPreviewScene extends SceneBase {
     GetScenePathName(): string {

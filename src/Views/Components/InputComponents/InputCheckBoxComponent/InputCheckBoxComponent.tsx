@@ -6,10 +6,13 @@ import "./InputCheckBoxComponent.css";
 export class InputCheckBoxComponent extends InputBaseComponent {
 
     name: string;
+    checked: boolean;
+
     constructor(id: string, name: string = "") {
         super(id);
         this.type = "checkbox";
         this.name = name;
+        this.checked = false;
     }
 
     protected override OnInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -26,6 +29,7 @@ export class InputCheckBoxComponent extends InputBaseComponent {
                     id={this.id}
                     type={this.type}
                     name={this.name}
+                    defaultChecked={this.checked}
                     onChange={
                         (event) => {
                             this.OnInputChange(event);

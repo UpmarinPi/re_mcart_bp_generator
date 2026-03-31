@@ -35,7 +35,6 @@ export class InputCheckBoxListComponent extends ComponentBase {
     }
 
     public AddItem(item: CheckBoxListItem) {
-        console.log("AddItem", item);
         this.items.push(item);
     }
 
