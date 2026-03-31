@@ -33,7 +33,9 @@ export class ResultPreviewView extends ViewBase {
                 {this.backButton.GetRender()}
                 {this.saveButton.GetRender()}
                 {this.resultBlockPreview.GetRender()}
-                {this.resultImagePreview.GetRender()}
+                <div className="result-preview-view right">
+                    {this.resultImagePreview.GetRender()}
+                </div>
             </div>
         );
     }
