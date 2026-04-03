@@ -1,4 +1,4 @@
-import {ComponentBase} from "../ComponentBase";
+import { ComponentBase } from "../ComponentBase";
 import React from "react";
 import "./ButtonComponent.css";
 
@@ -7,11 +7,22 @@ export enum ButtonStyle {
     Back = "back",
     Convert = "convert",
     Import = "import",
-    Save = "save"
+    Save = "save",
+    ZoomIn = "zoomIn",
+    ZoomOut = "zoomOut"
 }
 
 export class ButtonComponent extends ComponentBase {
-    displayText: string;
+    private _displayText: string = "";
+    public get displayText(): string {
+        return this._displayText;
+    }
+    public set displayText(value: string) {
+        this._displayText = value;
+        this.requestsRenderUpdate.notify();
+    }
+
+
     buttonStyle: ButtonStyle;
 
     constructor(id: string, displayText: string, buttonStyle: ButtonStyle = ButtonStyle.Default) {

@@ -1,0 +1,29 @@
+.result-preview-side-bar-component {
+    position: fixed;
+    right: 0;
+    top: 0;
+    box-sizing: border-box;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    transition: transform 0.4s ease-out;
+    transform: translateX(0%);
+}
+
+.result-preview-side-bar-component-content {
+    order: 2;
+}
+
+.result-preview-side-bar-component .toggleHideButton {
+    order: 1;
+    transition: transform 0.4s ease-out;
+}
+
+.result-preview-side-bar-component.hidden {
+    transform: translateX(100%);
+}
+
+.result-preview-side-bar-component.hidden .toggleHideButton {
+    transform: translateX(-100%);
+}

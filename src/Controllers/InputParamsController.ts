@@ -17,13 +17,11 @@ import { InputNumberComponent } from "../Views/Components/InputComponents/InputN
 import type { SelectMapdataComponent } from "../Views/Components/InputComponents/SelectMapdataComponent/SelectMapdataComponent.tsx";
 import { MapDataInput } from "../IOSystems/MapdataInput.tsx";
 import type { InputCheckBoxComponent } from "../Views/Components/InputComponents/InputCheckBoxComponent/InputCheckBoxComponent.tsx";
-import { SceneManager } from "../Cores/SceneManager.ts";
-import { SceneTypes } from "../Scenes/SceneTypes.ts";
 import type { InputCheckBoxListComponent } from "../Views/Components/InputComponents/InputCheckBoxListComponent/InputCheckBoxListComponent.tsx";
 
 export class InputParamsController extends ControllerBase {
 
-    viewInputParams: InputParamsView;
+    private viewInputParams: InputParamsView;
 
     override Reload(): void {
         super.Reload();

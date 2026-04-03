@@ -1,5 +1,24 @@
 .map-data-image-preview-component {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 600px;
+    height: 600px;
+    overflow: auto;
+    background-color: #ffffff;
+}
+
+.map-data-canvas-wrapper {
+    position: relative;
+    /* allow the inline-block or block to fit content precisely */
+    display: inline-block;
+}
+
+.map-data-canvas-wrapper .result-canvas {
+    display: block;
+}
+
+.map-data-canvas-wrapper .grid-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
 }

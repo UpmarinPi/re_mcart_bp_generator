@@ -9,7 +9,5 @@
     position: fixed;
     right: 0;
     top: 0;
-    bottom: 0;
-    box-sizing: border-box;
-    max-height: 100vh;
+    height: 100vh;
 }

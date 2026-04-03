@@ -17,11 +17,21 @@ export class SceneManager extends Singleton {
     private RegisterScenes() {
         // input params scene
         let inputParamsScene = new InputParamsScene();
+        if (inputParamsScene.view) {
+            inputParamsScene.view.requestsRenderUpdate.Subscribe(() => {
+                this.onUserEffectChange.notify();
+            });
+        }
         this.SceneTypeToScene.set(SceneTypes.InputParamsScene, inputParamsScene);
         this.SceneHashToSceneType.set(inputParamsScene.GetScenePathName(), SceneTypes.InputParamsScene);
 
         // result preview scene
         let resultPreviewScene = new ResultPreviewScene();
+        if (resultPreviewScene.view) {
+            resultPreviewScene.view.requestsRenderUpdate.Subscribe(() => {
+                this.onUserEffectChange.notify();
+            });
+        }
         this.SceneTypeToScene.set(SceneTypes.ResultPreviewScene, resultPreviewScene);
         this.SceneHashToSceneType.set(resultPreviewScene.GetScenePathName(), SceneTypes.ResultPreviewScene);
     }

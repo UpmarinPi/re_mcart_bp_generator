@@ -1,17 +1,22 @@
-import {ComponentBase} from "../ComponentBase";
-import {MCMapData} from "../../../Datas/MapData/MCMapData";
+import { ComponentBase } from "../ComponentBase";
+import { MCMapData } from "../../../Datas/MapData/MCMapData";
 import React from "react";
-import {RGBColor} from "../../../Cores/Color";
+import { RGBColor } from "../../../Cores/Color";
 import "./MapDataImagePreviewComponent.css";
 
 export class MapDataImagePreviewComponent extends ComponentBase {
     mapData: MCMapData = new MCMapData();
-    resultCanvasId: string = "resultCanvas";
+    resultCanvasId: string;
+    gridCanvasId: string;
 
-    gridCanvasId: string = "gridCanvas";
+    width: number = 600;
+    height: number = 600;
+    canvasScale: number = 5.0;
 
     constructor(id: string) {
         super(id);
+        this.resultCanvasId = `${id}-resultCanvas`;
+        this.gridCanvasId = `${id}-gridCanvas`;
 
         this.postRender.Subscribe(() => {
             this.UpdateCanvas();
@@ -21,6 +26,22 @@ export class MapDataImagePreviewComponent extends ComponentBase {
     SetMapData(data: MCMapData): void {
         this.mapData = data;
         this.UpdateCanvas();
+    }
+
+    SetSize(width: number, height: number): void {
+        this.width = width;
+        this.height = height;
+        this.requestsRenderUpdate.notify();
+    }
+
+    SetScale(scale: number): void {
+        this.canvasScale = scale;
+        this.requestsRenderUpdate.notify();
+    }
+
+    FitScale(): void {
+        this.canvasScale = Math.min(this.width / this.mapData.width, this.height / this.mapData.height);
+        this.requestsRenderUpdate.notify();
     }
 
     UpdateCanvas() {
@@ -34,7 +55,7 @@ export class MapDataImagePreviewComponent extends ComponentBase {
             return;
         }
         const ctx = resultCanvas.getContext("2d");
-        if(!ctx){
+        if (!ctx) {
             return;
         }
 
@@ -48,8 +69,14 @@ export class MapDataImagePreviewComponent extends ComponentBase {
         resultCanvas.width = width;
         resultCanvas.height = height;
 
+        const gridCanvas = document.getElementById(this.gridCanvasId) as HTMLCanvasElement;
+        if (gridCanvas) {
+            gridCanvas.width = width;
+            gridCanvas.height = height;
+        }
+
         // map dataが無効な値の場合、中身を作らずに削除
-        if(this.mapData.width <= 0 || this.mapData.height <= 0){
+        if (this.mapData.width <= 0 || this.mapData.height <= 0) {
             return;
         }
 
@@ -60,8 +87,8 @@ export class MapDataImagePreviewComponent extends ComponentBase {
             for (let x = 0; x < width; x++) {
                 const dataNumber = this.mapData.map[y][x];
                 const index = (y * width + x) * 4;
-                let color: RGBColor|undefined = undefined;
-                if(this.mapData.mapToColorId && this.mapData.mapToColorId.has(dataNumber)) {
+                let color: RGBColor | undefined = undefined;
+                if (this.mapData.mapToColorId && this.mapData.mapToColorId.has(dataNumber)) {
                     color = this.mapData.mapToColorId.get(dataNumber);
                 }
                 if (!color) {
@@ -75,13 +102,33 @@ export class MapDataImagePreviewComponent extends ComponentBase {
         }
 
         ctx.putImageData(imageData, 0, 0);
+
+        this.requestsRenderUpdate.notify();
     }
 
     GetRender(): React.JSX.Element {
+        const style: React.CSSProperties = {};
+        style.width = `${this.width}px`;
+        style.height = `${this.height}px`;
+
+        const canvasStyle: React.CSSProperties = {};
+        if (this.mapData) {
+            canvasStyle.width = `${this.mapData.width * this.canvasScale}px`;
+            canvasStyle.height = `${this.mapData.height * this.canvasScale}px`;
+            if (this.canvasScale >= 1.0) {
+                canvasStyle.imageRendering = "pixelated";
+            }
+            else {
+                canvasStyle.imageRendering = "auto";
+            }
+        }
+
         return (
-            <div id={this.id} className={"map-data-image-preview-component"}>
-                <canvas id={this.resultCanvasId} width="200%" height="200%"/>
-                <canvas id={this.gridCanvasId} width="200%" height="200%"/>
+            <div id={this.id} className={"map-data-image-preview-component"} style={style}>
+                <div className="map-data-canvas-wrapper">
+                    <canvas id={this.resultCanvasId} className="result-canvas" style={canvasStyle} />
+                    <canvas id={this.gridCanvasId} className="grid-canvas" style={canvasStyle} />
+                </div>
             </div>
         );
     }

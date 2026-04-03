@@ -6,8 +6,11 @@ import type { ButtonComponent } from "../Views/Components/ButtonComponent/Button
 import { SceneManager } from "../Cores/SceneManager.ts";
 import { SceneTypes } from "../Scenes/SceneTypes.ts";
 import { MapdataOutput } from "../IOSystems/MapdataOutput.tsx";
+import type { ResultPreviewSideBarComponent } from "../Views/ResultPreviewView/ResultPreviewSideBarComponent/ResultPreviewSideBarComponent.tsx";
 
 export class ResultPreviewController extends ControllerBase {
+
+    private resultPreviewView: ResultPreviewView | undefined = undefined;
 
     // back button
     InitializeBackButton(backButton: ButtonComponent): void {
@@ -58,10 +61,99 @@ export class ResultPreviewController extends ControllerBase {
         resultImagePreview.SetMapData(MCMapDataManager.get().mapData);
     }
 
+    // toggle hide button
+
+    private InitializeToggleHideButton(toggleHideButton: ButtonComponent): void {
+        if (!toggleHideButton) {
+            console.error("toggleHideButton must be defined");
+            return;
+        }
+        toggleHideButton.onComponentChange.Subscribe(
+            () => {
+                this.OnToggleHideButtonPressed();
+            }
+        );
+    }
+
+    // zoom in button
+
+    private InitializeZoomInButton(zoomInButton: ButtonComponent): void {
+        if (!zoomInButton) {
+            console.error("zoomInButton must be defined");
+            return;
+        }
+        zoomInButton.onComponentChange.Subscribe(
+            () => {
+                this.OnZoomInButtonPressed();
+            }
+        );
+    }
+
+    // zoom out button
+
+    private InitializeZoomOutButton(zoomOutButton: ButtonComponent): void {
+        if (!zoomOutButton) {
+            console.error("zoomOutButton must be defined");
+            return;
+        }
+        zoomOutButton.onComponentChange.Subscribe(
+            () => {
+                this.OnZoomOutButtonPressed();
+            }
+        );
+    }
+
+    // fit scale button
+
+    private InitializeFitScaleButton(fitScaleButton: ButtonComponent): void {
+        if (!fitScaleButton) {
+            console.error("fitScaleButton must be defined");
+            return;
+        }
+        fitScaleButton.onComponentChange.Subscribe(
+            () => {
+                this.OnFitScaleButtonPressed();
+            }
+        );
+    }
+
+    // result preview side bar
+
+    private resultPreviewSideBar: ResultPreviewSideBarComponent | undefined = undefined;
+
+    InitializeResultPreviewSideBar(resultPreviewSideBar: ResultPreviewSideBarComponent): void {
+        if (!resultPreviewSideBar) {
+            console.error("ResultPreviewSideBar must be defined");
+            return;
+        }
+        this.InitializeResultImagePreview(resultPreviewSideBar.resultImagePreview);
+        this.InitializeZoomInButton(resultPreviewSideBar.zoomInButton);
+        this.InitializeZoomOutButton(resultPreviewSideBar.zoomOutButton);
+        this.InitializeFitScaleButton(resultPreviewSideBar.fitScaleButton);
+        this.InitializeToggleHideButton(resultPreviewSideBar.toggleHideButton);
+    }
+
+    private OnZoomInButtonPressed(): void {
+        // this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.ZoomIn();
+    }
+
+    private OnZoomOutButtonPressed(): void {
+        // this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.ZoomOut();
+    }
+
+    private OnFitScaleButtonPressed(): void {
+        this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.FitScale();
+    }
+
+    private OnToggleHideButtonPressed(): void {
+        this.resultPreviewView?.resultPreviewSideBarComponent.TogglePreviewContentVisibility();
+    }
+
     constructor(view: ResultPreviewView) {
         super();
-        this.InitializeResultImagePreview(view.resultImagePreview);
+        this.resultPreviewView = view;
         this.InitializeBackButton(view.backButton);
         this.InitializeSaveButton(view.saveButton);
+        this.InitializeResultPreviewSideBar(view.resultPreviewSideBarComponent);
     }
 }
