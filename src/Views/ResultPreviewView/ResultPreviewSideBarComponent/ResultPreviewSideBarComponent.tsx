@@ -16,6 +16,7 @@ export class ResultPreviewSideBarComponent extends ComponentBase {
     zoomInButton: ButtonComponent;
     zoomOutButton: ButtonComponent;
     fitScaleButton: ButtonComponent;
+    setHundredPercentScaleButton: ButtonComponent;
     toggleHideButton: ButtonComponent;
 
     constructor(id: string) {
@@ -24,6 +25,7 @@ export class ResultPreviewSideBarComponent extends ComponentBase {
         this.zoomInButton = this.CreateView(ButtonComponent, ViewResultPreviewSideBarComponentIds.zoomInButtonId, "+", ButtonStyle.ZoomIn);
         this.zoomOutButton = this.CreateView(ButtonComponent, ViewResultPreviewSideBarComponentIds.zoomOutButtonId, "-", ButtonStyle.ZoomOut);
         this.fitScaleButton = this.CreateView(ButtonComponent, ViewResultPreviewSideBarComponentIds.fitScaleButtonId, "[]", ButtonStyle.Default);
+        this.setHundredPercentScaleButton = this.CreateView(ButtonComponent, ViewResultPreviewSideBarComponentIds.fitScaleButtonId, "100%", ButtonStyle.Default);
         this.toggleHideButton = this.CreateView(ButtonComponent, ViewResultPreviewSideBarComponentIds.toggleHideButtonId, "隠す", ButtonStyle.Default);
     }
 
@@ -33,9 +35,12 @@ export class ResultPreviewSideBarComponent extends ComponentBase {
             <div className={`result-preview-side-bar-component ${this.isPreviewContentVisible ? "" : "hidden"}`}>
                 <div className="result-preview-side-bar-component-content">
                     {this.resultImagePreview.GetRender()}
-                    {this.zoomInButton.GetRender()}
-                    {this.zoomOutButton.GetRender()}
-                    {this.fitScaleButton.GetRender()}
+                    <div className="result-preview-side-bar-component-buttons">
+                        {this.zoomInButton.GetRender()}
+                        {this.zoomOutButton.GetRender()}
+                        {this.fitScaleButton.GetRender()}
+                        {this.setHundredPercentScaleButton.GetRender()}
+                    </div>
                 </div>
                 {this.toggleHideButton.GetRender()}
             </div>

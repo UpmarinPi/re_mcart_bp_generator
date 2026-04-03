@@ -117,6 +117,20 @@ export class ResultPreviewController extends ControllerBase {
         );
     }
 
+    // set one scale button
+
+    private InitializeSetHundredPercentScaleButton(setHundredPercentScaleButton: ButtonComponent): void {
+        if (!setHundredPercentScaleButton) {
+            console.error("setHundredPercentScaleButton must be defined");
+            return;
+        }
+        setHundredPercentScaleButton.onComponentChange.Subscribe(
+            () => {
+                this.OnSetHundredPercentScaleButtonPressed();
+            }
+        );
+    }
+
     // result preview side bar
 
     private resultPreviewSideBar: ResultPreviewSideBarComponent | undefined = undefined;
@@ -130,6 +144,7 @@ export class ResultPreviewController extends ControllerBase {
         this.InitializeZoomInButton(resultPreviewSideBar.zoomInButton);
         this.InitializeZoomOutButton(resultPreviewSideBar.zoomOutButton);
         this.InitializeFitScaleButton(resultPreviewSideBar.fitScaleButton);
+        this.InitializeSetHundredPercentScaleButton(resultPreviewSideBar.setHundredPercentScaleButton);
         this.InitializeToggleHideButton(resultPreviewSideBar.toggleHideButton);
     }
 
@@ -143,6 +158,10 @@ export class ResultPreviewController extends ControllerBase {
 
     private OnFitScaleButtonPressed(): void {
         this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.FitScale();
+    }
+
+    private OnSetHundredPercentScaleButtonPressed(): void {
+        this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.SetScale(1.0);
     }
 
     private OnToggleHideButtonPressed(): void {

@@ -27,3 +27,9 @@
 .result-preview-side-bar-component.hidden .toggleHideButton {
     transform: translateX(-100%);
 }
+
+.result-preview-side-bar-component-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
