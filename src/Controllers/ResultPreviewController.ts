@@ -7,10 +7,16 @@ import { SceneManager } from "../Cores/SceneManager.ts";
 import { SceneTypes } from "../Scenes/SceneTypes.ts";
 import { MapdataOutput } from "../IOSystems/MapdataOutput.tsx";
 import type { ResultPreviewSideBarComponent } from "../Views/ResultPreviewView/ResultPreviewSideBarComponent/ResultPreviewSideBarComponent.tsx";
+import { PreviewScaleManager } from "../ResultPreviews/PreviewScaleManager.ts";
+import type { MCMapData } from "../Datas/MapData/MCMapData.ts";
 
 export class ResultPreviewController extends ControllerBase {
 
     private resultPreviewView: ResultPreviewView | undefined = undefined;
+
+    public OnMapDataUpdated(mapData: MCMapData): void {
+        PreviewScaleManager.get().OnMapDataUpdated(mapData);
+    }
 
     // back button
     InitializeBackButton(backButton: ButtonComponent): void {
@@ -101,6 +107,11 @@ export class ResultPreviewController extends ControllerBase {
                 this.OnZoomOutButtonPressed();
             }
         );
+        PreviewScaleManager.get().onScaleChanged.Subscribe(
+            ([scale, isZoomInMaxed, isZoomOutMaxed]: [number, boolean, boolean]) => {
+                this.OnScaleChanged(scale, isZoomInMaxed, isZoomOutMaxed);
+            }
+        );
     }
 
     // fit scale button
@@ -149,19 +160,27 @@ export class ResultPreviewController extends ControllerBase {
     }
 
     private OnZoomInButtonPressed(): void {
-        // this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.ZoomIn();
+        PreviewScaleManager.get().Zoomin();
     }
 
     private OnZoomOutButtonPressed(): void {
-        // this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.ZoomOut();
+        PreviewScaleManager.get().Zoomout();
     }
 
     private OnFitScaleButtonPressed(): void {
-        this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.FitScale();
+        const width: number = this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.width ?? 0;
+        const height: number = this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.height ?? 0;
+        PreviewScaleManager.get().FitScale(width, height);
     }
 
     private OnSetHundredPercentScaleButtonPressed(): void {
-        this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.SetScale(1.0);
+        PreviewScaleManager.get().SetScale(1.0);
+    }
+
+    private OnScaleChanged(scale: number, isZoomInMaxed: boolean, isZoomOutMaxed: boolean): void {
+        this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.SetScale(scale);
+        // this.resultPreviewView?.resultPreviewSideBarComponent.zoomInButton.SetDisabled(isZoomInMaxed);
+        // this.resultPreviewView?.resultPreviewSideBarComponent.zoomOutButton.SetDisabled(isZoomOutMaxed);
     }
 
     private OnToggleHideButtonPressed(): void {

@@ -14,31 +14,42 @@ export class SceneManager extends Singleton {
     SceneHashToSceneType: Map<string, SceneTypes> = new Map();
 
     // scene登録
-    private RegisterScenes() {
-        // input params scene
-        let inputParamsScene = new InputParamsScene();
-        if (inputParamsScene.view) {
-            inputParamsScene.view.requestsRenderUpdate.Subscribe(() => {
-                this.onUserEffectChange.notify();
-            });
-        }
-        this.SceneTypeToScene.set(SceneTypes.InputParamsScene, inputParamsScene);
-        this.SceneHashToSceneType.set(inputParamsScene.GetScenePathName(), SceneTypes.InputParamsScene);
+    private RegisterSceneHashes() {
+        // パス名とSceneTypeのマッピングだけを先に行う
+        this.SceneHashToSceneType.set("/", SceneTypes.InputParamsScene);
+        this.SceneHashToSceneType.set("/result", SceneTypes.ResultPreviewScene);
+    }
 
-        // result preview scene
-        let resultPreviewScene = new ResultPreviewScene();
-        if (resultPreviewScene.view) {
-            resultPreviewScene.view.requestsRenderUpdate.Subscribe(() => {
+    // 遅延初期化: Sceneが必要になったときに初めてインスタンス化する
+    private GetOrCreateScene(sceneType: SceneTypes): SceneBase {
+        if (this.SceneTypeToScene.has(sceneType)) {
+            return this.SceneTypeToScene.get(sceneType)!;
+        }
+
+        let newScene: SceneBase;
+        switch (sceneType) {
+            case SceneTypes.InputParamsScene:
+                newScene = new InputParamsScene();
+                break;
+            case SceneTypes.ResultPreviewScene:
+                newScene = new ResultPreviewScene();
+                break;
+            default:
+                throw new Error("Unknown SceneType: " + sceneType);
+        }
+
+        if (newScene.view) {
+            newScene.view.requestsRenderUpdate.Subscribe(() => {
                 this.onUserEffectChange.notify();
             });
         }
-        this.SceneTypeToScene.set(SceneTypes.ResultPreviewScene, resultPreviewScene);
-        this.SceneHashToSceneType.set(resultPreviewScene.GetScenePathName(), SceneTypes.ResultPreviewScene);
+        this.SceneTypeToScene.set(sceneType, newScene);
+        return newScene;
     }
 
     private constructor() {
         super();
-        this.RegisterScenes();
+        this.RegisterSceneHashes();
 
         // 期待されるSceneをURLハッシュから判定する
         const currentHash = window.location.hash || "#/";
@@ -57,15 +68,12 @@ export class SceneManager extends Singleton {
         });
 
         // 初期状態をHistory APIに登録
-        const initialScenePath = this.SceneTypeToScene.get(this.currentSceneType)?.GetScenePathName() || "/";
+        const initialScenePath = this.GetOrCreateScene(this.currentSceneType).GetScenePathName();
         window.history.replaceState({ sceneType: this.currentSceneType }, "", "#" + initialScenePath);
 
         this.StartScene(this.currentSceneType, false);
         this.onRenderFinished.Subscribe(() => {
-            const scene = this.SceneTypeToScene.get(this.currentSceneType);
-            if (!scene) {
-                return;
-            }
+            const scene = this.GetOrCreateScene(this.currentSceneType);
             scene.NotifyToPostRender();
         });
     }
@@ -73,7 +81,7 @@ export class SceneManager extends Singleton {
     StartScene(sceneType: SceneTypes, pushHistory: boolean = true): void {
         this.currentSceneType = sceneType;
         if (pushHistory) {
-            const scene = this.SceneTypeToScene.get(sceneType);
+            const scene = this.GetOrCreateScene(sceneType);
             if (scene) {
                 scene.ReloadScene();
                 window.history.pushState({ sceneType }, "", "#" + scene.GetScenePathName());
@@ -89,7 +97,7 @@ export class SceneManager extends Singleton {
     }
 
     GetCurrentScene(): SceneBase | undefined {
-        return this.SceneTypeToScene.get(this.currentSceneType);
+        return this.GetOrCreateScene(this.currentSceneType);
     }
 
 

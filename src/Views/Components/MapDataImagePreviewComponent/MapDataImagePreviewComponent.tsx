@@ -9,9 +9,17 @@ export class MapDataImagePreviewComponent extends ComponentBase {
     resultCanvasId: string;
     gridCanvasId: string;
 
-    width: number = 600;
-    height: number = 600;
-    canvasScale: number = 5.0;
+    _width: number = 600;
+    _height: number = 600;
+    canvasScale: number = 1.0;
+
+    get width(): number {
+        return this._width;
+    }
+
+    get height(): number {
+        return this._height;
+    }
 
     constructor(id: string) {
         super(id);
@@ -29,18 +37,13 @@ export class MapDataImagePreviewComponent extends ComponentBase {
     }
 
     SetSize(width: number, height: number): void {
-        this.width = width;
-        this.height = height;
+        this._width = width;
+        this._height = height;
         this.requestsRenderUpdate.notify();
     }
 
     SetScale(scale: number): void {
         this.canvasScale = scale;
-        this.requestsRenderUpdate.notify();
-    }
-
-    FitScale(): void {
-        this.canvasScale = Math.min(this.width / this.mapData.width, this.height / this.mapData.height);
         this.requestsRenderUpdate.notify();
     }
 

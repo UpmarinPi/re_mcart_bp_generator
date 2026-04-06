@@ -10,9 +10,15 @@ export class ResultPreviewScene extends SceneBase {
     constructor() {
         super();
         this.InitializeView(ResultPreviewView);
+        this.controller = new ResultPreviewController(this.view as ResultPreviewView);
     }
 
     override NotifyToPostRender() {
-        this.controller = new ResultPreviewController(this.view as ResultPreviewView);
+        if (this.view) {
+            this.view.postRender.notify();
+        }
+        if (this.controller) {
+            this.controller.Reload();
+        }
     }
 }

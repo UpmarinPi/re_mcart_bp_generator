@@ -1,6 +1,6 @@
-import {SceneBase} from "./SceneBase";
-import {InputParamsView} from "../Views/InputParamsView/InputParamsView.tsx";
-import {InputParamsController} from "../Controllers/InputParamsController";
+import { SceneBase } from "./SceneBase";
+import { InputParamsView } from "../Views/InputParamsView/InputParamsView.tsx";
+import { InputParamsController } from "../Controllers/InputParamsController";
 
 export class InputParamsScene extends SceneBase {
 
@@ -15,9 +15,11 @@ export class InputParamsScene extends SceneBase {
     }
 
     override NotifyToPostRender() {
-        if(!this.view){
-            return;
+        if (this.view) {
+            this.view.postRender.notify();
         }
-        this.view.postRender.notify();
+        if (this.controller) {
+            this.controller.Reload();
+        }
     }
 }
