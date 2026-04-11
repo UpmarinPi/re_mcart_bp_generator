@@ -5,7 +5,6 @@ import { DropdownComponent } from "../Components/DropdownComponent/DropdownCompo
 import { SelectImageComponent } from "../Components/InputComponents/SelectImageComponent/SelectImageComponent";
 import { ImagePreviewComponent } from "../Components/ImagePreviewComponent/ImagePreviewComponent";
 import { ButtonComponent, ButtonStyle } from "../Components/ButtonComponent/ButtonComponent";
-import { MapDataImagePreviewComponent } from "../Components/MapDataImagePreviewComponent/MapDataImagePreviewComponent";
 import { ProgressBarComponent } from "../Components/ProgressBarComponent/ProgressBarComponent";
 import { SelectMapdataComponent } from "../Components/InputComponents/SelectMapdataComponent/SelectMapdataComponent";
 import { InputNumberComponent } from "../Components/InputComponents/InputNumberComponent/InputNumberComponent";
