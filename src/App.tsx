@@ -20,9 +20,6 @@ function App() {
         return <>Loading...</>;
     }
 
-    useEffect(() => {
-        sceneManager.onRenderFinished.notify();
-    }, [scene]);
     return (
         <>
             {scene.GetRender()}

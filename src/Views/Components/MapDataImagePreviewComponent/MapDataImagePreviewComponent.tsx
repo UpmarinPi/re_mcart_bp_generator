@@ -5,13 +5,13 @@ import { RGBColor } from "../../../Cores/Color";
 import "./MapDataImagePreviewComponent.css";
 
 export class MapDataImagePreviewComponent extends ComponentBase {
-    mapData: MCMapData = new MCMapData();
-    resultCanvasId: string;
-    gridCanvasId: string;
+    private mapData: MCMapData = new MCMapData();
+    private resultCanvasId: string;
+    private gridCanvasId: string;
 
-    _width: number = 600;
-    _height: number = 600;
-    canvasScale: number = 1.0;
+    private _width: number = 600;
+    private _height: number = 600;
+    private canvasScale: number = 1.0;
 
     get width(): number {
         return this._width;
@@ -28,7 +28,7 @@ export class MapDataImagePreviewComponent extends ComponentBase {
 
         this.postRender.Subscribe(() => {
             this.UpdateCanvas();
-        })
+        });
     }
 
     SetMapData(data: MCMapData): void {
@@ -57,6 +57,7 @@ export class MapDataImagePreviewComponent extends ComponentBase {
             console.warn("no canvas");
             return;
         }
+        console.log("yes canvas");
         const ctx = resultCanvas.getContext("2d");
         if (!ctx) {
             return;

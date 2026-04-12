@@ -71,11 +71,11 @@ export class SceneManager extends Singleton {
         const initialScenePath = this.GetOrCreateScene(this.currentSceneType).GetScenePathName();
         window.history.replaceState({ sceneType: this.currentSceneType }, "", "#" + initialScenePath);
 
-        this.StartScene(this.currentSceneType, false);
         this.onRenderFinished.Subscribe(() => {
             const scene = this.GetOrCreateScene(this.currentSceneType);
             scene.NotifyToPostRender();
         });
+        this.StartScene(this.currentSceneType, false);
     }
 
     StartScene(sceneType: SceneTypes, pushHistory: boolean = true): void {
@@ -89,6 +89,7 @@ export class SceneManager extends Singleton {
         }
 
         this.onUserEffectChange.notify();
+        this.onRenderFinished.notify();
     }
 
     // start sceneと同じ
