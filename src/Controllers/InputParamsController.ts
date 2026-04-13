@@ -18,6 +18,7 @@ import type { SelectMapdataComponent } from "../Views/Components/InputComponents
 import { MapDataInput } from "../IOSystems/MapdataInput.tsx";
 import type { InputCheckBoxComponent } from "../Views/Components/InputComponents/InputCheckBoxComponent/InputCheckBoxComponent.tsx";
 import type { InputCheckBoxListComponent } from "../Views/Components/InputComponents/InputCheckBoxListComponent/InputCheckBoxListComponent.tsx";
+import type { BlockBulkSettingComponent } from "../Views/Components/BlockBulkSettingComponent/BlockBulkSettingComponent.tsx";
 
 export class InputParamsController extends ControllerBase {
 
@@ -223,15 +224,76 @@ export class InputParamsController extends ControllerBase {
     }
 
     // using block template
-    InitializeUsingBlockTemplate(usingBlockTemplateComponent: InputCheckBoxListComponent): void {
-        if (!usingBlockTemplateComponent) {
-            console.error("usingBlockTemplateComponent must be defined");
+    InitializeBlockBulkSetting(blockBulkSettingComponent: BlockBulkSettingComponent): void {
+        if (!blockBulkSettingComponent) {
+            console.error("blockBulkSettingComponent must be defined");
+            return;
+        }
+
+        this.InitializeBlockBulkSettingCheckboxList(blockBulkSettingComponent.inputCheckBoxList);
+        this.InitializeBlockBulkSettingApplyButton(blockBulkSettingComponent.applyChecksButton);
+        this.InitializeBlockBulkSettingSelectAllButton(blockBulkSettingComponent.selectAllButton);
+        this.InitializeBlockBulkSettingDeselectAllButton(blockBulkSettingComponent.deselectAllButton);
+    }
+
+    InitializeBlockBulkSettingCheckboxList(inputCheckBoxListComponent: InputCheckBoxListComponent): void {
+        if (!inputCheckBoxListComponent) {
+            console.error("inputCheckBoxListComponent must be defined");
             return;
         }
 
         const usingBlockTemplateDataList = this.inputParamsMediator.GetUsingBlockTemplateData();
         usingBlockTemplateDataList.forEach(data => {
-            usingBlockTemplateComponent.AddItem({ label: data.name, value: data.id, checked: false });
+            inputCheckBoxListComponent.AddItem({ label: data.name, value: data.id, checked: false });
+        });
+
+        inputCheckBoxListComponent.onComponentChange.Subscribe((value) => {
+            if (typeof value != "boolean") {
+                console.log("blockBulkSettingCheckbox value must be a boolean but: ", typeof value);
+                return;
+            }
+        });
+    }
+
+    InitializeBlockBulkSettingApplyButton(applyChecksButton: ButtonComponent): void {
+        if (!applyChecksButton) {
+            console.error("applyChecksButton must be defined");
+            return;
+        }
+
+        applyChecksButton.onComponentChange.Subscribe((value) => {
+            if (typeof value != "boolean") {
+                console.log("applyChecksButton value must be a boolean but: ", typeof value);
+                return;
+            }
+        });
+    }
+
+    InitializeBlockBulkSettingSelectAllButton(selectAllButton: ButtonComponent): void {
+        if (!selectAllButton) {
+            console.error("selectAllButton must be defined");
+            return;
+        }
+
+        selectAllButton.onComponentChange.Subscribe((value) => {
+            if (typeof value != "boolean") {
+                console.log("selectAllButton value must be a boolean but: ", typeof value);
+                return;
+            }
+        });
+    }
+
+    InitializeBlockBulkSettingDeselectAllButton(deselectAllButton: ButtonComponent): void {
+        if (!deselectAllButton) {
+            console.error("deselectAllButton must be defined");
+            return;
+        }
+
+        deselectAllButton.onComponentChange.Subscribe((value) => {
+            if (typeof value != "boolean") {
+                console.log("deselectAllButton value must be a boolean but: ", typeof value);
+                return;
+            }
         });
     }
 
@@ -293,7 +355,7 @@ export class InputParamsController extends ControllerBase {
         this.InitializeConvertButton(viewInputParams.convertButtonComponent);
         this.InitializeProgressBar(viewInputParams.progressBarComponent);
         this.InitializeSelectMapData(viewInputParams.selectMapdata);
-        this.InitializeUsingBlockTemplate(viewInputParams.usingBlockTemplateComponent);
+        this.InitializeBlockBulkSetting(viewInputParams.blockBulkSettingComponent);
         this.Reload();
     }
 }

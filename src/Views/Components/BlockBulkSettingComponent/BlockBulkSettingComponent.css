@@ -1,0 +1,12 @@
+.block-bulk-setting-component {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.block-bulk-setting-component-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: flex-end;
+}
