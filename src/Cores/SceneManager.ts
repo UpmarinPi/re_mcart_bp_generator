@@ -7,8 +7,12 @@ import { AppConfig } from "../AppConfig.ts";
 import { SceneTypes } from "../Scenes/SceneTypes.ts";
 
 export class SceneManager extends Singleton {
+    // 画面の再描画リクエスト
     onUserEffectChange: ObserverSubject = new ObserverSubject();
+    // 画面の再描画完了通知
     onRenderFinished: ObserverSubject = new ObserverSubject();
+    // 画面の再描画完了待機フラグ
+    pendingRenderFinished: boolean = false;
     currentSceneType: SceneTypes = SceneTypes.InputParamsScene;
     SceneTypeToScene: Map<SceneTypes, SceneBase> = new Map();
     SceneHashToSceneType: Map<string, SceneTypes> = new Map();
@@ -80,16 +84,18 @@ export class SceneManager extends Singleton {
 
     StartScene(sceneType: SceneTypes, pushHistory: boolean = true): void {
         this.currentSceneType = sceneType;
-        if (pushHistory) {
-            const scene = this.GetOrCreateScene(sceneType);
-            if (scene) {
-                scene.ReloadScene();
+        const scene = this.GetOrCreateScene(sceneType);
+        if (scene) {
+            scene.ReloadScene();
+            if (pushHistory) {
                 window.history.pushState({ sceneType }, "", "#" + scene.GetScenePathName());
             }
         }
 
+        console.log("StartScene", sceneType);
+
+        this.pendingRenderFinished = true;
         this.onUserEffectChange.notify();
-        this.onRenderFinished.notify();
     }
 
     // start sceneと同じ

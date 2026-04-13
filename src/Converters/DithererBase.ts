@@ -17,8 +17,8 @@ export abstract class DithererBase {
         const actualWidth = img.width * magnification;
         const actualHeight = img.height * magnification;
 
-        const ctx = this.canvas.getContext("2d");
-        const offCtx = this.offCanvas.getContext("2d");
+        const ctx = this.canvas.getContext("2d", { willReadFrequently: true });
+        const offCtx = this.offCanvas.getContext("2d", { willReadFrequently: true });
         if (!ctx || !offCtx) {
             return null;
         }

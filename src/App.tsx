@@ -15,6 +15,14 @@ function App() {
         );
     }, []);
 
+    // 毎回のレンダー確定後に実行され、SceneManagerに開始要求があれば発火させる
+    useEffect(() => {
+        if (sceneManager.pendingRenderFinished) {
+            sceneManager.pendingRenderFinished = false;
+            sceneManager.onRenderFinished.notify();
+        }
+    });
+
     const scene: SceneBase | undefined = sceneManager.GetCurrentScene();
     if (!scene) {
         return <>Loading...</>;

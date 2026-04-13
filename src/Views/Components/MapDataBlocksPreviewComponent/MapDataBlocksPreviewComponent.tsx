@@ -24,7 +24,7 @@ export class MapDataBlocksPreviewComponent extends ComponentBase {
             console.warn("no canvas");
             return;
         }
-        const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
         if (!ctx) {
             return;
         }

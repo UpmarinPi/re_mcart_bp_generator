@@ -14,8 +14,20 @@ export class ResultPreviewController extends ControllerBase {
 
     private resultPreviewView: ResultPreviewView | undefined = undefined;
 
+    override Reload(): void {
+        super.Reload();
+        this.ReloadResultImagePreview();
+        this.OnMapDataUpdated(MCMapDataManager.get().mapData);
+    }
+
     public OnMapDataUpdated(mapData: MCMapData): void {
         PreviewScaleManager.get().OnMapDataUpdated(mapData);
+    }
+
+    private ReloadResultImagePreview(): void {
+        if (this.resultPreviewView) {
+            this.resultPreviewView.resultPreviewSideBarComponent.resultImagePreview.SetMapData(MCMapDataManager.get().mapData);
+        }
     }
 
     // back button

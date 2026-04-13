@@ -49,6 +49,7 @@ export class MapDataImagePreviewComponent extends ComponentBase {
 
     UpdateCanvas() {
         if (!this.mapData) {
+            console.warn("no map data");
             return;
         }
 
@@ -57,9 +58,9 @@ export class MapDataImagePreviewComponent extends ComponentBase {
             console.warn("no canvas");
             return;
         }
-        console.log("yes canvas");
-        const ctx = resultCanvas.getContext("2d");
+        const ctx = resultCanvas.getContext("2d", { willReadFrequently: true });
         if (!ctx) {
+            console.warn("no context");
             return;
         }
 
@@ -81,6 +82,7 @@ export class MapDataImagePreviewComponent extends ComponentBase {
 
         // map dataが無効な値の場合、中身を作らずに削除
         if (this.mapData.width <= 0 || this.mapData.height <= 0) {
+            console.warn("invalid map data");
             return;
         }
 

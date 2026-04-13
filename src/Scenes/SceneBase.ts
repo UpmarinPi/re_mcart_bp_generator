@@ -24,11 +24,10 @@ export abstract class SceneBase {
 
     ReloadScene(): void {
         this.InitializeView(this.view?.constructor as new () => IViewBase);
-        this.controller?.Reload();
     }
 
     NotifyToPostRender() {
-
+        this.controller?.Reload();
     }
 
     // controllers
