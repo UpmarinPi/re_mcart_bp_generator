@@ -2,6 +2,7 @@
   "name": "re_mcart_bp_generator",
   "private": true,
   "version": "0.0.0",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
