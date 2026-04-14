@@ -24,7 +24,7 @@ export class OptionData {
     usingColors: RGBColor[] = [];
 
     // 使用するブロック群
-    usingBlocks: string[] = [];
+    colorsToBlocks: Map<RGBColor, string> = new Map();
 
     // その他パラメータ
     params: any = 1;

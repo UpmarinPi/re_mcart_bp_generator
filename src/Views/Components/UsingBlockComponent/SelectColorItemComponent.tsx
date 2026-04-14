@@ -36,6 +36,10 @@ export class SelectColorItemComponent extends ComponentBase {
         this.colorPreviewComponent.color = RGBColor.ColorCodeToRGB(this.colorId);
     }
 
+    GetIsSelected(): boolean {
+        return this.checkBoxComponent.checked;
+    }
+
     GetRender(): React.JSX.Element {
         return (
             <div className={`select-color-item-component ${this.id}`}>

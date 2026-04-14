@@ -9,7 +9,24 @@ export class UsingBlockComponent extends ComponentBase {
 
     constructor(id: string) {
         super(id);
+        this.selectColorItemComponents.forEach((selectColorItemComponent) => {
+            selectColorItemComponent.onComponentChange.Subscribe(() => {
+                this.onComponentChange.notify(this.GetColorIdToBlockMap());
+            });
+        });
     }
+
+    GetColorIdToBlockMap(): Map<string, string> {
+        const colorIdToBlockMap = new Map<string, string>();
+        this.selectColorItemComponents.forEach((selectColorItemComponent) => {
+            if (selectColorItemComponent.GetIsSelected()) {
+                colorIdToBlockMap.set(selectColorItemComponent.colorId, selectColorItemComponent.usingBlockComponent.GetCurrentSelect());
+            }
+        });
+        return colorIdToBlockMap;
+    }
+
+
 
     AddItem(id: string, colorId: string, blockList: string[]) {
         this.selectColorItemComponents.push(new SelectColorItemComponent(id, colorId, blockList));

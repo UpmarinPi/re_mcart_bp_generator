@@ -47,6 +47,14 @@ export class OptionManager extends Singleton {
     }
     onUsingColorChange: ObserverSubject<RGBColor[]> = new ObserverSubject();
 
+    SetColorsToBlocks(colorsToBlocks: Map<RGBColor, string>): void {
+        this.optionData.colorsToBlocks = colorsToBlocks;
+        console.debug("Updated color to block map");
+        this.onColorsToBlocksChange.notify(this.optionData.colorsToBlocks);
+        this.onOptionChange.notify(this.optionData);
+    }
+    onColorsToBlocksChange: ObserverSubject<Map<RGBColor, string>> = new ObserverSubject();
+
     SetBGeneratesSimpleDitherIntermediate(bGeneratesSimpleDitherIntermediate: boolean): void {
         this.optionData.bGeneratesSimpleDitherIntermediate = bGeneratesSimpleDitherIntermediate;
         console.debug("Set \"Generates Simple Dither Intermediate\" to " + bGeneratesSimpleDitherIntermediate);
