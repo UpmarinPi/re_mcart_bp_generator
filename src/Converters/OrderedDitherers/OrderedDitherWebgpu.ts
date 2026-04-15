@@ -1,6 +1,6 @@
 import * as WebgpuUtils from "webgpu-utils";
-import type {ShaderDataDefinitions} from "webgpu-utils";
-import {RGBColor} from "../../Cores/Color";
+import type { ShaderDataDefinitions } from "webgpu-utils";
+import { RGBColor } from "../../Cores/Color";
 
 export class OrderedDitherWebgpu {
     adapter: GPUAdapter | null = null;
@@ -71,7 +71,7 @@ export class OrderedDitherWebgpu {
         const computePipeline = this.device.createComputePipeline({
             layout: "auto",
             compute: {
-                module: this.device.createShaderModule({code: this.shaderCode}),
+                module: this.device.createShaderModule({ code: this.shaderCode }),
                 entryPoint: "main",
             },
         });
@@ -116,13 +116,12 @@ export class OrderedDitherWebgpu {
 
         await readBuffer.mapAsync(GPUMapMode.READ);
         const data = new Uint32Array(readBuffer.getMappedRange());
-        console.debug(data);
         return Array.from(data);
     }
 
     async SetupStorageBuffer(pipeline: GPUComputePipeline,
-                             defs: ShaderDataDefinitions,
-                             image: ImageData
+        defs: ShaderDataDefinitions,
+        image: ImageData
     ): Promise<[Array<GPUBindGroup>, GPUBuffer | null]> {
         if (!this.device || !this.image) {
             return [[], null];
@@ -204,8 +203,8 @@ export class OrderedDitherWebgpu {
         const bindGroup0 = this.device.createBindGroup({
             layout: pipeline.getBindGroupLayout(0),
             entries: [
-                {binding: 0, resource: inputTexture.createView(),},
-                {binding: 1, resource: {buffer: imageSizeBuffer},},
+                { binding: 0, resource: inputTexture.createView(), },
+                { binding: 1, resource: { buffer: imageSizeBuffer }, },
             ]
         });
         bindGroupArray.push(bindGroup0);
@@ -214,7 +213,7 @@ export class OrderedDitherWebgpu {
         const bindGroup1: GPUBindGroup = this.device.createBindGroup({
             layout: pipeline.getBindGroupLayout(1),
             entries: [
-                {binding: 0, resource: {buffer: outputBuffer},},
+                { binding: 0, resource: { buffer: outputBuffer }, },
             ]
         });
         bindGroupArray.push(bindGroup1);
@@ -223,8 +222,8 @@ export class OrderedDitherWebgpu {
         const bindGroup2: GPUBindGroup = this.device.createBindGroup({
             layout: pipeline.getBindGroupLayout(2),
             entries: [
-                {binding: 0, resource: {buffer: usableColorListBuffer},},
-                {binding: 1, resource: {buffer: usableColorListNumBuffer},},
+                { binding: 0, resource: { buffer: usableColorListBuffer }, },
+                { binding: 1, resource: { buffer: usableColorListNumBuffer }, },
             ]
         });
         bindGroupArray.push(bindGroup2);
@@ -233,8 +232,8 @@ export class OrderedDitherWebgpu {
         const bindGroup3: GPUBindGroup = this.device.createBindGroup({
             layout: pipeline.getBindGroupLayout(3),
             entries: [
-                {binding: 0, resource: {buffer: thresholdMapBuffer},},
-                {binding: 1, resource: {buffer: thresholdMapSizeBuffer},},
+                { binding: 0, resource: { buffer: thresholdMapBuffer }, },
+                { binding: 1, resource: { buffer: thresholdMapSizeBuffer }, },
             ]
         });
         bindGroupArray.push(bindGroup3);

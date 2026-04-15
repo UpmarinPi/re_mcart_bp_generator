@@ -48,6 +48,7 @@ export class InputParamsMediator extends MediatorBase {
     }
 
     private OnConvertCompleted(mapData: MCMapData) {
+        console.debug("mapData created!", mapData);
         MCMapDataManager.get().SetMapData(mapData);
     }
 

@@ -103,7 +103,6 @@ export class SimpleDitherWebgpu {
 
         await readBuffer.mapAsync(GPUMapMode.READ);
         const data = new Uint32Array(readBuffer.getMappedRange());
-        console.debug(data);
         return Array.from(data);
     }
 
