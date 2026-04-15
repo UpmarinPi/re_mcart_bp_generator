@@ -19,6 +19,9 @@ import { MapDataInput } from "../IOSystems/MapdataInput.tsx";
 import type { InputCheckBoxComponent } from "../Views/Components/InputComponents/InputCheckBoxComponent/InputCheckBoxComponent.tsx";
 import type { InputCheckBoxListComponent } from "../Views/Components/InputComponents/InputCheckBoxListComponent/InputCheckBoxListComponent.tsx";
 import type { BlockBulkSettingComponent } from "../Views/Components/BlockBulkSettingComponent/BlockBulkSettingComponent.tsx";
+import type { RGBColor } from "../Cores/Color.ts";
+import { ERepositoryIds, RepositoryManager } from "../Datas/Repositories/RepositoryManager.ts";
+import type { ColorDataRepository } from "../Datas/Repositories/ColorDataRepository.ts";
 
 export class InputParamsController extends ControllerBase {
 
@@ -146,6 +149,7 @@ export class InputParamsController extends ControllerBase {
             return;
         }
         convertButton.onComponentChange.Subscribe((event) => {
+            this.UpdateColorsAndBlocks();
             this.inputParamsMediator.RequestToConverting();
         })
     }
@@ -224,6 +228,19 @@ export class InputParamsController extends ControllerBase {
         usingBlockDataList.forEach(data => {
             usingBlockItemComponent.AddItem(data.id, data.colorId, data.blockList);
         });
+    }
+
+    UpdateColorsAndBlocks(): void {
+        if (!this.usingBlockItemComponent) {
+            return;
+        }
+        const colorIdToBlockMap = this.usingBlockItemComponent.GetColorIdToBlockMap();
+        const colorRepository = RepositoryManager.get().GetRepository<ColorDataRepository>(ERepositoryIds.ColorData);
+        if (!colorRepository) {
+            return;
+        }
+
+        OptionManager.get().UpdateColorsAndBlocks(colorIdToBlockMap, colorRepository);
     }
 
     // using block template

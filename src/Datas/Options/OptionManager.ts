@@ -2,6 +2,7 @@ import { Singleton } from "../../Cores/Singleton";
 import { OptionData } from "./OptionData";
 import { ObserverSubject } from "../../Cores/Observer";
 import { RGBColor } from "../../Cores/Color";
+import type { ColorDataRepository } from "../Repositories/ColorDataRepository";
 
 export class OptionManager extends Singleton {
 
@@ -54,6 +55,38 @@ export class OptionManager extends Singleton {
         this.onOptionChange.notify(this.optionData);
     }
     onColorsToBlocksChange: ObserverSubject<Map<RGBColor, string>> = new ObserverSubject();
+
+    UpdateColorsAndBlocks(colorIdToBlockMap: Map<string, string>, colorRepository: ColorDataRepository): void {
+        const optionManager = OptionManager.get();
+        const bIsDimensionalMode = optionManager.optionData.bIsDimensionalMode;
+        let usingColors: RGBColor[] = [];
+        const colorToBlockmap: Map<RGBColor, string> = new Map();
+
+        if (!colorRepository) {
+            return;
+        }
+        colorIdToBlockMap.forEach((value, key) => {
+            const color = colorRepository.GetDefaultColor(key);
+            if (color) {
+                usingColors.push(color);
+                colorToBlockmap.set(color, value);
+            }
+            if (bIsDimensionalMode) {
+                const lightColor = colorRepository.GetLightColor(key);
+                if (lightColor) {
+                    usingColors.push(lightColor);
+                    colorToBlockmap.set(lightColor, value);
+                }
+                const darkColor = colorRepository.GetDarkColor(key);
+                if (darkColor) {
+                    usingColors.push(darkColor);
+                    colorToBlockmap.set(darkColor, value);
+                }
+            }
+        });
+        optionManager.SetUsingColors(usingColors);
+        optionManager.SetColorsToBlocks(colorToBlockmap);
+    }
 
     SetBGeneratesSimpleDitherIntermediate(bGeneratesSimpleDitherIntermediate: boolean): void {
         this.optionData.bGeneratesSimpleDitherIntermediate = bGeneratesSimpleDitherIntermediate;
