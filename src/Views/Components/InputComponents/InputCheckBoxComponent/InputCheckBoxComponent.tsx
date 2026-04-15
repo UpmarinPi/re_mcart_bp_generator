@@ -1,25 +1,41 @@
-import React, {type ChangeEvent} from "react";
-import {InputBaseComponent} from "../InputBaseComponent.tsx";
+import React, { type ChangeEvent } from "react";
+import { InputBaseComponent } from "../InputBaseComponent.tsx";
 import "./InputCheckBoxComponent.css";
 
 // チェックボックス
 export class InputCheckBoxComponent extends InputBaseComponent {
 
-    name: string;
-    checked: boolean;
+    private name: string;
+    private _checked: boolean;
+    public get checked(): boolean {
+        return this._checked;
+    }
+    private set checked(value: boolean) {
+        this._checked = value;
+    }
 
     constructor(id: string, name: string = "") {
         super(id);
         this.type = "checkbox";
         this.name = name;
-        this.checked = false;
+        this._checked = false;
     }
 
     protected override OnInputChange(event: ChangeEvent<HTMLInputElement>) {
         if (!event.target) {
             return;
         }
+        this.checked = event.target.checked;
         this.OnComponentChange(event.target.checked);
+    }
+
+    SetChecked(checked: boolean) {
+        this.checked = checked;
+        let element = this.GetMyRender() as HTMLInputElement;
+        if (element) {
+            element.checked = this.checked;
+        }
+        this.OnComponentChange(this.checked);
     }
 
     override GetRender(): React.JSX.Element {

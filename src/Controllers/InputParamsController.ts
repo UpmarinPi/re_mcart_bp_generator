@@ -113,7 +113,7 @@ export class InputParamsController extends ControllerBase {
 
     ReloadIsDimensionalModeCheckbox(): void {
         const optionData = OptionManager.get().optionData;
-        this.viewInputParams.isDimensionalModeCheckbox.checked = optionData.bIsDimensionalMode;
+        this.viewInputParams.isDimensionalModeCheckbox.SetChecked(optionData.bIsDimensionalMode);
     }
 
     //magnificationInputComponent
@@ -211,11 +211,14 @@ export class InputParamsController extends ControllerBase {
     }
 
     // using block component
+    private usingBlockItemComponent: UsingBlockComponent | undefined = undefined;
+
     InitializeUsingBlockItem(usingBlockItemComponent: UsingBlockComponent): void {
         if (!usingBlockItemComponent) {
             console.error("usingBlockItemComponent must be defined");
             return;
         }
+        this.usingBlockItemComponent = usingBlockItemComponent;
 
         const usingBlockDataList = this.inputParamsMediator.GetUsingBlockItemData();
         usingBlockDataList.forEach(data => {
@@ -224,11 +227,15 @@ export class InputParamsController extends ControllerBase {
     }
 
     // using block template
+
+    private blockBulkSetting: BlockBulkSettingComponent | undefined = undefined;
+
     InitializeBlockBulkSetting(blockBulkSettingComponent: BlockBulkSettingComponent): void {
         if (!blockBulkSettingComponent) {
             console.error("blockBulkSettingComponent must be defined");
             return;
         }
+        this.blockBulkSetting = blockBulkSettingComponent;
 
         this.InitializeBlockBulkSettingCheckboxList(blockBulkSettingComponent.inputCheckBoxList);
         this.InitializeBlockBulkSettingApplyButton(blockBulkSettingComponent.applyChecksButton);
@@ -236,11 +243,14 @@ export class InputParamsController extends ControllerBase {
         this.InitializeBlockBulkSettingDeselectAllButton(blockBulkSettingComponent.deselectAllButton);
     }
 
+    private inputCheckBoxList: InputCheckBoxListComponent | undefined = undefined;
+
     InitializeBlockBulkSettingCheckboxList(inputCheckBoxListComponent: InputCheckBoxListComponent): void {
         if (!inputCheckBoxListComponent) {
             console.error("inputCheckBoxListComponent must be defined");
             return;
         }
+        this.inputCheckBoxList = inputCheckBoxListComponent;
 
         const usingBlockTemplateDataList = this.inputParamsMediator.GetUsingBlockTemplateData();
         usingBlockTemplateDataList.forEach(data => {
@@ -276,11 +286,15 @@ export class InputParamsController extends ControllerBase {
         }
 
         selectAllButton.onComponentChange.Subscribe((value) => {
-            if (typeof value != "boolean") {
-                console.log("selectAllButton value must be a boolean but: ", typeof value);
-                return;
-            }
+            this.OnSelectAllButtonChange();
         });
+    }
+    private OnSelectAllButtonChange() {
+        if (!this.usingBlockItemComponent) {
+            console.error("blockBulkSettingCheckboxList must be defined");
+            return;
+        }
+        this.usingBlockItemComponent.SelectAll();
     }
 
     InitializeBlockBulkSettingDeselectAllButton(deselectAllButton: ButtonComponent): void {
@@ -290,11 +304,16 @@ export class InputParamsController extends ControllerBase {
         }
 
         deselectAllButton.onComponentChange.Subscribe((value) => {
-            if (typeof value != "boolean") {
-                console.log("deselectAllButton value must be a boolean but: ", typeof value);
-                return;
-            }
+            this.OnDeselectAllButtonChange();
         });
+    }
+
+    private OnDeselectAllButtonChange() {
+        if (!this.usingBlockItemComponent) {
+            console.error("blockBulkSettingCheckboxList must be defined");
+            return;
+        }
+        this.usingBlockItemComponent.UnSelectAll();
     }
 
     // bGeneratesSimpleDitherIntermediateCheckbox
@@ -316,7 +335,7 @@ export class InputParamsController extends ControllerBase {
 
     ReloadBGeneratesSimpleDitherIntermediateCheckbox(): void {
         const optionData = OptionManager.get().optionData;
-        this.viewInputParams.bGeneratesSimpleDitherIntermediateCheckbox.checked = optionData.bGeneratesSimpleDitherIntermediate;
+        this.viewInputParams.bGeneratesSimpleDitherIntermediateCheckbox.SetChecked(optionData.bGeneratesSimpleDitherIntermediate);
     }
 
     // simpleDitherColorCutPowInputComponent

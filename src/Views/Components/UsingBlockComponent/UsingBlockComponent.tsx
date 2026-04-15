@@ -6,6 +6,7 @@ import "./UsingBlockComponent.css";
 export class UsingBlockComponent extends ComponentBase {
 
     private selectColorItemComponents: SelectColorItemComponent[] = [];
+    private colorToSelectColorItemMap: Map<string, SelectColorItemComponent> = new Map<string, SelectColorItemComponent>();
 
     constructor(id: string) {
         super(id);
@@ -26,11 +27,49 @@ export class UsingBlockComponent extends ComponentBase {
         return colorIdToBlockMap;
     }
 
+    Select(colorId: string): void {
+        const selectColorItemComponent = this.colorToSelectColorItemMap.get(colorId);
+        if (selectColorItemComponent) {
+            selectColorItemComponent.Select();
+        }
+    }
+
+    UnSelect(colorId: string): void {
+        const selectColorItemComponent = this.colorToSelectColorItemMap.get(colorId);
+        if (selectColorItemComponent) {
+            selectColorItemComponent.UnSelect();
+        }
+    }
+
+    SetBlockId(colorId: string, blockId: string): void {
+        const selectColorItemComponent = this.colorToSelectColorItemMap.get(colorId);
+        if (selectColorItemComponent) {
+            selectColorItemComponent.SelectBlockId(blockId);
+        }
+    }
+
+    SelectAll() {
+        this.selectColorItemComponents.forEach((selectColorItemComponent) => {
+            selectColorItemComponent.Select();
+        });
+    }
+
+    UnSelectAll() {
+        this.selectColorItemComponents.forEach((selectColorItemComponent) => {
+            selectColorItemComponent.UnSelect();
+        });
+    }
 
 
     AddItem(id: string, colorId: string, blockList: string[]) {
-        this.selectColorItemComponents.push(new SelectColorItemComponent(id, colorId, blockList));
+        const newItem = new SelectColorItemComponent(id, colorId, blockList);
+        newItem.onComponentChange.Subscribe(() => {
+            this.onComponentChange.notify(this.GetColorIdToBlockMap());
+        });
+        this.selectColorItemComponents.push(newItem);
+        this.colorToSelectColorItemMap.set(colorId, newItem);
     }
+
     GetRender(): React.JSX.Element {
         return (
             <div className={`using-block-component ${this.id}`}>

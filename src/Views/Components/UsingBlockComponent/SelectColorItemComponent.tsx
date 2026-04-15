@@ -40,6 +40,18 @@ export class SelectColorItemComponent extends ComponentBase {
         return this.checkBoxComponent.checked;
     }
 
+    Select() {
+        this.checkBoxComponent.SetChecked(true);
+    }
+
+    UnSelect() {
+        this.checkBoxComponent.SetChecked(false);
+    }
+
+    SelectBlockId(blockId: string): void {
+        this.usingBlockComponent.SetValue(blockId);
+    }
+
     GetRender(): React.JSX.Element {
         return (
             <div className={`select-color-item-component ${this.id}`}>
