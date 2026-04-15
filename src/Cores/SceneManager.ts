@@ -92,7 +92,7 @@ export class SceneManager extends Singleton {
             }
         }
 
-        console.log("StartScene", sceneType);
+        console.debug("StartScene", sceneType);
 
         this.pendingRenderFinished = true;
         this.onUserEffectChange.notify();
