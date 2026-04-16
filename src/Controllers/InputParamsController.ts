@@ -211,7 +211,24 @@ export class InputParamsController extends ControllerBase {
 
         const mapDataReader = new MapDataInput();
         mapDataReader.setFile(value);
-        mapDataReader.loadSelectedFile();
+        mapDataReader.loadSelectedFile().then(() => {
+            this.OnSelectedFileLoadSuccess(mapDataReader);
+        }).catch((error) => {
+            this.OnSelectedFileLoadError(error);
+        });
+    }
+
+    private OnSelectedFileLoadSuccess(mapDataReader: MapDataInput) {
+        if (!mapDataReader.importedMapData) {
+            console.error("importedMapData is undefined");
+            return;
+        }
+        console.debug("importedMapData", mapDataReader.importedMapData);
+        MCMapDataManager.get().SetMapData(mapDataReader.importedMapData);
+    }
+
+    private OnSelectedFileLoadError(error: any) {
+        console.error("Failed to load map data: ", error);
     }
 
     // using block component

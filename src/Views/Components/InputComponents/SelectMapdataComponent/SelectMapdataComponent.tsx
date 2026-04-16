@@ -14,7 +14,7 @@ export class SelectMapdataComponent extends InputBaseComponent {
         return (
             <div className={`${this.id} select-mapdata-container`}>
                 <label htmlFor={this.id} className="select-mapdata-label">
-                    ファイルを選択
+                    マップデータをインポート
                 </label>
                 <input
                     className="select-mapdata-input-hidden"

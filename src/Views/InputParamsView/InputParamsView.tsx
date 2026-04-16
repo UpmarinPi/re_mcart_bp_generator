@@ -41,7 +41,6 @@ export class InputParamsView extends ViewBase {
     convertButtonComponent: ButtonComponent;
     progressBarComponent: ProgressBarComponent;
     selectMapdata: SelectMapdataComponent;
-    importButtonComponent: ButtonComponent;
 
     constructor() {
         super();
@@ -54,7 +53,6 @@ export class InputParamsView extends ViewBase {
         this.bGeneratesSimpleDitherIntermediateCheckbox = this.CreateView(InputCheckBoxComponent, ViewInputParamIds.bGeneratesSimpleDitherIntermediateCheckboxId, "単純ディザリングの中間生成");
         this.simpleDitherColorCutPowInputComponent = this.CreateView(InputNumberComponent, ViewInputParamIds.simpleDitherColorCutPowInputComponentId, 3, "[単純ディザリングの色分割数]", "");
         this.selectMapdata = this.CreateView(SelectMapdataComponent, ViewInputParamIds.selectMapdataId);
-        this.importButtonComponent = this.CreateView(ButtonComponent, ViewInputParamIds.imporButtonId, "インポート", ButtonStyle.Import);
         this.magnificationInputComponent = this.CreateView(InputNumberComponent, ViewInputParamIds.magnificationInputComponentId, 100, "[拡大率]", "%");
         this.convertButtonComponent = this.CreateView(ButtonComponent, ViewInputParamIds.convertButtonId, "変換", ButtonStyle.Convert);
         this.progressBarComponent = this.CreateView(ProgressBarComponent, ViewInputParamIds.progressBarId);
@@ -72,7 +70,6 @@ export class InputParamsView extends ViewBase {
                     {this.bGeneratesSimpleDitherIntermediateCheckbox.GetRender()}
                     {this.simpleDitherColorCutPowInputComponent.GetRender()}
                     {this.selectMapdata.GetRender()}
-                    {this.importButtonComponent.GetRender()}
                     {this.magnificationInputComponent.GetRender()}
                     {this.convertButtonComponent.GetRender()}
                     {this.progressBarComponent.GetRender()}

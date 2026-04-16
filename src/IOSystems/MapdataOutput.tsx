@@ -13,7 +13,7 @@ export class MapdataOutput {
             mapToBlock: Array.from(mapData.mapToBlockId.entries()),
         };
 
-        const json = JSON.stringify(mapData, null, 2);
+        const json = JSON.stringify(serializable, null, 2);
         const compressed = pako.deflate(json);
         const blob = new Blob([compressed], { type: "application/x-deflate" });
         const url = URL.createObjectURL(blob);
