@@ -1,12 +1,24 @@
 .input-params-view {
     display: flex;
-    flex-direction: column;
-    text-align: left;
-    gap: 15px;
+    flex-direction: row;
+    align-items: flex-start;
     padding: 20px;
 }
 
-.input-params-view.right {
+.input-params-view > div {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 15px;
+}
+
+.input-params-view .left {
+    border-right: 1px solid rgba(128, 128, 128, 0.4);
+    padding-right: 25px;
+    margin-right: 25px;
+}
+
+.input-params-view .right {
     position: fixed;
     right: 0;
     top: 0;

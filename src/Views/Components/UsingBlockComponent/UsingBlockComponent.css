@@ -7,9 +7,14 @@
 }
 
 .using-block-component-scroll-area {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-content: start;
     gap: 8px;
     overflow-y: auto;
     height: 100%;
+}
+
+.using-block-component .dropdown-with-image-component {
+    flex: 1;
 }

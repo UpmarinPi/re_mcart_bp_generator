@@ -7,36 +7,10 @@ export class ImagePreviewComponent extends ComponentBase {
 
     canvas: HTMLCanvasElement;
     img: ImageData | null = null;
-    imgSize: number = 1;
 
     SetImage(img: ImageData | null) {
         this.img = img;
         this.UpdateImage();
-    }
-
-    SetSize(size: number) {
-        this.imgSize = size;
-        this.UpdateImage();
-    }
-
-    SetHeight(height: number) {
-        if (!this.img) {
-            return;
-        }
-        const naturalHeight = this.img.height;
-        const size = height / naturalHeight;
-
-        this.SetSize(size);
-    }
-
-    SetWidth(width: number) {
-        if (!this.img) {
-            return;
-        }
-        const naturalWidth = this.img.width;
-        const size = width / naturalWidth;
-
-        this.SetSize(size);
     }
 
     ClearImage() {
@@ -65,9 +39,6 @@ export class ImagePreviewComponent extends ComponentBase {
         // 幅・高さ設定
         const width = this.img.width;
         const height = this.img.height;
-
-        myImageElement.style.width = `${width * this.imgSize}px`;
-        myImageElement.style.height = `${height * this.imgSize}px`;
     }
 
     constructor(id: string) {

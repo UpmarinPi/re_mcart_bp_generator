@@ -59,18 +59,16 @@ export class InputParamsView extends ViewBase {
         this.convertButtonComponent = this.CreateView(ButtonComponent, ViewInputParamIds.convertButtonId, "変換", ButtonStyle.Convert);
         this.progressBarComponent = this.CreateView(ProgressBarComponent, ViewInputParamIds.progressBarId);
 
-        this.baseImagePreview.SetSize(0.2);
-
     }
 
     GetRender(): React.JSX.Element {
         super.GetRender();
         return (
             <div className="input-params-view">
-                <div className="input-params-view left">
-                    {this.convertModeDropdown.GetRender()}
+                <div className="left">
                     {this.selectBaseImage.GetRender()}
-                    {this.isDimensionalModeCheckbox.GetRender()}
+                    {this.convertModeDropdown.GetRender()}
+                    {/* {this.isDimensionalModeCheckbox.GetRender()} */}
                     {this.bGeneratesSimpleDitherIntermediateCheckbox.GetRender()}
                     {this.simpleDitherColorCutPowInputComponent.GetRender()}
                     {this.selectMapdata.GetRender()}
@@ -79,10 +77,12 @@ export class InputParamsView extends ViewBase {
                     {this.convertButtonComponent.GetRender()}
                     {this.progressBarComponent.GetRender()}
                 </div>
-                <div className="input-params-view right">
-                    {this.baseImagePreview.GetRender()}
+                <div className="center">
                     {this.blockBulkSettingComponent.GetRender()}
                     {this.usingBlockItemComponent.GetRender()}
+                </div>
+                <div className="right">
+                    {this.baseImagePreview.GetRender()}
                 </div>
             </div>
         );
