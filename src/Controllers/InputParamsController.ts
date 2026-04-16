@@ -22,6 +22,7 @@ import type { BlockBulkSettingComponent } from "../Views/Components/BlockBulkSet
 import type { RGBColor } from "../Cores/Color.ts";
 import { ERepositoryIds, RepositoryManager } from "../Datas/Repositories/RepositoryManager.ts";
 import type { ColorDataRepository } from "../Datas/Repositories/ColorDataRepository.ts";
+import type { BlockDataRepository } from "../Datas/Repositories/BlockDataRepository.ts";
 
 export class InputParamsController extends ControllerBase {
 
@@ -292,10 +293,7 @@ export class InputParamsController extends ControllerBase {
         });
 
         inputCheckBoxListComponent.onComponentChange.Subscribe((value) => {
-            if (typeof value != "boolean") {
-                console.log("blockBulkSettingCheckbox value must be a boolean but: ", typeof value);
-                return;
-            }
+
         });
     }
 
@@ -305,12 +303,17 @@ export class InputParamsController extends ControllerBase {
             return;
         }
 
-        applyChecksButton.onComponentChange.Subscribe((value) => {
-            if (typeof value != "boolean") {
-                console.log("applyChecksButton value must be a boolean but: ", typeof value);
-                return;
-            }
+        applyChecksButton.onComponentChange.Subscribe(() => {
+            this.OnBlockBulkSettingApplyButtonChange();
         });
+    }
+
+    private OnBlockBulkSettingApplyButtonChange() {
+        if (!this.inputCheckBoxList || !this.usingBlockItemComponent) {
+            console.error("inputCheckBoxList or usingBlockItemComponent must be defined");
+            return;
+        }
+        this.inputParamsMediator.SetUsingBlockItemTemplate(this.inputCheckBoxList, this.usingBlockItemComponent);
     }
 
     InitializeBlockBulkSettingSelectAllButton(selectAllButton: ButtonComponent): void {

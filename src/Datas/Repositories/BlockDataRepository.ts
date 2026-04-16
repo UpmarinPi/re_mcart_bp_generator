@@ -1,6 +1,6 @@
 import blockInfoListJson from "../jsons/block_info_list.json";
 import colorBlockMapJson from "../jsons/color_block_map.json";
-import {RepositoryBase} from "./RepositoryBase.ts";
+import { RepositoryBase } from "./RepositoryBase.ts";
 
 const texturePath: string = "../assets/block_textures";
 
@@ -34,17 +34,18 @@ export class BlockDataRepository extends RepositoryBase implements IBlockDataRep
 
     private blockIdToDataMap: Map<string, BlockData> = new Map();
     private colorIdToBlockIdMap: Map<string, string[]> = new Map();
+    private blockIdToColorIdMap: Map<string, string> = new Map();
 
     constructor() {
         super();
 
         this.InitializeBlockIdToData();
-        this.InitializeColorIdToBlockIdMap();
+        this.InitializeColorIdToBlockIdMaps();
     }
 
-    InitializeBlockIdToData() {
+    private InitializeBlockIdToData() {
         this.blockIdToDataMap.clear();
-        for (const [id, {name}] of Object.entries(blockInfoListJson)) {
+        for (const [id, { name }] of Object.entries(blockInfoListJson)) {
             const img_src: string = `${texturePath}/${name}.png`;
             const blockData: BlockData = new BlockData(id, name, img_src);
 
@@ -52,15 +53,22 @@ export class BlockDataRepository extends RepositoryBase implements IBlockDataRep
         }
     }
 
-    InitializeColorIdToBlockIdMap() {
+    private InitializeColorIdToBlockIdMaps() {
         this.colorIdToBlockIdMap.clear();
         for (const item of colorBlockMapJson.color_block_map) {
             this.colorIdToBlockIdMap.set(item.color_id, item.blocks);
+            item.blocks.forEach((blockId: string) => {
+                this.blockIdToColorIdMap.set(blockId, item.color_id);
+            });
         }
     }
 
     GetBlockIds(): string[] {
         return Array.from(this.blockIdToDataMap.keys());
+    }
+
+    GetBlockColor(blockId: string): string | undefined {
+        return this.blockIdToColorIdMap.get(blockId);
     }
 
     GetColorToBlockIdList(): Map<string, string[]> {
@@ -78,7 +86,7 @@ export class BlockDataRepository extends RepositoryBase implements IBlockDataRep
 
     GetBlockDataFromColor(colorId: string): BlockData {
         const blockId = this.colorIdToBlockIdMap.get(colorId);
-        if(!blockId || blockId.length <= 0){
+        if (!blockId || blockId.length <= 0) {
             return new BlockData();
         }
         return this.GetBlockData(blockId[0]);
@@ -94,7 +102,7 @@ export class BlockDataRepository extends RepositoryBase implements IBlockDataRep
         return usableBlocks;
     }
 
-    private GetUsableBlockIdsFromColor(colorId: string): string[]{
+    private GetUsableBlockIdsFromColor(colorId: string): string[] {
         const blockIds = this.colorIdToBlockIdMap.get(colorId);
         return blockIds ? blockIds : [];
     }

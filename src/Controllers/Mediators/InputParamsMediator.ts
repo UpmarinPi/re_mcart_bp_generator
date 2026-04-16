@@ -10,6 +10,8 @@ import { BlockDataRepository } from "../../Datas/Repositories/BlockDataRepositor
 import { UsingBlockTemplateRepository } from "../../Datas/Repositories/UsingBlockTemplateRepository.ts";
 import { SceneManager } from "../../Cores/SceneManager.ts";
 import { SceneTypes } from "../../Scenes/SceneTypes.ts";
+import type { InputCheckBoxListComponent } from "../../Views/Components/InputComponents/InputCheckBoxListComponent/InputCheckBoxListComponent.tsx";
+import type { UsingBlockComponent } from "../../Views/Components/UsingBlockComponent/UsingBlockComponent.tsx";
 
 export class InputParamsMediator extends MediatorBase {
     constructor() {
@@ -97,5 +99,28 @@ export class InputParamsMediator extends MediatorBase {
             return [];
         }
         return usingBlockTemplateRepo.GetTemplateList();
+    }
+
+    SetUsingBlockItemTemplate(inputCheckBoxList: InputCheckBoxListComponent, usingBlockItemComponent: UsingBlockComponent) {
+        const checkedBlockTemplateIds = inputCheckBoxList.GetSelectedValues();
+        let checkedIds: [string, string][] = [];
+        const blockIds = RepositoryManager.get().GetRepository<UsingBlockTemplateRepository>(ERepositoryIds.UsingBlockTemplateData)?.GetBlocksByIds(checkedBlockTemplateIds);
+        if (!blockIds) {
+            return;
+        }
+        blockIds.forEach(blockId => {
+            const colorId = RepositoryManager.get().GetRepository<BlockDataRepository>(ERepositoryIds.BlockData)?.GetBlockColor(blockId);
+            if (colorId) {
+                checkedIds.push([colorId, blockId]);
+            }
+        });
+        usingBlockItemComponent.UnSelectAll();
+
+        // 先に登録されているブロックを優先して表示させるために逆順にする
+        checkedIds.reverse();
+        checkedIds.forEach(([colorId, blockId]) => {
+            usingBlockItemComponent.Select(colorId);
+            usingBlockItemComponent.SetBlockId(colorId, blockId);
+        });
     }
 }

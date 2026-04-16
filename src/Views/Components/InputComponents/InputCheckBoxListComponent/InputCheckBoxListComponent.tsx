@@ -25,7 +25,13 @@ export class InputCheckBoxListComponent extends ComponentBase {
     }
 
     public GetSelectedValues(): string[] {
-        return this.items.filter(item => item.checked).map(item => item.value);
+        const returnValues: string[] = [];
+        this.items.forEach(item => {
+            if (item.checked) {
+                returnValues.push(item.value);
+            }
+        });
+        return returnValues;
     }
 
     public SetSelectedValues(values: string[]) {
