@@ -12,6 +12,7 @@ import { SceneManager } from "../../Cores/SceneManager.ts";
 import { SceneTypes } from "../../Scenes/SceneTypes.ts";
 import type { InputCheckBoxListComponent } from "../../Views/Components/InputComponents/InputCheckBoxListComponent/InputCheckBoxListComponent.tsx";
 import type { UsingBlockComponent } from "../../Views/Components/UsingBlockComponent/UsingBlockComponent.tsx";
+import { BlockPreviewManager } from "../../ResultPreviews/BlockPreviewManager.ts";
 
 export class InputParamsMediator extends MediatorBase {
     constructor() {
@@ -32,7 +33,7 @@ export class InputParamsMediator extends MediatorBase {
             this.OnIsDemensionalModeChange();
         });
         MCMapDataManager.get().onMapDataChange.Subscribe((mapData: MCMapData) => {
-            this.OnMapDataChange();
+            this.OnMapDataChange(mapData);
         });
     }
 
@@ -54,7 +55,8 @@ export class InputParamsMediator extends MediatorBase {
         MCMapDataManager.get().SetMapData(mapData);
     }
 
-    private OnMapDataChange() {
+    private OnMapDataChange(mapData: MCMapData) {
+        BlockPreviewManager.get().SetMapData(mapData);
         SceneManager.get().SwitchScene(SceneTypes.ResultPreviewScene);
     }
 

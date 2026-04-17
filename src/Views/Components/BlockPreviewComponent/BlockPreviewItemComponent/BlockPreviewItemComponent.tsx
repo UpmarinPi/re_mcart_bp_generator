@@ -1,13 +1,17 @@
 import React from "react";
 import { ComponentBase } from "../../ComponentBase";
 import "./BlockPreviewItemComponent.css";
+import type { BlockData } from "../../../../Datas/Repositories/BlockDataRepository";
 
 export class BlockPreviewItemComponent extends ComponentBase {
-    private blockId: string;
+    private blockData: BlockData | undefined = undefined;
 
     constructor(id: string = "") {
         super(id);
-        this.blockId = id;
+    }
+
+    SetBlockData(blockData: BlockData) {
+        this.blockData = blockData;
     }
 
     GetRender(): React.JSX.Element {
