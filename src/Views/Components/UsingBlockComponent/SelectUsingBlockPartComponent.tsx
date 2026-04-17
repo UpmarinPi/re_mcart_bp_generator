@@ -1,4 +1,5 @@
 import { DropdownWithImageComponent } from "../DropdownWithImageComponent/DropdownWithImageComponent";
+import { GetBlockTextureUrl } from "../../../FunctionLibraries/BlockTextureLibrary";
 
 export class SelectUsingBlockPartComponent extends DropdownWithImageComponent {
 
@@ -11,7 +12,7 @@ export class SelectUsingBlockPartComponent extends DropdownWithImageComponent {
     }
 
     private static BlockIdToImageUrl(id: string): string {
-        return `src/assets/block_textures/${id}.png`;
+        return GetBlockTextureUrl(id);
     }
 
     public SetBlockIds(blockIds: string[]): void {

@@ -1,8 +1,7 @@
 import blockInfoListJson from "../jsons/block_info_list.json";
 import colorBlockMapJson from "../jsons/color_block_map.json";
 import { RepositoryBase } from "./RepositoryBase.ts";
-
-const texturePath: string = "../assets/block_textures";
+import { GetBlockTextureUrl } from "../../FunctionLibraries/BlockTextureLibrary";
 
 interface IBlockData {
     name: string;
@@ -46,7 +45,7 @@ export class BlockDataRepository extends RepositoryBase implements IBlockDataRep
     private InitializeBlockIdToData() {
         this.blockIdToDataMap.clear();
         for (const [id, { name }] of Object.entries(blockInfoListJson)) {
-            const img_src: string = `${texturePath}/${name}.png`;
+            const img_src: string = GetBlockTextureUrl(name);
             const blockData: BlockData = new BlockData(id, name, img_src);
 
             this.blockIdToDataMap.set(id, blockData);
