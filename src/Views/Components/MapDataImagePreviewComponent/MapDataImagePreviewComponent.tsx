@@ -10,15 +10,10 @@ export class MapDataImagePreviewComponent extends ComponentBase {
     private gridCanvasId: string;
 
     private _width: number = 600;
-    private _height: number = 600;
     private canvasScale: number = 1.0;
 
     get width(): number {
         return this._width;
-    }
-
-    get height(): number {
-        return this._height;
     }
 
     constructor(id: string) {
@@ -36,9 +31,8 @@ export class MapDataImagePreviewComponent extends ComponentBase {
         this.UpdateCanvas();
     }
 
-    SetSize(width: number, height: number): void {
+    SetWidth(width: number): void {
         this._width = width;
-        this._height = height;
         this.requestsRenderUpdate.notify();
     }
 
@@ -114,13 +108,13 @@ export class MapDataImagePreviewComponent extends ComponentBase {
 
     GetRender(): React.JSX.Element {
         const style: React.CSSProperties = {};
-        style.width = `${this.width}px`;
-        style.height = `${this.height}px`;
 
         const canvasStyle: React.CSSProperties = {};
         if (this.mapData) {
             canvasStyle.width = `${this.mapData.width * this.canvasScale}px`;
             canvasStyle.height = `${this.mapData.height * this.canvasScale}px`;
+            style.width = this.width;
+            style.height = this.width * (this.mapData.height / this.mapData.width);
             if (this.canvasScale >= 1.0) {
                 canvasStyle.imageRendering = "pixelated";
             }

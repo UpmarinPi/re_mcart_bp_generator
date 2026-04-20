@@ -78,8 +78,8 @@ export class PreviewScaleManager extends Singleton {
         }
     }
 
-    public FitScale(width: number, height: number): void {
-        const scale = Math.min(width / this.mapWidth, height / this.mapHeight);
+    public FitScale(width: number): void {
+        const scale = width / this.mapWidth;
         this.SetScale(scale);
     }
 

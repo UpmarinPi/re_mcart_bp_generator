@@ -181,8 +181,7 @@ export class ResultPreviewController extends ControllerBase {
 
     private OnFitScaleButtonPressed(): void {
         const width: number = this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.width ?? 0;
-        const height: number = this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.height ?? 0;
-        PreviewScaleManager.get().FitScale(width, height);
+        PreviewScaleManager.get().FitScale(width);
     }
 
     private OnSetHundredPercentScaleButtonPressed(): void {
