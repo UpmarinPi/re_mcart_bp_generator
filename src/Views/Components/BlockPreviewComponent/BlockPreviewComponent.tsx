@@ -2,6 +2,7 @@ import React from "react";
 import { ComponentBase } from "../ComponentBase";
 import "./BlockPreviewComponent.css";
 import { BlockPreviewItemComponent } from "./BlockPreviewItemComponent/BlockPreviewItemComponent";
+import type { BlockData } from "../../../Datas/Repositories/BlockDataRepository";
 
 export class BlockPreviewComponent extends ComponentBase {
 
@@ -22,9 +23,27 @@ export class BlockPreviewComponent extends ComponentBase {
         }
     }
 
+    UpdateSide(side: number): void {
+        if (this.side === side) {
+            return;
+        }
+        this.side = side;
+        this.InitializeItems();
+    }
+
+    SetBlockDatas(blockDatas: BlockData[][]): void {
+        const totalItems = this.side * this.side;
+        for (let i = 0; i < totalItems; i++) {
+            const item = this.items[i];
+            const x = i % this.side;
+            const y = Math.floor(i / this.side);
+            item.SetBlockData(blockDatas[y][x]);
+        }
+    }
+
     GetRender(): React.JSX.Element {
         return (
-            <div 
+            <div
                 className={`block-preview-component ${this.id}`}
                 style={{
                     gridTemplateColumns: `repeat(${this.side}, var(--item-size, 32px))`,

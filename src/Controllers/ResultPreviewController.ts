@@ -9,10 +9,42 @@ import { MapdataOutput } from "../IOSystems/MapdataOutput.tsx";
 import type { ResultPreviewSideBarComponent } from "../Views/ResultPreviewView/ResultPreviewSideBarComponent/ResultPreviewSideBarComponent.tsx";
 import { PreviewScaleManager } from "../ResultPreviews/PreviewScaleManager.ts";
 import type { MCMapData } from "../Datas/MapData/MCMapData.ts";
+import { BlockPreviewManager } from "../ResultPreviews/BlockPreviewManager.ts";
+import type { BlockData } from "../Datas/Repositories/BlockDataRepository.ts";
+import type { BlockPreviewComponent } from "../Views/Components/BlockPreviewComponent/BlockPreviewComponent.tsx";
 
 export class ResultPreviewController extends ControllerBase {
 
     private resultPreviewView: ResultPreviewView | undefined = undefined;
+
+    private blockPreviewComponent: BlockPreviewComponent | undefined = undefined;
+
+    private InitializeBlockPreview(blockPreviewComponent: BlockPreviewComponent): void {
+        if (!blockPreviewComponent) {
+            console.error("blockPreview must be defined");
+            return;
+        }
+        this.blockPreviewComponent = blockPreviewComponent;
+        const blockPreviewManager = BlockPreviewManager.get();
+        blockPreviewManager.onPreviewBlocksUpdated.Subscribe(
+            (blockData: BlockData[][]) => {
+                this.OnBlockPreviewUpdate(blockData);
+            }
+        );
+        blockPreviewManager.onPreviewPosUpdated.Subscribe(
+            (pos: [number, number, number, number]) => {
+                this.OnBlockPreviewPosUpdate(pos);
+            }
+        );
+    }
+
+    private OnBlockPreviewUpdate(blockData: BlockData[][]): void {
+        this.blockPreviewComponent?.SetBlockDatas(blockData);
+    }
+
+    private OnBlockPreviewPosUpdate([xPos, yPos, width, height]: [number, number, number, number]): void {
+        this.blockPreviewComponent?.UpdateSide(width > height ? width : height);
+    }
 
     override Reload(): void {
         super.Reload();
@@ -201,6 +233,7 @@ export class ResultPreviewController extends ControllerBase {
     constructor(view: ResultPreviewView) {
         super();
         this.resultPreviewView = view;
+        this.InitializeBlockPreview(view.resultBlockPreview);
         this.InitializeBackButton(view.backButton);
         this.InitializeSaveButton(view.saveButton);
         this.InitializeResultPreviewSideBar(view.resultPreviewSideBarComponent);

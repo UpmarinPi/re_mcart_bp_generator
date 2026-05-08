@@ -13,6 +13,8 @@ export class BlockPreviewManager extends Singleton {
     private previewBlocks: BlockData[][] = [];
 
     public onPreviewBlocksUpdated: ObserverSubject<BlockData[][]> = new ObserverSubject<BlockData[][]>();
+    // [x, y, width, height]
+    public onPreviewPosUpdated: ObserverSubject<[number, number, number, number]> = new ObserverSubject<[number, number, number, number]>();
 
     public SetMapData(mapData: MCMapData): void {
         this.mapData = mapData;
@@ -52,6 +54,7 @@ export class BlockPreviewManager extends Singleton {
                 }
             }
         }
+        this.UpdatePreviewBlocks();
     }
 
     private UpdatePreviewBlocks(): void {
@@ -67,27 +70,28 @@ export class BlockPreviewManager extends Singleton {
         this.onPreviewBlocksUpdated.notify(this.previewBlocks);
     }
 
-    MoveRight(): void {
-        this.xPos += 1;
-        this.ConvertToCorrectPos();
-        this.UpdatePreviewBlocks();
-    }
-
-    MoveLeft(): void {
-        this.xPos -= 1;
-        this.ConvertToCorrectPos();
-        this.UpdatePreviewBlocks();
+    MoveUp(): void {
+        this.SetPos(this.xPos, this.yPos - 1);
     }
 
     MoveDown(): void {
-        this.yPos += 1;
-        this.ConvertToCorrectPos();
-        this.UpdatePreviewBlocks();
+        this.SetPos(this.xPos, this.yPos + 1);
     }
 
-    MoveUp(): void {
-        this.yPos -= 1;
+    MoveLeft(): void {
+        this.SetPos(this.xPos - 1, this.yPos);
+    }
+
+    MoveRight(): void {
+        this.SetPos(this.xPos + 1, this.yPos);
+    }
+
+    SetPos(xPos: number, yPos: number): void {
+        this.xPos = xPos;
+        this.yPos = yPos;
         this.ConvertToCorrectPos();
+
+        this.onPreviewPosUpdated.notify([this.xPos, this.yPos, this.previewSize, this.previewSize]);
         this.UpdatePreviewBlocks();
     }
 
