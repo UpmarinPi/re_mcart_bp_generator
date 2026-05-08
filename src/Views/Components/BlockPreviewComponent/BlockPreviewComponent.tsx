@@ -29,9 +29,13 @@ export class BlockPreviewComponent extends ComponentBase {
         }
         this.side = side;
         this.InitializeItems();
+        this.requestsRenderUpdate.notify();
     }
 
     SetBlockDatas(blockDatas: BlockData[][]): void {
+        console.log("----------------------------------------------");
+        console.log(blockDatas);
+        console.log("----------------------------------------------");
         const totalItems = this.side * this.side;
         for (let i = 0; i < totalItems; i++) {
             const item = this.items[i];
@@ -39,6 +43,8 @@ export class BlockPreviewComponent extends ComponentBase {
             const y = Math.floor(i / this.side);
             item.SetBlockData(blockDatas[y][x]);
         }
+        console.log("updated block to: " + blockDatas[0][0].image_src);
+        this.requestsRenderUpdate.notify();
     }
 
     GetRender(): React.JSX.Element {

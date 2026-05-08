@@ -17,7 +17,13 @@ export class BlockPreviewItemComponent extends ComponentBase {
     GetRender(): React.JSX.Element {
         return (
             <div className={`block-preview-item-component ${this.id}`}>
-                {/* Add view elements for BlockPreviewItemComponent here */}
+                {this.blockData?.image_src ? (
+                    <img src={this.blockData.image_src} alt={this.blockData.name} title={this.blockData.name} />
+                ) : (
+                    <span style={{color: "white", fontSize: "10px"}}>
+                        {this.blockData ? "No Img" : "No Data"}
+                    </span>
+                )}
             </div>
         );
     }

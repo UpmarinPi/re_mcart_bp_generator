@@ -45,7 +45,7 @@ export class BlockDataRepository extends RepositoryBase implements IBlockDataRep
     private InitializeBlockIdToData() {
         this.blockIdToDataMap.clear();
         for (const [id, { name }] of Object.entries(blockInfoListJson)) {
-            const img_src: string = GetBlockTextureUrl(name);
+            const img_src: string = GetBlockTextureUrl(id);
             const blockData: BlockData = new BlockData(id, name, img_src);
 
             this.blockIdToDataMap.set(id, blockData);
