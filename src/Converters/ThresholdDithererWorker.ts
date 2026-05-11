@@ -1,7 +1,7 @@
 import * as Comlink from 'comlink';
-import {OptionData} from "../Datas/Options/OptionData";
-import {MCMapData} from "../Datas/MapData/MCMapData";
-import {RGBColor} from "../Cores/Color";
+import { OptionData } from "../Datas/Options/OptionData";
+import { MCMapData } from "../Datas/MapData/MCMapData";
+import { RGBColor } from "../Cores/Color";
 
 const endpoint: Comlink.Endpoint =
     typeof window === "undefined"
@@ -12,21 +12,21 @@ export class ThresholdDithererWorker {
     // [currentDoneProcess, MaxProcess]
 
     async Convert(optionData: OptionData,
-                  imageWidth: number, imageHeight: number,
-                  data: Uint8ClampedArray,
-                  getNearestColorFunc: ([x, y]: [number, number], baseColor: RGBColor, colorList: RGBColor[]) => Promise<number>,
-                  onProcessUpdated: (currentProcess: number, maxProcess: number) => void)
+        imageWidth: number, imageHeight: number,
+        data: Uint8ClampedArray,
+        getNearestColorFunc: ([x, y]: [number, number], baseColor: RGBColor, colorList: RGBColor[]) => Promise<number>,
+        onProcessUpdated: (currentProcess: number, maxProcess: number) => void)
         : Promise<MCMapData> {
         return await this.ConvertWithoutGPU(optionData, imageWidth, imageHeight, data, getNearestColorFunc, onProcessUpdated);
     }
     async ConvertWithoutGPU(optionData: OptionData,
-                            imageWidth: number, imageHeight: number,
-                            data: Uint8ClampedArray,
-                            getNearestColorFunc: ([x, y]: [number, number], baseColor: RGBColor, colorList: RGBColor[]) => Promise<number>,
-                            onProcessUpdated: (currentProcess: number, maxProcess: number) => void)
+        imageWidth: number, imageHeight: number,
+        data: Uint8ClampedArray,
+        getNearestColorFunc: ([x, y]: [number, number], baseColor: RGBColor, colorList: RGBColor[]) => Promise<number>,
+        onProcessUpdated: (currentProcess: number, maxProcess: number) => void)
         : Promise<MCMapData> {
         // const start: number = performance.now();
-        console.log("start converting!");
+        console.debug("start converting!");
         const returnData: MCMapData = new MCMapData();
 
         const maxProgress = imageWidth * imageHeight;
@@ -65,7 +65,7 @@ export class ThresholdDithererWorker {
         returnData.height = imageHeight;
         returnData.mapToColorId = colorToMapColor;
 
-        console.log("Completed!");
+        console.debug("Completed!");
         // const end: number = performance.now();
         // const elapsedTime = (2 - 1).toFixed(2) / 1000;
         // console.log("elapsed time: ", (elapsedTime), "s");

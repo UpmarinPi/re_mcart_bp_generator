@@ -32,18 +32,23 @@ export class ResultPreviewController extends ControllerBase {
             }
         );
         blockPreviewManager.onPreviewPosUpdated.Subscribe(
-            (pos: [number, number, number, number]) => {
+            (pos: [number, number, number]) => {
                 this.OnBlockPreviewPosUpdate(pos);
             }
         );
+        this.SetBlockPreviewComponentSide(blockPreviewManager.GetPreviewSize());
     }
 
     private OnBlockPreviewUpdate(blockData: BlockData[][]): void {
         this.blockPreviewComponent?.SetBlockDatas(blockData);
     }
 
-    private OnBlockPreviewPosUpdate([xPos, yPos, width, height]: [number, number, number, number]): void {
-        this.blockPreviewComponent?.UpdateSide(width > height ? width : height);
+    private OnBlockPreviewPosUpdate([xPos, yPos, size]: [number, number, number]): void {
+        this.SetBlockPreviewComponentSide(size);
+    }
+
+    private SetBlockPreviewComponentSide(size: number): void {
+        this.blockPreviewComponent?.UpdateSide(size);
     }
 
     override Reload(): void {
@@ -59,6 +64,10 @@ export class ResultPreviewController extends ControllerBase {
     private ReloadResultImagePreview(): void {
         if (this.resultPreviewView) {
             this.resultPreviewView.resultPreviewSideBarComponent.resultImagePreview.SetMapData(MCMapDataManager.get().mapData);
+        }
+        if (this.blockPreviewComponent) {
+            const blockPreviewManager = BlockPreviewManager.get();
+            this.blockPreviewComponent.SetBlockDatas(blockPreviewManager.GetPreviewBlocks());
         }
     }
 

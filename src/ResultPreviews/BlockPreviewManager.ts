@@ -14,7 +14,7 @@ export class BlockPreviewManager extends Singleton {
 
     public onPreviewBlocksUpdated: ObserverSubject<BlockData[][]> = new ObserverSubject<BlockData[][]>();
     // [x, y, width, height]
-    public onPreviewPosUpdated: ObserverSubject<[number, number, number, number]> = new ObserverSubject<[number, number, number, number]>();
+    public onPreviewPosUpdated: ObserverSubject<[number, number, number]> = new ObserverSubject<[number, number, number]>();
 
     public SetMapData(mapData: MCMapData): void {
         this.mapData = mapData;
@@ -31,6 +31,14 @@ export class BlockPreviewManager extends Singleton {
 
     public GetYPos(): number {
         return this.yPos;
+    }
+
+    public GetPreviewSize() {
+        return this.previewSize;
+    }
+
+    public GetPreviewBlocks(): BlockData[][] {
+        return this.previewBlocks;
     }
 
     constructor() {
@@ -91,7 +99,7 @@ export class BlockPreviewManager extends Singleton {
         this.yPos = yPos;
         this.ConvertToCorrectPos();
 
-        this.onPreviewPosUpdated.notify([this.xPos, this.yPos, this.previewSize, this.previewSize]);
+        this.onPreviewPosUpdated.notify([this.xPos, this.yPos, this.previewSize]);
         this.UpdatePreviewBlocks();
     }
 

@@ -28,7 +28,7 @@ export abstract class OrderedDithererBase extends ThresholdDitherer {
     }
 
     override async Convert(optionData: OptionData): Promise<MCMapData> {
-        console.log("start ordered dither")
+        console.debug("start ordered dither")
         const MapData = await this.ConvertWithWebgpu(optionData);
         if (MapData) {
             return MapData;

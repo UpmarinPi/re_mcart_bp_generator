@@ -74,12 +74,13 @@ export class InputParamsView extends ViewBase {
                     {this.convertButtonComponent.GetRender()}
                     {this.progressBarComponent.GetRender()}
                 </div>
-                <div className="center">
-                    {this.blockBulkSettingComponent.GetRender()}
-                    {this.usingBlockItemComponent.GetRender()}
-                </div>
                 <div className="right">
                     {this.baseImagePreview.GetRender()}
+                </div>
+                <div className="bottom">
+                    <h2>使用ブロック設定</h2>
+                    {this.blockBulkSettingComponent.GetRender()}
+                    {this.usingBlockItemComponent.GetRender()}
                 </div>
             </div>
         );

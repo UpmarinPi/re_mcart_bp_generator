@@ -1,4 +1,16 @@
 .block-preview-item-component {
     /* 隙間（格子）を可視化するためのアイテムごとの背景色指定 */
     background-color: #222;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.block-preview-item-component img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
 }

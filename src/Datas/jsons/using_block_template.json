@@ -123,5 +123,61 @@
                 "warped_planks"
             ]
         }
+    ],
+    "regular_templates": [
+        {
+            "name": "通常ブロックテンプレート",
+            "blocks": [
+                "birch_planks",
+                "redstone_block",
+                "packed_ice",
+                "iron_block",
+                "white_wool",
+                "jungle_planks",
+                "stone_bricks",
+                "oak_planks",
+                "quartz_block_top",
+                "orange_wool",
+                "magenta_wool",
+                "light_blue_wool",
+                "yellow_wool",
+                "lime_wool",
+                "pink_wool",
+                "gray_wool",
+                "light_gray_wool",
+                "cyan_wool",
+                "purple_wool",
+                "blue_wool",
+                "brown_wool",
+                "green_wool",
+                "red_wool",
+                "black_wool",
+                "gold_block",
+                "diamond_block",
+                "lapis_block",
+                "emerald_block",
+                "spruce_planks",
+                "red_nether_bricks",
+                "white_terracotta",
+                "orange_terracotta",
+                "magenta_terracotta",
+                "light_blue_terracotta",
+                "yellow_terracotta",
+                "lime_terracotta",
+                "pink_terracotta",
+                "gray_terracotta",
+                "light_gray_terracotta",
+                "cyan_terracotta",
+                "purple_terracotta",
+                "blue_terracotta",
+                "brown_terracotta",
+                "green_terracotta",
+                "red_terracotta",
+                "black_terracotta",
+                "crimson_planks",
+                "warped_planks",
+                "deepslate_bricks"
+            ]
+        }
     ]
 }

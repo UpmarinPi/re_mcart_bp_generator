@@ -53,6 +53,6 @@ export class ResultPreviewSideBarComponent extends ComponentBase {
         this.isPreviewContentVisible = !this.isPreviewContentVisible;
         this.toggleHideButton.displayText = this.isPreviewContentVisible ? "隠す" : "開く";
         this.requestsRenderUpdate.notify();
-        console.log("toggle");
+        console.debug("toggle");
     }
 }

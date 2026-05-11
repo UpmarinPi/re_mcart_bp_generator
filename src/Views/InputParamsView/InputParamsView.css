@@ -1,11 +1,12 @@
 .input-params-view {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: flex-start;
     padding: 20px;
 }
 
-.input-params-view > div {
+.input-params-view>div {
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -19,10 +20,12 @@
 }
 
 .input-params-view .right {
-    position: fixed;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    box-sizing: border-box;
-    max-height: 100vh;
+    border-left: 1px solid rgba(128, 128, 128, 0.4);
+    padding-left: 25px;
+    margin-left: 25px;
+}
+
+.input-params-view .bottom {
+    width: 100%;
+    margin-top: 20px;
 }

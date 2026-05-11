@@ -6,12 +6,16 @@ import type { BlockData } from "../../../Datas/Repositories/BlockDataRepository"
 
 export class BlockPreviewComponent extends ComponentBase {
 
-    private side: number = 16;
+    private side: number = 0;
     private items: BlockPreviewItemComponent[] = [];
+    private blockDatas: BlockData[][] = [];
 
     constructor(id: string = "") {
         super(id);
         this.InitializeItems();
+        this.postRender.Subscribe(() => {
+            this.UpdateBlockDatas();
+        });
     }
 
     private InitializeItems() {
@@ -29,16 +33,28 @@ export class BlockPreviewComponent extends ComponentBase {
         }
         this.side = side;
         this.InitializeItems();
+        this.requestsRenderUpdate.notify();
     }
 
     SetBlockDatas(blockDatas: BlockData[][]): void {
-        const totalItems = this.side * this.side;
-        for (let i = 0; i < totalItems; i++) {
-            const item = this.items[i];
-            const x = i % this.side;
-            const y = Math.floor(i / this.side);
-            item.SetBlockData(blockDatas[y][x]);
+        this.blockDatas = blockDatas;
+        this.UpdateBlockDatas();
+    }
+
+    private UpdateBlockDatas(): void {
+        if (this.blockDatas.length === 0) {
+            return;
         }
+
+        const totalItems: number = this.side * this.side;
+        for (let i = 0; i < totalItems; ++i) {
+            const item: BlockPreviewItemComponent = this.items[i];
+            const x: number = i % this.side;
+            const y: number = Math.floor(i / this.side);
+            item.SetBlockData(this.blockDatas[y][x]);
+        }
+
+        this.requestsRenderUpdate.notify();
     }
 
     GetRender(): React.JSX.Element {
