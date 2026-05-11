@@ -37,6 +37,10 @@ export class BlockPreviewManager extends Singleton {
         return this.previewSize;
     }
 
+    public GetPreviewBlocks(): BlockData[][] {
+        return this.previewBlocks;
+    }
+
     constructor() {
         super();
     }

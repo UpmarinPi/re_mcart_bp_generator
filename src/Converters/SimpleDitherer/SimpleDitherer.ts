@@ -17,7 +17,7 @@ export class SimpleDitherer extends ThresholdDitherer {
     }
 
     override async Convert(optionData: OptionData): Promise<MCMapData> {
-        console.log("start simple dither")
+        console.debug("start simple dither")
         const MapData = await this.ConvertWithWebgpu(optionData);
         if (MapData) {
             return MapData;

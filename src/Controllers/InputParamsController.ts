@@ -107,7 +107,7 @@ export class InputParamsController extends ControllerBase {
 
         checkbox.onComponentChange.Subscribe((value) => {
             if (typeof value != "boolean") {
-                console.log("isDimensionalModeCheckbox value must be a boolean but: ", typeof value);
+                console.error("isDimensionalModeCheckbox value must be a boolean but: ", typeof value);
                 return;
             }
 
@@ -129,7 +129,7 @@ export class InputParamsController extends ControllerBase {
 
         magnificationInputComponent.onComponentChange.Subscribe((value) => {
             if (typeof value != "number") {
-                console.log("magnificationInputComponent must be a number: ", typeof value);
+                console.error("magnificationInputComponent must be a number: ", typeof value);
                 return;
             }
             // % to ratio
@@ -362,7 +362,7 @@ export class InputParamsController extends ControllerBase {
 
         checkbox.onComponentChange.Subscribe((value) => {
             if (typeof value != "boolean") {
-                console.log("bGeneratesSimpleDitherIntermediateCheckbox value must be a boolean but: ", typeof value);
+                console.error("bGeneratesSimpleDitherIntermediateCheckbox value must be a boolean but: ", typeof value);
                 return;
             }
 
@@ -384,7 +384,7 @@ export class InputParamsController extends ControllerBase {
 
         inputNumberComponent.onComponentChange.Subscribe((value) => {
             if (typeof value != "number") {
-                console.log("simpleDitherColorCutInputComponent value must be a number but: ", typeof value);
+                console.error("simpleDitherColorCutInputComponent value must be a number but: ", typeof value);
                 return;
             }
 

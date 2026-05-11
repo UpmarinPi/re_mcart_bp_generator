@@ -65,6 +65,10 @@ export class ResultPreviewController extends ControllerBase {
         if (this.resultPreviewView) {
             this.resultPreviewView.resultPreviewSideBarComponent.resultImagePreview.SetMapData(MCMapDataManager.get().mapData);
         }
+        if (this.blockPreviewComponent) {
+            const blockPreviewManager = BlockPreviewManager.get();
+            this.blockPreviewComponent.SetBlockDatas(blockPreviewManager.GetPreviewBlocks());
+        }
     }
 
     // back button

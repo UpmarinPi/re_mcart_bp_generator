@@ -8,6 +8,6 @@ export function GetBlockTextureUrl(textureName: string): string {
         return url;
     }
 
-    console.log("No texture found for block: " + textureName);
+    console.warn("No texture found for block: " + textureName);
     return "";
 }
