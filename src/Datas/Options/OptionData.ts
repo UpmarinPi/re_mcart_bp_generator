@@ -9,7 +9,7 @@ export class OptionData {
     magnification: number = 1.0;
 
     // 変換モード
-    convertMode: string = ConvertModes.RawDither;
+    convertMode: string = ConvertModes.SimpleDither;
 
     // 明暗モード
     bIsDimensionalMode: boolean = false;

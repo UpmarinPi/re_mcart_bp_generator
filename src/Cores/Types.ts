@@ -1,5 +1,5 @@
 export const ConvertModes = {
-    RawDither: "RawDither",
+    // RawDither: "RawDither",
     SimpleDither: "SimpleDither",
     BayerMatrixOrderedDither: "BayerMatrixOrderedDither",
     DynamicBayerMatrixOrderedDither: "DynamicBayerMatrixOrderedDither",

@@ -14,7 +14,7 @@ export class ConverterFactory extends Singleton {
     constructor() {
         super();
         this.convertModeToDitherSystem = new Map();
-        this.convertModeToDitherSystem.set(ConvertModes.RawDither, new RawDitherer());
+        // this.convertModeToDitherSystem.set(ConvertModes.RawDither, new RawDitherer());
         this.convertModeToDitherSystem.set(ConvertModes.SimpleDither, new SimpleDitherer());
         this.convertModeToDitherSystem.set(ConvertModes.BayerMatrixOrderedDither, new BayerMatrixOrderedDitherer());
         this.convertModeToDitherSystem.set(ConvertModes.DynamicBayerMatrixOrderedDither, new DynamicBayerMatrixOrderedDitherer());
