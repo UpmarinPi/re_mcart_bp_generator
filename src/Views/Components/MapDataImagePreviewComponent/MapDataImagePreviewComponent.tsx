@@ -12,6 +12,9 @@ export class MapDataImagePreviewComponent extends ComponentBase {
     private _width: number = 600;
     private canvasScale: number = 1.0;
 
+    private gridColor: string = "#00000080";
+    private navigatorColor: string = "#ff000080";
+
     get width(): number {
         return this._width;
     }
@@ -128,17 +131,40 @@ export class MapDataImagePreviewComponent extends ComponentBase {
             return;
         }
 
-        // キャンバスを初期化
-        ctx.clearRect(0, 0, navigatorCanvas.width, navigatorCanvas.height);
         const width = this.mapData.width;
         const height = this.mapData.height;
-        navigatorCanvas.width = width;
-        navigatorCanvas.height = height;
+
+        // 解像度をスケールに合わせて拡大し、CSSの表示サイズと一致させる
+        const canvasWidth = Math.round(width * this.canvasScale);
+        const canvasHeight = Math.round(height * this.canvasScale);
+        navigatorCanvas.width = canvasWidth;
+        navigatorCanvas.height = canvasHeight;
+
+        // 16x16の格子を表示
+        ctx.strokeStyle = this.gridColor;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        for (let x = 0; x <= width; x += 16) {
+            // ピクセル境界にスナップさせるために + 0.5 する（にじみを防ぐ）
+            const drawX = Math.floor(x * this.canvasScale) + 0.5;
+            ctx.moveTo(drawX, 0);
+            ctx.lineTo(drawX, canvasHeight);
+        }
+        for (let y = 0; y <= height; y += 16) {
+            const drawY = Math.floor(y * this.canvasScale) + 0.5;
+            ctx.moveTo(0, drawY);
+            ctx.lineTo(canvasWidth, drawY);
+        }
+        ctx.stroke();
 
         // navigatorを表示
-        ctx.strokeStyle = "#ff0000";
-        ctx.lineWidth = 2;
-        ctx.strokeRect(this.navigatorXPos - 1, this.navigatorYPos - 1, this.navigatorWidth + 2, this.navigatorHeight + 2);
+        ctx.strokeStyle = this.navigatorColor;
+        ctx.lineWidth = 1;
+        const rectX = Math.floor(this.navigatorXPos * this.canvasScale) + 0.5;
+        const rectY = Math.floor(this.navigatorYPos * this.canvasScale) + 0.5;
+        const rectW = Math.round(this.navigatorWidth * this.canvasScale);
+        const rectH = Math.round(this.navigatorHeight * this.canvasScale);
+        ctx.strokeRect(rectX, rectY, rectW, rectH);
 
         this.requestsRenderUpdate.notify();
     }
