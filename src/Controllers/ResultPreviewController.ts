@@ -118,6 +118,17 @@ export class ResultPreviewController extends ControllerBase {
         }
 
         resultImagePreview.SetMapData(MCMapDataManager.get().mapData);
+        const blockPreviewManager = BlockPreviewManager.get();
+        blockPreviewManager.onPreviewPosUpdated.Subscribe(
+            ([xPos, yPos, size]: [number, number, number]) => {
+                this.OnPreviewPosUpdated([xPos, yPos, size]);
+            }
+        );
+        this.OnPreviewPosUpdated([blockPreviewManager.GetXPos(), blockPreviewManager.GetYPos(), blockPreviewManager.GetPreviewSize()]);
+    }
+
+    private OnPreviewPosUpdated([xPos, yPos, size]: [number, number, number]): void {
+        this.resultPreviewView?.resultPreviewSideBarComponent.resultImagePreview.OnPreviewPosUpdated([xPos, yPos, size]);
     }
 
     // toggle hide button

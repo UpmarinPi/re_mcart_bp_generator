@@ -16,7 +16,8 @@
     display: block;
 }
 
-.map-data-canvas-wrapper .grid-canvas {
+.map-data-canvas-wrapper .grid-canvas,
+.map-data-canvas-wrapper .navigator-canvas {
     position: absolute;
     top: 0;
     left: 0;
