@@ -13,6 +13,7 @@ import { SceneTypes } from "../../Scenes/SceneTypes.ts";
 import type { InputCheckBoxListComponent } from "../../Views/Components/InputComponents/InputCheckBoxListComponent/InputCheckBoxListComponent.tsx";
 import type { UsingBlockComponent } from "../../Views/Components/UsingBlockComponent/UsingBlockComponent.tsx";
 import { BlockPreviewManager } from "../../ResultPreviews/BlockPreviewManager.ts";
+import { ErrorPopup } from "../../FunctionLibraries/FunctionLibrary.ts";
 
 export class InputParamsMediator extends MediatorBase {
     constructor() {
@@ -62,6 +63,13 @@ export class InputParamsMediator extends MediatorBase {
 
     RequestToConverting() {
         const optionData = OptionManager.get().optionData;
+        const [isValid, invalidReason] = optionData.GetIsValidData();
+        if (!isValid) {
+            if (invalidReason) {
+                ErrorPopup(invalidReason as string);
+            }
+            return;
+        }
         this.convertMode = ConverterFactory.get().GetConverter(optionData.convertMode);
         if (!this.convertMode) {
             console.error("There has no converter mode in ConverterFactory");
