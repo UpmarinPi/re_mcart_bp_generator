@@ -14,15 +14,17 @@ export class BlockPreviewItemComponent extends ComponentBase {
         this.blockData = blockData;
     }
 
+    SetInvalidBlockData() {
+        this.blockData = undefined;
+    }
+
     GetRender(): React.JSX.Element {
         return (
             <div className={`block-preview-item-component ${this.id}`}>
                 {this.blockData?.image_src ? (
                     <img src={this.blockData.image_src} alt={this.blockData.name} title={this.blockData.name} />
                 ) : (
-                    <span style={{color: "white", fontSize: "10px"}}>
-                        {this.blockData ? "No Img" : "No Data"}
-                    </span>
+                    <span className={this.blockData ? "no-img-icon" : "no-data-icon"} />
                 )}
             </div>
         );

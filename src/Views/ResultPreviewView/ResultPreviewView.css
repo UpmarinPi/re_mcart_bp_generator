@@ -11,3 +11,39 @@
     top: 0;
     height: 100vh;
 }
+
+.result-preview-view-preview {
+    display: grid;
+    grid-template-areas:
+        ". top ."
+        "left center right"
+        ". bottom .";
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+}
+
+.preview-nav-top {
+    grid-area: top;
+    justify-self: center;
+}
+
+.preview-nav-bottom {
+    grid-area: bottom;
+    justify-self: center;
+}
+
+.preview-nav-left {
+    grid-area: left;
+    justify-self: end;
+}
+
+.preview-nav-right {
+    grid-area: right;
+    justify-self: start;
+}
+
+.preview-content {
+    grid-area: center;
+}

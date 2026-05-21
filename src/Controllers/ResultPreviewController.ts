@@ -27,7 +27,7 @@ export class ResultPreviewController extends ControllerBase {
         this.blockPreviewComponent = blockPreviewComponent;
         const blockPreviewManager = BlockPreviewManager.get();
         blockPreviewManager.onPreviewBlocksUpdated.Subscribe(
-            (blockData: BlockData[][]) => {
+            (blockData: (BlockData | undefined)[][]) => {
                 this.OnBlockPreviewUpdate(blockData);
             }
         );
@@ -39,7 +39,7 @@ export class ResultPreviewController extends ControllerBase {
         this.SetBlockPreviewComponentSide(blockPreviewManager.GetPreviewSize());
     }
 
-    private OnBlockPreviewUpdate(blockData: BlockData[][]): void {
+    private OnBlockPreviewUpdate(blockData: (BlockData | undefined)[][]): void {
         this.blockPreviewComponent?.SetBlockDatas(blockData);
     }
 
@@ -100,6 +100,70 @@ export class ResultPreviewController extends ControllerBase {
                 this.OnSaveButtonPressed();
             }
         );
+    }
+
+    InitializeMoveAboveButton(moveAboveButton: ButtonComponent): void {
+        if (!moveAboveButton) {
+            console.error("moveAboveButton must be defined");
+            return;
+        }
+        moveAboveButton.onComponentChange.Subscribe(
+            () => {
+                this.OnMoveAboveButtonPressed();
+            }
+        );
+    }
+
+    private OnMoveAboveButtonPressed(): void {
+        BlockPreviewManager.get().MoveAboveChunk();
+    }
+
+    InitializeMoveBelowButton(moveBelowButton: ButtonComponent): void {
+        if (!moveBelowButton) {
+            console.error("moveBelowButton must be defined");
+            return;
+        }
+        moveBelowButton.onComponentChange.Subscribe(
+            () => {
+                this.OnMoveBelowButtonPressed();
+            }
+        );
+    }
+
+    private OnMoveBelowButtonPressed(): void {
+        BlockPreviewManager.get().MoveBelowChunk();
+    }
+
+    InitializeMoveLeftButton(moveLeftButton: ButtonComponent): void {
+        if (!moveLeftButton) {
+            console.error("moveLeftButton must be defined");
+            return;
+        }
+        moveLeftButton.onComponentChange.Subscribe(
+            () => {
+                this.OnMoveLeftButtonPressed();
+            }
+        );
+    }
+
+    private OnMoveLeftButtonPressed(): void {
+        BlockPreviewManager.get().MoveLeftChunk();
+    }
+
+    InitializeMoveRightButton(moveRightButton: ButtonComponent): void {
+        if (!moveRightButton) {
+            console.error("moveRightButton must be defined");
+            return;
+        }
+        moveRightButton.onComponentChange.Subscribe(
+            () => {
+                this.OnMoveRightButtonPressed();
+            }
+        );
+    }
+
+    private OnMoveRightButtonPressed(): void {
+        BlockPreviewManager.get().MoveRightChunk();
     }
 
     private OnSaveButtonPressed(): void {
@@ -256,6 +320,10 @@ export class ResultPreviewController extends ControllerBase {
         this.InitializeBlockPreview(view.resultBlockPreview);
         this.InitializeBackButton(view.backButton);
         this.InitializeSaveButton(view.saveButton);
+        this.InitializeMoveAboveButton(view.moveAboveChunkButton);
+        this.InitializeMoveBelowButton(view.moveBelowChunkButton);
+        this.InitializeMoveLeftButton(view.moveLeftChunkButton);
+        this.InitializeMoveRightButton(view.moveRightChunkButton);
         this.InitializeResultPreviewSideBar(view.resultPreviewSideBarComponent);
     }
 }

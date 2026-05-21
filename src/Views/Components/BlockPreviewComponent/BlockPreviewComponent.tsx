@@ -8,7 +8,7 @@ export class BlockPreviewComponent extends ComponentBase {
 
     private side: number = 0;
     private items: BlockPreviewItemComponent[] = [];
-    private blockDatas: BlockData[][] = [];
+    private blockDatas: (BlockData | undefined)[][] = [];
 
     constructor(id: string = "") {
         super(id);
@@ -36,22 +36,22 @@ export class BlockPreviewComponent extends ComponentBase {
         this.requestsRenderUpdate.notify();
     }
 
-    SetBlockDatas(blockDatas: BlockData[][]): void {
+    SetBlockDatas(blockDatas: (BlockData | undefined)[][]): void {
         this.blockDatas = blockDatas;
         this.UpdateBlockDatas();
     }
 
     private UpdateBlockDatas(): void {
-        if (this.blockDatas.length === 0) {
-            return;
-        }
-
         const totalItems: number = this.side * this.side;
         for (let i = 0; i < totalItems; ++i) {
             const item: BlockPreviewItemComponent = this.items[i];
             const x: number = i % this.side;
             const y: number = Math.floor(i / this.side);
-            item.SetBlockData(this.blockDatas[y][x]);
+            if (this.blockDatas[y] && this.blockDatas[y][x]) {
+                item.SetBlockData(this.blockDatas[y][x]);
+            } else {
+                item.SetInvalidBlockData();
+            }
         }
 
         this.requestsRenderUpdate.notify();

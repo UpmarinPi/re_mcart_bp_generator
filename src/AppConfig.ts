@@ -7,4 +7,5 @@ export const AppConfig = {
     // ブラウザタイトル
     title: "hogehoge",
     initialSceneType: SceneTypes.InputParamsScene,
+    previewDefaultSize: 16, // プレビューの一辺のサイズ。チャンク数に設定
 } as const;

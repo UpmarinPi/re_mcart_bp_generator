@@ -14,6 +14,8 @@ export class MapDataImagePreviewComponent extends ComponentBase {
 
     private gridColor: string = "#00000080";
     private navigatorColor: string = "#ff000080";
+    private displayGrid: boolean = false;
+    private displayNavigator: boolean = true;
 
     get width(): number {
         return this._width;
@@ -141,30 +143,34 @@ export class MapDataImagePreviewComponent extends ComponentBase {
         navigatorCanvas.height = canvasHeight;
 
         // 16x16の格子を表示
-        ctx.strokeStyle = this.gridColor;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        for (let x = 0; x <= width; x += 16) {
-            // ピクセル境界にスナップさせるために + 0.5 する（にじみを防ぐ）
-            const drawX = Math.floor(x * this.canvasScale) + 0.5;
-            ctx.moveTo(drawX, 0);
-            ctx.lineTo(drawX, canvasHeight);
+        if (this.displayGrid) {
+            ctx.strokeStyle = this.gridColor;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            for (let x = 0; x <= width; x += 16) {
+                // ピクセル境界にスナップさせるために + 0.5 する（にじみを防ぐ）
+                const drawX = Math.floor(x * this.canvasScale) + 0.5;
+                ctx.moveTo(drawX, 0);
+                ctx.lineTo(drawX, canvasHeight);
+            }
+            for (let y = 0; y <= height; y += 16) {
+                const drawY = Math.floor(y * this.canvasScale) + 0.5;
+                ctx.moveTo(0, drawY);
+                ctx.lineTo(canvasWidth, drawY);
+            }
+            ctx.stroke();
         }
-        for (let y = 0; y <= height; y += 16) {
-            const drawY = Math.floor(y * this.canvasScale) + 0.5;
-            ctx.moveTo(0, drawY);
-            ctx.lineTo(canvasWidth, drawY);
-        }
-        ctx.stroke();
 
         // navigatorを表示
-        ctx.strokeStyle = this.navigatorColor;
-        ctx.lineWidth = 1;
-        const rectX = Math.floor(this.navigatorXPos * this.canvasScale) + 0.5;
-        const rectY = Math.floor(this.navigatorYPos * this.canvasScale) + 0.5;
-        const rectW = Math.round(this.navigatorWidth * this.canvasScale);
-        const rectH = Math.round(this.navigatorHeight * this.canvasScale);
-        ctx.strokeRect(rectX, rectY, rectW, rectH);
+        if (this.displayNavigator) {
+            ctx.strokeStyle = this.navigatorColor;
+            ctx.lineWidth = 1;
+            const rectX = Math.floor(this.navigatorXPos * this.canvasScale) + 0.5;
+            const rectY = Math.floor(this.navigatorYPos * this.canvasScale) + 0.5;
+            const rectW = Math.round(this.navigatorWidth * this.canvasScale);
+            const rectH = Math.round(this.navigatorHeight * this.canvasScale);
+            ctx.strokeRect(rectX, rectY, rectW, rectH);
+        }
 
         this.requestsRenderUpdate.notify();
     }

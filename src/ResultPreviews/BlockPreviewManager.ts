@@ -1,3 +1,4 @@
+import { AppConfig } from "../AppConfig";
 import { ObserverSubject } from "../Cores/Observer";
 import { Singleton } from "../Cores/Singleton";
 import { MCMapData } from "../Datas/MapData/MCMapData";
@@ -7,12 +8,12 @@ import { ERepositoryIds, RepositoryManager } from "../Datas/Repositories/Reposit
 export class BlockPreviewManager extends Singleton {
     private xPos: number = 0;
     private yPos: number = 0;
-    private previewSize: number = 16;
+    private previewSize: number = AppConfig.previewDefaultSize;
     private mapData: MCMapData = new MCMapData();
-    private blockList: BlockData[][] = [];
-    private previewBlocks: BlockData[][] = [];
+    private blockList: (BlockData | undefined)[][] = [];
+    private previewBlocks: (BlockData | undefined)[][] = [];
 
-    public onPreviewBlocksUpdated: ObserverSubject<BlockData[][]> = new ObserverSubject<BlockData[][]>();
+    public onPreviewBlocksUpdated: ObserverSubject<(BlockData | undefined)[][]> = new ObserverSubject<(BlockData | undefined)[][]>();
     // [x, y, width, height]
     public onPreviewPosUpdated: ObserverSubject<[number, number, number]> = new ObserverSubject<[number, number, number]>();
 
@@ -37,7 +38,7 @@ export class BlockPreviewManager extends Singleton {
         return this.previewSize;
     }
 
-    public GetPreviewBlocks(): BlockData[][] {
+    public GetPreviewBlocks(): (BlockData | undefined)[][] {
         return this.previewBlocks;
     }
 
@@ -56,9 +57,11 @@ export class BlockPreviewManager extends Singleton {
             for (let x = 0; x < this.mapData.width; x++) {
                 const mapId = this.mapData.map[y][x];
                 const blockId = this.mapData.mapToBlockId.get(mapId);
-                if (blockId) {
+                if (blockId && blockId.length > 0) {
                     const blockData = blockDataRepository.GetBlockData(blockId);
                     this.blockList[y][x] = blockData;
+                } else {
+                    this.blockList[y][x] = undefined;
                 }
             }
         }
@@ -70,8 +73,14 @@ export class BlockPreviewManager extends Singleton {
         for (let y = 0; y < this.previewSize; y++) {
             this.previewBlocks[y] = [];
             for (let x = 0; x < this.previewSize; x++) {
-                const blockData = this.blockList[y + this.yPos][x + this.xPos];
-                this.previewBlocks[y][x] = blockData;
+                const yPos = y + this.yPos;
+                const xPos = x + this.xPos;
+                if (yPos >= 0 && yPos < this.mapData.height && xPos >= 0 && xPos < this.mapData.width) {
+                    const blockData = this.blockList[yPos][xPos];
+                    this.previewBlocks[y][x] = blockData;
+                } else {
+                    this.previewBlocks[y][x] = undefined;
+                }
             }
         }
 
@@ -82,16 +91,32 @@ export class BlockPreviewManager extends Singleton {
         this.SetPos(this.xPos, this.yPos - 1);
     }
 
+    MoveAboveChunk(): void {
+        this.SetPos(this.xPos, this.yPos - this.previewSize);
+    }
+
     MoveDown(): void {
         this.SetPos(this.xPos, this.yPos + 1);
+    }
+
+    MoveBelowChunk(): void {
+        this.SetPos(this.xPos, this.yPos + this.previewSize);
     }
 
     MoveLeft(): void {
         this.SetPos(this.xPos - 1, this.yPos);
     }
 
+    MoveLeftChunk(): void {
+        this.SetPos(this.xPos - this.previewSize, this.yPos);
+    }
+
     MoveRight(): void {
         this.SetPos(this.xPos + 1, this.yPos);
+    }
+
+    MoveRightChunk(): void {
+        this.SetPos(this.xPos + this.previewSize, this.yPos);
     }
 
     SetPos(xPos: number, yPos: number): void {
@@ -107,14 +132,14 @@ export class BlockPreviewManager extends Singleton {
         if (this.xPos < 0) {
             this.xPos = 0;
         }
-        if (this.xPos >= this.mapData.width - this.previewSize) {
-            this.xPos = this.mapData.width - this.previewSize - 1;
+        if (this.xPos >= this.mapData.width - 1) {
+            this.xPos = this.mapData.width - 1;
         }
         if (this.yPos < 0) {
             this.yPos = 0;
         }
-        if (this.yPos >= this.mapData.height - this.previewSize) {
-            this.yPos = this.mapData.height - this.previewSize - 1;
+        if (this.yPos >= this.mapData.height - 1) {
+            this.yPos = this.mapData.height - 1;
         }
     }
 
