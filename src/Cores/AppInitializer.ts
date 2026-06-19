@@ -11,6 +11,12 @@ export class AppInitializer {
         // AppConfigの設定情報をブラウザの表示に適用する
         document.title = AppConfig.title;
 
+        // ファビコンの設定情報を適用する
+        const faviconLink = document.getElementById("favicon") as HTMLLinkElement | null;
+        if (faviconLink) {
+            faviconLink.href = AppConfig.favicon;
+        }
+
         // 必要に応じて、他のグローバルな初期化処理（ログの設定、アナリティクスの初期化など）をここに追加します
     }
 }
