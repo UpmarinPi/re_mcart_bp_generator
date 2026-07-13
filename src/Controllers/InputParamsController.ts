@@ -3,6 +3,7 @@ import { ControllerBase } from "./ControllerBase";
 import { ConstObjectToOption, DropdownComponent } from "../Views/Components/DropdownComponent/DropdownComponent";
 import { ConvertModes } from "../Cores/Types";
 import { OptionManager } from "../Datas/Options/OptionManager";
+import { LocalStorageManager } from "../Datas/LocalStorages/LocalStorageManager";
 import { SelectImageComponent } from "../Views/Components/InputComponents/SelectImageComponent/SelectImageComponent";
 import { ImagePreviewComponent } from "../Views/Components/ImagePreviewComponent/ImagePreviewComponent";
 import { MapDataImagePreviewComponent } from "../Views/Components/MapDataImagePreviewComponent/MapDataImagePreviewComponent";
@@ -94,7 +95,7 @@ export class InputParamsController extends ControllerBase {
     }
 
     ReloadBaseImagePreview(): void {
-        this.viewInputParams.baseImagePreview.SetImage(OptionManager.get().optionData.baseImage);
+        this.viewInputParams.baseImagePreview.SetImage(OptionManager.get().GetOptionData().baseImage);
     }
 
     // is Dimensional mode Checkbox
@@ -116,7 +117,7 @@ export class InputParamsController extends ControllerBase {
     }
 
     ReloadIsDimensionalModeCheckbox(): void {
-        const optionData = OptionManager.get().optionData;
+        const optionData = OptionManager.get().GetOptionData();
         this.viewInputParams.isDimensionalModeCheckbox.SetChecked(optionData.bIsDimensionalMode);
     }
 
@@ -139,7 +140,7 @@ export class InputParamsController extends ControllerBase {
     }
 
     ReloadMagnification(): void {
-        const optionData = OptionManager.get().optionData;
+        const optionData = OptionManager.get().GetOptionData();
         this.viewInputParams.magnificationInputComponent.value = optionData.magnification * 100;
     }
 
@@ -171,7 +172,7 @@ export class InputParamsController extends ControllerBase {
     }
 
     ReloadConvertModeDropdown(): void {
-        const optionData = OptionManager.get().optionData;
+        const optionData = OptionManager.get().GetOptionData();
         this.viewInputParams.convertModeDropdown.defaultValue = optionData.convertMode;
     }
 
@@ -246,6 +247,9 @@ export class InputParamsController extends ControllerBase {
         usingBlockDataList.forEach(data => {
             usingBlockItemComponent.AddItem(data.id, data.colorId, data.blockList);
         });
+
+        // 保存されたブロックの選択状態を復元
+        LocalStorageManager.get().RestoreUsingBlockComponent(usingBlockItemComponent);
     }
 
     UpdateColorsAndBlocks(): void {
@@ -371,7 +375,7 @@ export class InputParamsController extends ControllerBase {
     }
 
     ReloadBGeneratesSimpleDitherIntermediateCheckbox(): void {
-        const optionData = OptionManager.get().optionData;
+        const optionData = OptionManager.get().GetOptionData();
         this.viewInputParams.bGeneratesSimpleDitherIntermediateCheckbox.SetChecked(optionData.bGeneratesSimpleDitherIntermediate);
     }
 
@@ -393,7 +397,7 @@ export class InputParamsController extends ControllerBase {
     }
 
     ReloadSimpleDitherColorCutPowInputComponent(): void {
-        const optionData = OptionManager.get().optionData;
+        const optionData = OptionManager.get().GetOptionData();
         this.viewInputParams.simpleDitherColorCutPowInputComponent.value = optionData.simpleDitherColorCutPow;
     }
 
@@ -413,5 +417,14 @@ export class InputParamsController extends ControllerBase {
         this.InitializeSelectMapData(viewInputParams.selectMapdata);
         this.InitializeBlockBulkSetting(viewInputParams.blockBulkSettingComponent);
         this.Reload();
+
+        // 自動保存イベントの登録
+        OptionManager.get().onOptionChange.Subscribe(() => {
+            LocalStorageManager.get().Save();
+        });
+        window.addEventListener("beforeunload", () => {
+            this.UpdateColorsAndBlocks();
+            LocalStorageManager.get().Save();
+        });
     }
 }

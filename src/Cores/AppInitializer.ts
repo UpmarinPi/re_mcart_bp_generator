@@ -1,4 +1,5 @@
 import { AppConfig } from "../AppConfig";
+import { LocalStorageManager } from "../Datas/LocalStorages/LocalStorageManager";
 
 /**
  * アプリケーション起動時の初期化処理を担当するクラス
@@ -16,6 +17,9 @@ export class AppInitializer {
         if (faviconLink) {
             faviconLink.href = AppConfig.favicon;
         }
+
+        // ローカルストレージから設定をロード
+        LocalStorageManager.get().Load();
 
         // 必要に応じて、他のグローバルな初期化処理（ログの設定、アナリティクスの初期化など）をここに追加します
     }

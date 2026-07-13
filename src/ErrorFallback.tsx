@@ -4,7 +4,7 @@ function ErrorFallback({error}: FallbackProps) {
     return (
         <div>
             <h2>ERROR</h2>
-            <pre>{error.stack}</pre>
+            <pre>{error instanceof Error ? error.stack : String(error)}</pre>
         </div>
     );
 }

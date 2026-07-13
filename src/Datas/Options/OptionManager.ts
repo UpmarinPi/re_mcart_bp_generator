@@ -6,7 +6,24 @@ import type { ColorDataRepository } from "../Repositories/ColorDataRepository";
 
 export class OptionManager extends Singleton {
 
-    optionData: OptionData = new OptionData();
+    private optionData: OptionData = new OptionData();
+
+    public GetOptionData(): OptionData {
+        return this.optionData;
+    }
+
+    public SetOptionData(optionData: OptionData): void {
+        this.optionData = optionData;
+        this.onOptionChange.notify(this.optionData);
+        this.onImageChange.notify(this.optionData.baseImage);
+        this.onMagnificationChange.notify(this.optionData.magnification);
+        this.onConvertModeChange.notify(this.optionData.convertMode);
+        this.onIsDemensionalModeChange.notify(this.optionData.bIsDimensionalMode);
+        this.onUsingColorChange.notify(this.optionData.usingColors);
+        this.onColorsToBlocksChange.notify(this.optionData.colorsToBlocks);
+        this.onBGeneratesSimpleDitherIntermediateChange.notify(this.optionData.bGeneratesSimpleDitherIntermediate);
+        this.onSimpleDitherColorCutChange.notify(this.optionData.simpleDitherColorCutPow);
+    }
 
     SetImage(img: ImageData): void {
         this.optionData.baseImage = img;
@@ -58,7 +75,7 @@ export class OptionManager extends Singleton {
 
     UpdateColorsAndBlocks(colorIdToBlockMap: Map<string, string>, colorRepository: ColorDataRepository): void {
         const optionManager = OptionManager.get();
-        const bIsDimensionalMode = optionManager.optionData.bIsDimensionalMode;
+        const bIsDimensionalMode = optionManager.GetOptionData().bIsDimensionalMode;
         let usingColors: RGBColor[] = [];
         const colorToBlockmap: Map<RGBColor, string> = new Map();
 

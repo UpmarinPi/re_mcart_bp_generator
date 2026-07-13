@@ -78,6 +78,21 @@ export class ColorDataRepository extends RepositoryBase {
         return colorData.darkestColor;
     }
 
+    GetColorIdByRGB(rgb: RGBColor): string | undefined {
+        for (const [colorId, data] of this.colorIdToColorDataMap.entries()) {
+            if (
+                (data.defaultColor.r === rgb.r && data.defaultColor.g === rgb.g && data.defaultColor.b === rgb.b) ||
+                (data.lightColor.r === rgb.r && data.lightColor.g === rgb.g && data.lightColor.b === rgb.b) ||
+                (data.darkColor.r === rgb.r && data.darkColor.g === rgb.g && data.darkColor.b === rgb.b) ||
+                (data.darkestColor.r === rgb.r && data.darkestColor.g === rgb.g && data.darkestColor.b === rgb.b)
+            ) {
+                return colorId;
+            }
+        }
+        return undefined;
+    }
+
+
     GetIsDefaultActive(colorId: string): boolean {
         const colorData = this.ColorIdToColorData(colorId);
         if (!colorData) {

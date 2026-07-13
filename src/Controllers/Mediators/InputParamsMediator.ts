@@ -48,7 +48,7 @@ export class InputParamsMediator extends MediatorBase {
         if (!optionManager || !ColorDataRepo) {
             return;
         }
-        optionManager.SetUsingColors(ColorDataRepo.GetColorList(optionManager.optionData.bIsDimensionalMode));
+        optionManager.SetUsingColors(ColorDataRepo.GetColorList(optionManager.GetOptionData().bIsDimensionalMode));
     }
 
     private OnConvertCompleted(mapData: MCMapData) {
@@ -62,7 +62,7 @@ export class InputParamsMediator extends MediatorBase {
     }
 
     RequestToConverting() {
-        const optionData = OptionManager.get().optionData;
+        const optionData = OptionManager.get().GetOptionData();
         const [isValid, invalidReason] = optionData.GetIsValidData();
         if (!isValid) {
             if (invalidReason) {
